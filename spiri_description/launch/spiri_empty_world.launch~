@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-
-
-  <include file="$(find spiri_description)/launch/description.launch" />
-</launch>
-
