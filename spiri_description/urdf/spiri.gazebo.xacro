@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<robot name="spiri" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find spiri_description)/urdf/spiri_base.urdf.xacro" />
+    <xacro:include filename="$(find spiri_description)/urdf/quadrotor_plugins.gazebo.xacro" />
+</robot>
+
+

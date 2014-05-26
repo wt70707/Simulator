@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot name="spiri">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0 -0.0 -0.0"
+        rpy="0 0 0" />
+      <mass
+        value="0.399875434000126" />
+      <inertia
+        ixx="0.00346570293331384"
+        ixy="-8.6357788144988E-06"
+        ixz="-1.09098718333656E-07"
+        iyy="0.00680202593758125"
+        iyz="1.98456084936431E-06"
+        izz="0.00354550223356006" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spiri_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spiri_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+
+</robot>
