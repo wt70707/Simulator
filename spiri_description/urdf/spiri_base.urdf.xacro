@@ -4,7 +4,7 @@
     name="base_link">
     <inertial>
       <origin
-        xyz="0.0 -0.0 -0.0"
+        xyz="0.0 -0.0 0.0"
         rpy="0 0 0" />
       <mass
         value="0.399875434000126" />
@@ -24,11 +24,7 @@
         <mesh
           filename="package://spiri_description/meshes/base_link.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="1 1 1 1" />
-      </material>
+    
     </visual>
     <collision>
       <origin
