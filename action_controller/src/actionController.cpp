@@ -98,7 +98,7 @@ private:
 	}
 
 	void executeTrajectory(){
-		if(toExecute.joint_names[0]=="Base" && toExecute.points.size()>0){
+		if(toExecute.joint_names[0]=="virtual_join" && toExecute.points.size()>0){
 			for(int k=0; k<toExecute.points.size(); k++){
 				//ricavo cmd da effettuare
 				geometry_msgs::Transform_<std::allocator<void> > punto=toExecute.points[k].transforms[0];
@@ -131,12 +131,13 @@ private:
 		cmd.linear.y=punto.translation.y-lastPosition.translation.y;
 		cmd.linear.z=punto.translation.z-lastPosition.translation.z;
 		cmd.angular.x=cmd.angular.y=cmd.angular.z=0;
-
+		ROS_INFO_STREAM("calculated the cmd_vel topics");
 		if(anyway || cmd.linear.x>=0.5 || cmd.linear.y>=0.5 || cmd.linear.z>=0.5){
 			printPositionInfo();
 			printCmdInfo();
 			pub_topic.publish(cmd);
 			//tempo d'esecuzione
+			ROS_INFO_STREAM("cmd_vel greater than threshold");
 			ros::Duration(1.0).sleep();
 			return true;
 		}
