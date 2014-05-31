@@ -121,6 +121,7 @@ private:
 			}
 		}
 		active_goal_.setSucceeded();
+		ROS_INFO_STREAM("goal has been reached");
 		has_active_goal_=false;
 		creato=0;
 
