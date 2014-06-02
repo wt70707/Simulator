@@ -4,7 +4,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="generic_tof" params="name parent *origin ros_topic noise update_rate">
+  <xacro:macro name="generic_tof" params="name parent *origin ros_topic noise update_rate camera_name">
     <joint name="${name}_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>

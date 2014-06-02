@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <xacro:macro name="generic_tof" params="name parent *origin ros_topic noise update_rate camera_name">
+    <joint name="${name}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+    </joint>
+    
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+        <material name="Blue">
+          <color rgba="0.0 0.0 0.8 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.01 0.01 0.01" />
+        </geometry>
+      </collision>
+    </link>
+    
+   <gazebo reference="${name}_link"> 
+   <sensor type="depth" name="depth_camera">       
+        <always_on>1</always_on>
+        <visualize>true</visualize> 
+<topic>tof</topic>            
+        <camera>
+            <horizontal_fov>1.047</horizontal_fov>  
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <depth_camera>
+
+            </depth_camera>
+            <clip>
+                <near>0.02</near>
+                <far>300</far>
+            </clip>
+        </camera>
+        <plugin name="camera_controller" filename="libDepthCameraPlugin.so">
+        <alwaysOn>true</alwaysOn>
+                <updateRate>10.0</updateRate>
+                <cameraName>depth_cam</cameraName>
+                <frameName>openni_camera_link</frameName>                   
+                
+                         
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+            <CxPrime>0.0</CxPrime>
+            <Cx>0.0</Cx>
+            <Cy>0.0</Cy>
+            <focalLength>0.0</focalLength>
+  </plugin>
+    </sensor>
+    </gazebo>
+  </xacro:macro>
+
+</robot>
+
