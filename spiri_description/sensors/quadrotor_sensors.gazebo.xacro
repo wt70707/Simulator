@@ -55,6 +55,7 @@
       <gaussianNoise>0.0</gaussianNoise>
       <frameName>world</frameName>
     </plugin>
+
 </gazebo>
    <xacro:property name="M_PI" value="3.1415926535897931" />
     <!-- Downward facing camera -->
@@ -69,9 +70,9 @@
     </xacro:generic_camera>
 
 <!-- TOF camera -->
- <xacro:include filename="$(find spiri_description)/sensors/tof.urdf.xacro" />
-    <xacro:generic_tof name="tof" parent="forward_cam_link" ros_topic="tof" update_rate="20" noise="0.0">
-      <origin xyz="0.00 -0.01 0.00" rpy="${M_PI/2} 0 0"/>
-    </xacro:generic_tof>
+ <xacro:include filename="$(find spiri_description)/sensors/tof_kinect.urdf.xacro" />
+     <xacro:kinect_camera name="camera" parent="base_link">
+      <origin xyz="-0.04 -0.00 0.1" rpy="0 0 ${M_PI}"/>
+    </xacro:kinect_camera>
   
 </robot>
