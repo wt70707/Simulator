@@ -67,6 +67,7 @@
           <topicName>${ros_topic}</topicName>
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
+          <pcl>1.0</pcl>
 	  <gaussianNoise>${noise}</gaussianNoise>
           <frameName>${name}_link</frameName>
         </plugin>

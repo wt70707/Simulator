@@ -1,38 +1,51 @@
-planner_configs:
-  SBLkConfigDefault:
-    type: geometric::SBL
-  ESTkConfigDefault:
-    type: geometric::EST
-  LBKPIECEkConfigDefault:
-    type: geometric::LBKPIECE
-  BKPIECEkConfigDefault:
-    type: geometric::BKPIECE
-  KPIECEkConfigDefault:
-    type: geometric::KPIECE
-  RRTkConfigDefault:
-    type: geometric::RRT
-  RRTConnectkConfigDefault:
-    type: geometric::RRTConnect
-  RRTstarkConfigDefault:
-    type: geometric::RRTstar
-  TRRTkConfigDefault:
-    type: geometric::TRRT
-  PRMkConfigDefault:
-    type: geometric::PRM
-  PRMstarkConfigDefault:
-    type: geometric::PRMstar
+
 spiri:
   planner_configs:
-    - SBLkConfigDefault
-    - ESTkConfigDefault
-    - LBKPIECEkConfigDefault
-    - BKPIECEkConfigDefault
-    - KPIECEkConfigDefault
-    - RRTkConfigDefault
-    - RRTConnectkConfigDefault
-    - RRTstarkConfigDefault
-    - TRRTkConfigDefault
+    
     - PRMkConfigDefault
-    - PRMstarkConfigDefault
+  
+    
+  
   projection_evaluator: joints(virtual_join)
   longest_valid_segment_fraction: 0.05
+planner_configs:
+
+  PRMkConfigDefault:
+    type: geometric::PRM
+
+  SBLkConfigDefault:
+    type: geometric::SBL
+    range: 100000000
+
+  LBKPIECEkConfigDefault:
+    type: geometric::LBKPIECE
+    range: 100000000
+
+  RRTkConfigDefault:
+    type: geometric::RRT
+    range: 100000000
+
+  TRRTkConfigDefault:
+    type: geometric::TRRT
+
+  RRTConnectkConfigDefault:
+    type: geometric::RRTConnect
+    range: 100000000
+
+  LazyRRTkConfigDefault:
+    type: geometric::LazyRRT
+
+  ESTkConfigDefault:
+    type: geometric::EST
+    range: 100000000
+
+  KPIECEkConfigDefault:
+    type: geometric::KPIECE
+    range: 100000000
+
+  RRTStarkConfigDefault:
+    type: geometric::RRTstar
+
+  BKPIECEkConfigDefault:
+    type: geometric::BKPIECE
+    range: 100000000
