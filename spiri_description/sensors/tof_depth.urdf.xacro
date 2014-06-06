@@ -1,80 +1,113 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-
-  <xacro:property name="M_PI" value="3.1415926535897931" />
-
-  <xacro:macro name="generic_tof" params="name parent *origin ros_topic noise update_rate camera_name">
-    <joint name="${name}_joint" type="fixed">
-      <xacro:insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${name}_link"/>
-    </joint>
-    
-    <link name="${name}_link">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
-      </inertial>
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+    <xacro:macro name="kinect_camera_model" params="name parent *origin">
+      <joint name="${name}_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="${name}_link"/>
+      </joint>
+      
+      <link name="${name}_link">
+        <inertial_sphere mass="0.01" diameter="0.07" />
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
           <box size="0.01 0.01 0.01" />
         </geometry>
-        <material name="Blue">
+<material name="Blue">
           <color rgba="0.0 0.0 0.8 1"/>
         </material>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
           <box size="0.01 0.01 0.01" />
         </geometry>
-      </collision>
-    </link>
-    
-   <gazebo reference="${name}_link"> 
-   <sensor type="depth" name="depth_camera">       
-        <always_on>1</always_on>
-        <visualize>true</visualize> 
-<topic>tof</topic>            
-        <camera>
-            <horizontal_fov>1.047</horizontal_fov>  
+        </collision>
+      </link>
+
+      <joint name="${name}_depth_joint" type="fixed">
+        <origin xyz="0.0 -0.02 0.0" rpy="0 0 0" />
+        <parent link="${name}_link" />
+        <child link="${name}_depth_frame"/>
+      </joint>
+
+      <link name="${name}_depth_frame"/>
+
+      <joint name="${name}_depth_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <parent link="${name}_depth_frame" />
+        <child link="${name}_depth_optical_frame"/>
+      </joint>
+
+      <link name="${name}_depth_optical_frame"/>
+
+      <joint name="${name}_rgb_joint" type="fixed">
+        <origin xyz="0.0 -0.0125 0.0" rpy="0 0 0" />
+        <parent link="${name}_link" />
+        <child link="${name}_rgb_frame"/>
+      </joint>
+
+      <link name="${name}_rgb_frame"/>
+
+      <joint name="${name}_rgb_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0.0 ${-M_PI/2}" />
+        <parent link="${name}_rgb_frame" />
+        <child link="${name}_rgb_optical_frame"/>
+      </joint>
+
+      <link name="${name}_rgb_optical_frame"/>
+
+    </xacro:macro>
+
+    <xacro:macro name="kinect_camera" params="name parent *origin">
+      <xacro:kinect_camera_model name="${name}" parent="${parent}">
+        <xacro:insert_block name="origin" />
+      </xacro:kinect_camera_model>
+      
+      <gazebo reference="${name}_depth_frame">
+        <sensor type="depth" name="${name}">
+          <update_rate>30</update_rate>
+          <camera>
+            <horizontal_fov>1.407</horizontal_fov>
             <image>
-                <width>640</width>
-                <height>480</height>
-                <format>R8G8B8</format>
+              <format>R8G8B8</format>
+              <width>640</width>
+              <height>480</height>
             </image>
-            <depth_camera>
-
-            </depth_camera>
             <clip>
-                <near>0.02</near>
-                <far>300</far>
+              <near>1.0</near>
+              <far>3</far>
             </clip>
-        </camera>
-        <plugin name="camera_controller" filename="libDepthCameraPlugin.so">
-        <alwaysOn>true</alwaysOn>
-                <updateRate>10.0</updateRate>
-                <cameraName>depth_cam</cameraName>
-                <frameName>openni_camera_link</frameName>                   
-                
-                         
-                <hackBaseline>0.07</hackBaseline>
-                <distortionK1>0.0</distortionK1>
-                <distortionK2>0.0</distortionK2>
-                <distortionK3>0.0</distortionK3>
-                <distortionT1>0.0</distortionT1>
-                <distortionT2>0.0</distortionT2>
-            <CxPrime>0.0</CxPrime>
-            <Cx>0.0</Cx>
-            <Cy>0.0</Cy>
-            <focalLength>0.0</focalLength>
-  </plugin>
-    </sensor>
-    </gazebo>
-  </xacro:macro>
+          </camera>
 
-</robot>
-
+          <plugin name="${name}_camera_controller" filename="libDepthCameraPlugin.so">
+	<baseline>0.2</baseline>            
+	<alwaysOn>true</alwaysOn>
+            <updateRate>20</updateRate>
+            <imageTopicName>${name}/rgb/image_raw</imageTopicName>
+            
+            <depthImageTopicName>${name}/depth/image_raw</depthImageTopicName>
+            <depthImageCameraInfoTopicName>${name}/depth/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudTopicName>${name}/depth/points</pointCloudTopicName>
+            <frameName>${name}_depth_optical_frame</frameName>
+   <distortionK1>0.00000001</distortionK1>
+    <distortionK2>0.00000001</distortionK2>
+    <distortionK3>0.00000001</distortionK3>
+    <distortionT1>0.00000001</distortionT1>
+    <distortionT2>0.00000001</distortionT2>
+	     <pointCloudCutoff>0.5</pointCloudCutoff>
+  <CxPrime>0</CxPrime>
+    <Cx>0</Cx>
+    <Cy>0</Cy>
+    <focalLength>0</focalLength>
+    <hackBaseline>0</hackBaseline>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:macro>
+  </robot>
+  
