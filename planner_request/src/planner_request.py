@@ -65,7 +65,7 @@ def callback(data):
 		time.sleep(5.0)
 		group.execute(plan)
 		
-	if(t.staus==2):
+	if(t.status==2):
 		print 'timeout'
 	
 def callback_imu(data):
