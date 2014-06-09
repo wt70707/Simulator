@@ -76,7 +76,7 @@
     </xacro:kinect_camera-->
  <xacro:include filename="$(find spiri_description)/sensors/tof.urdf.xacro" />
     <xacro:generic_tof name="tof" parent="forward_cam_link" ros_topic="tof" update_rate="30" noise="0.0">
-      <origin xyz="0.00 -0.01 0.00" rpy="${M_PI/2} 0 0"/>
+      <origin xyz="0.00 0.02 0.0" rpy="${M_PI/2} 0 0"/>
     </xacro:generic_tof>
   
 </robot>
