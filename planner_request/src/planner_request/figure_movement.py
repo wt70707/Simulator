@@ -74,7 +74,7 @@ def callback(data):
 		if counter==1:
 			goal=obj.getstate()
 			#waygoals=figures.square_compute_vertical((goal[0],goal[1],goal[2]),(goal[0]+2,goal[1]+2,goal[2]+2),'x')
-			waygoals=figures.triangle_compute_vertical((goal[0],goal[1],goal[2]),1,2,'y')		
+			waygoals=figures.vertical_sine_wave((goal[0],goal[1],goal[2]),axis='x')		
 			#waygoals=figures.square_compute((goal[0],goal[1],goal[2]))		
 		#goal_1=goal
 		#print 'waygoal',waygoals
@@ -83,7 +83,7 @@ def callback(data):
 		goal[2]=waygoals[counter-1][2]
 		#group.set_start_state(goal)		
 		#goal[0]=goal[0]+2.0
-		print goal[0],goal[1]
+		print goal[0],goal[1],goal[2]
 	
 		group.set_joint_value_target(goal)
 		plan=group.plan()

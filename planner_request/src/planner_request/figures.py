@@ -36,7 +36,20 @@ def horizontal_sine_wave(start,base=np.pi):
 	x=np.linspace(start[0],start[0]+base,10)
 	y=np.sin(x)
 	for i in range(len(x)):
-		waypoints.append((x[i],y[i]))
+		waypoints.append((x[i],y[i],start[2]))
+	return waypoints
+
+def vertical_sine_wave(start,base=np.pi,axis='x'):
+	waypoints=[]
+	x=np.linspace(start[0],start[0]+base,10)
+	y=np.sin(x)
+	if axis=='x':
+		for i in range(len(x)):
+			waypoints.append((y[i],start[1],x[i]))
+	if axis=='y':
+		for i in range(len(x)):
+			waypoints.append((start[0],y[i],x[i]))
+		
 	return waypoints
 	
 	
