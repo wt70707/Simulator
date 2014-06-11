@@ -73,22 +73,8 @@ def callback(data):
 		
 		if counter==1:
 			goal=obj.getstate()
-			waygoals=figures.square_compute((goal[0],goal[1]),(goal[0]+2,goal[1]+2))
-		#waygoals_1=waygoals
-		'''
-		if counter==1:
-			print 'move in y direction'
-			goal[1]=goal[1]+2.0
-		elif counter==2:
-			print 'move in x direction'
-			goal[0]=goal[0]+2.0
-		elif counter==3:
-			print 'move back in y direction'
-			goal[1]=goal[1]-2.0
-		elif counter==4:
-			print 'move back in x direction'
-			goal[0]=goal[0]-2.0
-		'''
+			#waygoals=figures.square_compute((goal[0],goal[1]),(goal[0]+2,goal[1]+2))
+			waygoals=figures.triangle_compute((goal[0],goal[1]),1,2)		
 		#goal_1=goal
 		print 'waygoal',waygoals
 		goal[0]=waygoals[counter-1][0]
@@ -101,8 +87,8 @@ def callback(data):
 		plan=group.plan()
 		time.sleep(2.0)
 		group.execute(plan)
-		if counter==4:
-			rospy.signal_shutdown('completed a sqaure')
+		if counter==len(waygoals):
+			rospy.signal_shutdown('completed the figure')
 			
 	if(t.status==2):
 		print 'timeout'

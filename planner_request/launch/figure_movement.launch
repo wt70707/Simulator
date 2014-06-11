@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 <node name="takeoff" pkg="planner_request" type="takeoff.py"/>
-<node name="sqaure_movement" pkg="planner_request" type="square.py" output="screen"/>
+<node name="figure_movement" pkg="planner_request" type="figure_movement.py" output="screen"/>
 </launch>
 
