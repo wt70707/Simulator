@@ -10,6 +10,7 @@ import time
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Pose, Transform
+from planner_request import figures
 class Staterobot():
 	def __init__(self,topic):
 		#self.position=[]
@@ -42,17 +43,21 @@ class Staterobot():
 
 obj=Staterobot('/ground_truth/state')
 counter=0
+waygoals=[]
+goal=[]
+
 
 def callback(data):
-	print 'inside the callback'
-
-	global counter
+	#print 'inside the callback'
 	
+	global counter
+	global waygoals
+	global goal
 	t=data.status
 	group=MoveGroupCommander('spiri')
 	group.set_planner_id('PRMkConfigDefault')
 	
-	goal=group.get_current_joint_values()
+	#goal=group.get_current_joint_values()
 	#print t.status	
 	if(t.status==3):
 		counter=counter+1
@@ -65,7 +70,12 @@ def callback(data):
 		#goal=group.get_current_joint_values()
 		print start
 		# a list
-		goal=obj.getstate()
+		
+		if counter==1:
+			goal=obj.getstate()
+			waygoals=figures.square_compute((goal[0],goal[1]),(goal[0]+2,goal[1]+2))
+		#waygoals_1=waygoals
+		'''
 		if counter==1:
 			print 'move in y direction'
 			goal[1]=goal[1]+2.0
@@ -78,14 +88,22 @@ def callback(data):
 		elif counter==4:
 			print 'move back in x direction'
 			goal[0]=goal[0]-2.0
+		'''
+		#goal_1=goal
+		print 'waygoal',waygoals
+		goal[0]=waygoals[counter-1][0]
+		goal[1]=waygoals[counter-1][1]
 		#group.set_start_state(goal)		
 		#goal[0]=goal[0]+2.0
 		print goal
+	
 		group.set_joint_value_target(goal)
 		plan=group.plan()
-		time.sleep(5.0)
+		time.sleep(2.0)
 		group.execute(plan)
-		
+		if counter==4:
+			rospy.signal_shutdown('completed a sqaure')
+			
 	if(t.status==2):
 		print 'timeout'
 		
