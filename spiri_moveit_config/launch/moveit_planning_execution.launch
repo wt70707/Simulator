@@ -6,6 +6,9 @@
   <arg name="publish_monitored_planning_scene" value="true" />
   
  </include>
+ <arg name="viz" default="true"/>
+ <group if="$(arg viz)">
  # The visualization component of MoveIt!
  <include file="$(find spiri_moveit_config)/launch/moveit_rviz.launch"/>
+ </group>
 </launch>

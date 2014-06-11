@@ -42,17 +42,22 @@ class Staterobot():
 
 obj=Staterobot('/ground_truth/state')
 counter=0
+
 def callback(data):
+	print 'inside the callback'
+
 	global counter
+	
 	t=data.status
 	group=MoveGroupCommander('spiri')
 	group.set_planner_id('PRMkConfigDefault')
+	
 	goal=group.get_current_joint_values()
 	#print t.status	
 	if(t.status==3):
 		counter=counter+1
 		time.sleep(5)
-		print 'completed one goal'
+		print 'completed'+str(counter)+'goal'
 		# this is a robot state message 		
 		start=obj.getposition()
 		group.set_start_state(start)
@@ -95,6 +100,7 @@ def listener():
 	
 	#print obj.getstate()
 	rospy.Subscriber('multi_dof_joint_trajectory_action/result',MultiDofFollowJointTrajectoryActionResult,callback)
+	
 	#rospy.Subscriber('/raw_imu',Imu,callback_imu)	
 	try:
 	
