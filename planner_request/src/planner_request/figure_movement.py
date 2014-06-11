@@ -61,31 +61,32 @@ def callback(data):
 	#print t.status	
 	if(t.status==3):
 		counter=counter+1
-		time.sleep(5)
+		time.sleep(1)
 		print 'completed'+str(counter)+'goal'
 		# this is a robot state message 		
 		start=obj.getposition()
 		group.set_start_state(start)
 	
 		#goal=group.get_current_joint_values()
-		print start
+		#print start
 		# a list
 		
 		if counter==1:
 			goal=obj.getstate()
 			#waygoals=figures.square_compute((goal[0],goal[1]),(goal[0]+2,goal[1]+2))
-			waygoals=figures.triangle_compute((goal[0],goal[1]),1,2)		
+			#waygoals=figures.triangle_compute((goal[0],goal[1]),1,2)		
+			waygoals=figures.horizontal_sine_wave((goal[0],goal[1]))		
 		#goal_1=goal
-		print 'waygoal',waygoals
+		#print 'waygoal',waygoals
 		goal[0]=waygoals[counter-1][0]
 		goal[1]=waygoals[counter-1][1]
 		#group.set_start_state(goal)		
 		#goal[0]=goal[0]+2.0
-		print goal
+		print goal[0],goal[1]
 	
 		group.set_joint_value_target(goal)
 		plan=group.plan()
-		time.sleep(2.0)
+		#time.sleep(2.0)
 		group.execute(plan)
 		if counter==len(waygoals):
 			rospy.signal_shutdown('completed the figure')
