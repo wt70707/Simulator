@@ -41,33 +41,49 @@ class Staterobot():
 		return self.state
 
 obj=Staterobot('/ground_truth/state')
-
+counter=0
 def callback(data):
+	global counter
 	t=data.status
 	group=MoveGroupCommander('spiri')
 	group.set_planner_id('PRMkConfigDefault')
 	goal=group.get_current_joint_values()
 	#print t.status	
 	if(t.status==3):
+		counter=counter+1
 		time.sleep(5)
 		print 'completed one goal'
+		# this is a robot state message 		
 		start=obj.getposition()
 		group.set_start_state(start)
 	
 		#goal=group.get_current_joint_values()
 		print start
+		# a list
 		goal=obj.getstate()
+		if counter==1:
+			print 'move in y direction'
+			goal[1]=goal[1]+2.0
+		elif counter==2:
+			print 'move in x direction'
+			goal[0]=goal[0]+2.0
+		elif counter==3:
+			print 'move back in y direction'
+			goal[1]=goal[1]-2.0
+		elif counter==4:
+			print 'move back in x direction'
+			goal[0]=goal[0]-2.0
 		#group.set_start_state(goal)		
-		goal[0]=goal[0]+2.0
+		#goal[0]=goal[0]+2.0
 		print goal
 		group.set_joint_value_target(goal)
 		plan=group.plan()
 		time.sleep(5.0)
 		group.execute(plan)
 		
-	if(t.staus==2):
+	if(t.status==2):
 		print 'timeout'
-	
+		
 def callback_imu(data):
 	global obj
 	print obj.getstate()
