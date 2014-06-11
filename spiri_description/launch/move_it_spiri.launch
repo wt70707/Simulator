@@ -17,7 +17,7 @@
   <include file="$(find spiri_description)/launch/description.launch" />
   <node name="action_controller" pkg="action_controller" type="actionController" output="screen"/>
   <include file="$(find spiri_moveit_config)/launch/moveit_planning_execution.launch">
-  <arg name="viz" value="true"/>
+  <arg name="viz" value="false"/>
   </include> 
 </launch>
 
