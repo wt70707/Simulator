@@ -4,7 +4,7 @@
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
-  <xacro:macro name="generic_tof" params="name parent *origin ros_topic noise update_rate camera_name">
+  <xacro:macro name="generic_tof" params="name parent *origin ros_topic noise update_rate">
     <joint name="${name}_joint" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
@@ -43,7 +43,7 @@
         <ray>
 	  <scan>
           <horizontal>
-		<samples>300</samples>
+		<samples>100</samples>
 		<resolution>1.0</resolution>
 		<min_angle>-0.5236</min_angle>
 		<max_angle>0.5236</max_angle>
@@ -63,10 +63,11 @@
 	</ray>
 
 	  
-        <plugin name="${name}_tof_controller" filename="libgazebo_ros_block_laser.so">
+        <plugin name="${name}_tof_controller" filename="libgazebo_block_laser_pcl2.so">
           <topicName>${ros_topic}</topicName>
           <alwaysOn>true</alwaysOn>
           <updateRate>${update_rate}</updateRate>
+          <pcl>2.0</pcl>
 	  <gaussianNoise>${noise}</gaussianNoise>
           <frameName>${name}_link</frameName>
         </plugin>
