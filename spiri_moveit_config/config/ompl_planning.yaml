@@ -3,7 +3,7 @@ spiri:
   planner_configs:
     
     - PRMkConfigDefault
-  
+    - RRTConnectkConfigDefault 
     
   
   projection_evaluator: joints(virtual_join)
