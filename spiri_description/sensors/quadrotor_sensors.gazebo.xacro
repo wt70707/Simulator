@@ -66,7 +66,7 @@
 <!-- Forward facing camera -->
     <xacro:include filename="$(find spiri_description)/sensors/generic_camera.urdf.xacro" />
     <xacro:generic_camera name="forward_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="30" res_x="1920" res_y="1080" image_format="R8G8B8" hfov="67.3">
-      <origin xyz="-0.04 0.0 0.05" rpy="0 0 ${M_PI}"/>
+      <origin xyz="-0.04 0.005 0.01" rpy="${M_PI/2} 0 ${M_PI}"/>
     </xacro:generic_camera>
 
 <!-- TOF camera -->
@@ -76,7 +76,7 @@
     </xacro:kinect_camera-->
  <xacro:include filename="$(find spiri_description)/sensors/tof.urdf.xacro" />
     <xacro:generic_tof name="tof" parent="forward_cam_link" ros_topic="tof" update_rate="30" noise="0.0">
-      <origin xyz="0.00 0.0 0.02" rpy="${M_PI} 0 0"/>
+      <origin xyz="0.00 0.0 -0.01" rpy="${3*M_PI/2} 0 0"/>
     </xacro:generic_tof>
   
 </robot>
