@@ -19,10 +19,10 @@
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="1.57 0 0" />
       <geometry>
         <mesh
-          filename="package://spiri_description/meshes/base_link.STL" />
+          filename="package://spiri_description/meshes/spiri.dae" />
       </geometry>
     
     </visual>
