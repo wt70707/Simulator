@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <launch>
+<param name="figure" value="square"/>
+<param name="axis" value="None"/>
 <node name="takeoff" pkg="planner_request" type="takeoff.py"/>
 <node name="figure_movement" pkg="planner_request" type="figure_movement.py" output="screen"/>
 </launch>
-

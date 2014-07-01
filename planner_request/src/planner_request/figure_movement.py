@@ -22,7 +22,7 @@ class Staterobot():
 	def callback(self,data):
 		#self.state=data.pose.pose.positio
 		self.transform.translation=data.pose.pose.position
-		self.transform.rotation=data.pose.pose.orientation		
+		self.transform.rotation=data.pose.pose.orientation
 		self.state=[data.pose.pose.position.x,data.pose.pose.position.y,data.pose.pose.position.z,data.pose.pose.orientation.x,data.pose.pose.orientation.y,data.pose.pose.orientation.z,data.pose.pose.orientation.w]
 		if len(self.position.multi_dof_joint_state.transforms)==0:
 			self.position.multi_dof_joint_state.transforms.append(self.transform)
@@ -34,9 +34,9 @@ class Staterobot():
 			self.position.multi_dof_joint_state.joint_names.append('virtual_join')
 		self.position.joint_state.header.frame_id='/nav'
 		self.position.multi_dof_joint_state.header.frame_id='/nav'
-	
+
 	def getposition(self):
-		return self.position	
+		return self.position
 
 	def getstate(self):
 		return self.state
@@ -49,67 +49,103 @@ goal=[]
 
 def callback(data):
 	#print 'inside the callback'
-	
+
 	global counter
 	global waygoals
 	global goal
+	global figure
+	global axis
 	t=data.status
 	group=MoveGroupCommander('spiri')
 	group.set_planner_id('PRMkConfigDefault')
-	
+
 	#goal=group.get_current_joint_values()
-	#print t.status	
+	#print t.status
+
+
 	if(t.status==3):
 		counter=counter+1
 		time.sleep(1)
-		print 'completed'+str(counter)+'goal'
-		# this is a robot state message 		
+		#print 'completed'+str(counter)+'goal'
+		# this is a robot state message
 		start=obj.getposition()
 		group.set_start_state(start)
-	
+
 		#goal=group.get_current_joint_values()
 		#print start
 		# a list
-		
+
 		if counter==1:
 			goal=obj.getstate()
-			#waygoals=figures.square_compute_vertical((goal[0],goal[1],goal[2]),(goal[0]+2,goal[1]+2,goal[2]+2),'x')
-			waygoals=figures.vertical_sine_wave((goal[0],goal[1],goal[2]),axis='x')		
-			#waygoals=figures.square_compute((goal[0],goal[1],goal[2]))		
+			if figure=='square':
+				#print 'its a sqaure'
+				if axis=='None':
+					#print 'no axis specifed'
+					waygoals=figures.square_compute((goal[0],goal[1],goal[2]),(goal[0]+2,goal[1]+2,goal[2]+2))
+					#print waygoals
+				elif axis=='x':
+					waygoals=figures.square_compute_vertical((goal[0],goal[1],goal[2]),(goal[0]+2,goal[1]+2,goal[2]+2),'x')
+				elif axis=='y':
+					waygoals=figures.square_compute_vertical((goal[0],goal[1],goal[2]),(goal[0]+2,goal[1]+2,goal[2]+2),'y')
+			if figure=='triangle':
+				if axis=='None':
+					waygoals=figures.triangle_compute((goal[0],goal[1],goal[2]),1,2)
+				if axis=='x':
+					waygoals=figures.triangle_compute_vertical((goal[0],goal[1],goal[2]),1,2,'x')
+
+				if axis=='y':
+					waygoals=figures.triangle_compute_vertical((goal[0],goal[1],goal[2]),1,2,'y')
+			if figure=='sine wave':
+					if axis=='None':
+						waygoals=figures.horizontal_sine_wave((goal[0],goal[1],goal[2]))
+					if axis=='x':
+						waygoals=figures.vertical_sine_wave((goal[0],goal[1],goal[2]),axis='x')
+					if axis=='y':
+						waygoals=figures.vertical_sine_wave((goal[0],goal[1],goal[2]),axis='y')
+
+
+			#waygoals=figures.vertical_sine_wave((goal[0],goal[1],goal[2]),axis='x')
+
 		#goal_1=goal
 		#print 'waygoal',waygoals
 		goal[0]=waygoals[counter-1][0]
 		goal[1]=waygoals[counter-1][1]
 		goal[2]=waygoals[counter-1][2]
-		#group.set_start_state(goal)		
+		#group.set_start_state(goal)
 		#goal[0]=goal[0]+2.0
-		print goal[0],goal[1],goal[2]
-	
+		#print goal[0],goal[1],goal[2]
+
 		group.set_joint_value_target(goal)
 		plan=group.plan()
 		#time.sleep(2.0)
 		group.execute(plan)
 		if counter==len(waygoals):
 			rospy.signal_shutdown('completed the figure')
-			
+
 	if(t.status==2):
 		print 'timeout'
-		
+
 def callback_imu(data):
 	global obj
-	print obj.getstate()
-
-
-def listener():
-	
-	rospy.init_node('spiri_goal',anonymous=True)
-	
 	#print obj.getstate()
+
+figure="None"
+axis="None"
+def listener():
+
+	rospy.init_node('spiri_goal',anonymous=True)
+	global figure
+	global axis
+	#print obj.getstate()
+	figure=rospy.get_param('figure')
+	#print figure
+	axis=rospy.get_param('axis')
+	#print axis
 	rospy.Subscriber('multi_dof_joint_trajectory_action/result',MultiDofFollowJointTrajectoryActionResult,callback)
-	
-	#rospy.Subscriber('/raw_imu',Imu,callback_imu)	
+
+	rospy.Subscriber('/raw_imu',Imu,callback_imu)
 	try:
-	
+
 		rospy.spin()
 	except KeyboardInterrupt:
 		print 'shutting down'
@@ -121,7 +157,7 @@ if __name__=='__main__':
 	#group.set_planner_id('PRMkConfigDefault')
 	#goal=obj.getstate()
 	#goal_2=RobotState()
-	
+
 	#t=Transform()
 	#t.translation.z=1.0
 	#goal_2.multi_dof_joint_state.transforms.append(t)
@@ -129,12 +165,10 @@ if __name__=='__main__':
 	#goal_2.multi_dof_joint_state.header.frame_id='/nav'
 	#goal_2.joint_state.header.frame_id='/nav'
 	#print goal_2
- 	#print group.get_random_joint_values()	
+ 	#print group.get_random_joint_values()
 	#group.set_start_state(goal_2)
 	#goal=group.get_current_joint_values()
 	#goal[0]=1.0
 	#goal[2]=1.0
 	#group.set_joint_value_target(goal)
 	#group.plan()
-		
-		
