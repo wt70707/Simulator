@@ -1,30 +1,19 @@
-<?xml version="1.0"?>
-<sdf version="1.4">
-  <world name="default">
-      
-    <include>
-        <uri>model://sun</uri>
-	
-    </include>
-<include>
-        <uri>model://ground_plane</uri>
-	<size>500 100</size>
-    </include>
-
-    <model name="my_mesh">
-       <pose>120.0 -70.0 6.0 1.54 0 1.54</pose>
-      <static>true</static>
-      <link name="body">
-        <visual name="visual">
-	  <!--scale> 2.0 2.0 2.0 </scale-->
-          <geometry>
-	    
-            <mesh><uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/meshes/Citadel_Test2.dae</uri></mesh>
-          </geometry>
-        </visual>
-      </link>
-    </model>
-<model name='ground_plane'>
+<sdf version='1.4'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <model name='ground_plane'>
       <static>1</static>
       <link name='link'>
         <collision name='collision'>
@@ -271,6 +260,11 @@
         </link>
       </model>
     </state>
-   </model>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>326.191 2.8767 217.613 2.16216e-18 0.639643 -3.09899</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
   </world>
 </sdf>

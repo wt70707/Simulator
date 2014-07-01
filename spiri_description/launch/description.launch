@@ -4,9 +4,9 @@
    <arg name="name" default="spiri"/>
    <arg name="model" default="$(find spiri_description)/urdf/spiri.gazebo.xacro"/>
    <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
-   <arg name="x" default="0.0"/>
-   <arg name="y" default="0.0"/>
-   <arg name="z" default="0.3"/>
+   <arg name="x" default="-27.01715"/>
+   <arg name="y" default="-15.12553"/>
+   <arg name="z" default="1.79133"/>
 
    <!-- send the robot XML to param server -->
    <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
