@@ -58,7 +58,7 @@
    <rosparam command="load" file="$(find hector_quadrotor_model)/param/quadrotor_aerodynamics.yaml" />
    <rosparam command="load" file="$(find hector_quadrotor_model)/param/$(arg motors).yaml" />
   
-	<rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
-  
+   <rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
+   <include file="$(find spiri_teleop)/launch/xbox_controller.launch"/>
 </launch>
 
