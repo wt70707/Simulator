@@ -15,6 +15,7 @@
     <arg name="debug" value="$(arg debug)"/>
   </include>
 
-  <include file="$(find spiri_description)/launch/description.launch" />
+  <include file="$(find spiri_description)/launch/description.launch" >
+  <arg name="use_ground_truth_for_tf" value="false"/>
+  </include>
 </launch>
-
