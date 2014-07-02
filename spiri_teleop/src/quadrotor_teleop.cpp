@@ -72,15 +72,15 @@ public:
     ros::NodeHandle params("~");
 
     axes_.x.axis = 0;
-    axes_.x.max = 2.0;
+    axes_.x.max = 4.0;
     axes_.y.axis = 0;
-    axes_.y.max = 2.0;
+    axes_.y.max = 4.0;
     axes_.z.axis = 0;
-    axes_.z.max = 2.0;
+    axes_.z.max = 4.0;
     axes_.yaw.axis = 0;
     axes_.yaw.max = 90.0*M_PI/180.0;
     buttons_.slow.button = 0;
-    slow_factor_ = 0.2;
+    slow__ = 0.2;
 
     params.getParam("x_axis", axes_.x.axis);
     params.getParam("y_axis", axes_.y.axis);
@@ -150,4 +150,4 @@ int main(int argc, char **argv)
   ros::spin();
 
   return 0;
-}
+}factor
