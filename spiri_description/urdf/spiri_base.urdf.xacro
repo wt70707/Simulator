@@ -22,7 +22,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://spiri_description/meshes/base_link.STL" />
+          filename="package://spiri_description/meshes/spiri.STL" />
       </geometry>
     
     </visual>
@@ -32,7 +32,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://spiri_description/meshes/base_link.STL" />
+          filename="package://spiri_description/meshes/spiri.STL" />
       </geometry>
     </collision>
   </link>
