@@ -21,15 +21,15 @@
            -z $(arg z)
            -model $(arg name)"
      respawn="false" output="screen"/>
-     
+
    <!-- start robot state publisher -->
    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
      <param name="publish_frequency" type="double" value="100.0" />
    </node>
 
    <!-- publish state and tf -->
-      <arg name="use_ground_truth_for_tf" default="true" />
-
+    <arg name="use_ground_truth_for_tf" default="true" />
+    <group if="$(arg use_ground_truth_for_tf)">
     <node name="ground_truth_to_tf" pkg="message_to_tf" type="message_to_tf" output="screen">
      <param name="odometry_topic" value="ground_truth/state" />
      <param name="imu_topic" value="raw_imu" />
@@ -37,10 +37,13 @@
      <param name="tf_prefix" value="$(arg tf_prefix)" if="$(arg use_ground_truth_for_tf)" />
      <param name="tf_prefix" value="$(arg tf_prefix)/ground_truth" unless="$(arg use_ground_truth_for_tf)" />
    </node>
-     
+   </group>
+   <group unless="$(arg use_ground_truth_for_tf)">
+   <node name="pose_estimation" pkg="hector_quadrotor_pose_estimation" type="hector_quadrotor_pose_estimation" output="screen"/>
+
      <node pkg="tf" type="static_transform_publisher" name="world_nav_broadcaster" args="0 0 0 0 0 0 /world /nav 100.0" />
   	     <!--node pkg="tf" type="static_transform_publisher" name="base_link_base_stabalized_broadcaster" args="0 0 0 0 0 0 /base_link $(arg tf_prefix)/base_stabalized 100" /-->
-
+    </group>
    <!-- spawn controller -->
    <arg name="use_ground_truth_for_control" default="true" />
    <group if="$(arg use_ground_truth_for_control)">
@@ -57,8 +60,7 @@
    <arg name="motors" default="robbe_2827-34_epp1045" />
    <rosparam command="load" file="$(find hector_quadrotor_model)/param/quadrotor_aerodynamics.yaml" />
    <rosparam command="load" file="$(find hector_quadrotor_model)/param/$(arg motors).yaml" />
-  
-	<rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
-  
-</launch>
 
+	<rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
+
+</launch>
