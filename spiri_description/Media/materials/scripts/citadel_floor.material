@@ -1,0 +1,13 @@
+material spiri_description/citadel_floor
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture citadel_grass.png
+      }
+    }
+  }
+}

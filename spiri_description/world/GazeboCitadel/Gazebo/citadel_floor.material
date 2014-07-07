@@ -1,0 +1,13 @@
+material custom_objects_gazebo/artag
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture citadel_cavpave.png
+      }
+    }
+  }
+}

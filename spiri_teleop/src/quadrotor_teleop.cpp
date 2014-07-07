@@ -72,11 +72,11 @@ public:
     ros::NodeHandle params("~");
 
     axes_.x.axis = 0;
-    axes_.x.max = 4.0;
+    axes_.x.max = 8.0;
     axes_.y.axis = 0;
-    axes_.y.max = 4.0;
+    axes_.y.max = 8.0;
     axes_.z.axis = 0;
-    axes_.z.max = 4.0;
+    axes_.z.max = 8.0;
     axes_.yaw.axis = 0;
     axes_.yaw.max = 90.0*M_PI/180.0;
     buttons_.slow.button = 0;
