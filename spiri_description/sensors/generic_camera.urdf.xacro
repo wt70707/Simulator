@@ -64,7 +64,7 @@
           <updateRate>${update_rate}</updateRate>
           <imageTopicName>${ros_topic}</imageTopicName>
           <cameraInfoTopicName>${cam_info_topic}</cameraInfoTopicName>
-          <frameName>${name}_optical_frame</frameName>
+          <frameName>base_link</frameName>
         </plugin>
       </sensor>
     </gazebo>
