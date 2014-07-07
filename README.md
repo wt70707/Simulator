@@ -13,3 +13,8 @@ ROS_NAMESPACE=stereo rosrun stereo_image_proc stereo_image_proc _approximate_syn
 To view depth map-:
 
 rosrun image_view stereo_view stereo:=/stereo image:=image_rect_color _approximate_sync:=True _queue_size:=10
+
+
+To launch spiri in citadel hill-:
+
+roslaunch spiri_description spiri_citadel.launch 
