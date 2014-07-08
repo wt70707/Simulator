@@ -176,3 +176,16 @@ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/gazebo_models
 ```
 
 Restart your terminal and it should fix the error
+
+## General ROS commands
+
+To list all ROS topics
+
+```bash
+rostopic list
+```
+
+To view any ROS topic 
+```bash
+rostopic echo ${topic_name}
+```
