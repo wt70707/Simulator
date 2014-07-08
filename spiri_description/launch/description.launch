@@ -41,8 +41,8 @@
    <group unless="$(arg use_ground_truth_for_tf)">
    <node name="pose_estimation" pkg="hector_quadrotor_pose_estimation" type="hector_quadrotor_pose_estimation" output="screen"/>
 
-     <node pkg="tf" type="static_transform_publisher" name="world_nav_broadcaster" args="0 0 0 0 0 0 /world /nav 100.0" />
-  	     <!--node pkg="tf" type="static_transform_publisher" name="base_link_base_stabalized_broadcaster" args="0 0 0 0 0 0 /base_link $(arg tf_prefix)/base_stabalized 100" /-->
+     <node pkg="tf" type="static_transform_publisher" name="world_nav_broadcaster" args="0 0 0 0 0 0 /world /nav 30.0" />
+  	     <!--node pkg="tf" type="static_transform_publisher" name="base_link_base_stabalized_broadcaster" args="0 0 0 0 0 0 /base_link $(arg tf_prefix)/base_stabalized 30" /-->
     </group>
    <!-- spawn controller -->
    <arg name="use_ground_truth_for_control" default="true" />
