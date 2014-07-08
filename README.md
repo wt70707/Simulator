@@ -187,5 +187,10 @@ rostopic list
 
 To view any ROS topic 
 ```bash
-rostopic echo ${topic_name}
+rostopic echo topic_name
+```
+For example to view altimeter data
+
+```bash
+rostopic echo /altimeter
 ```
