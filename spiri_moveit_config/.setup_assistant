@@ -1,8 +1,0 @@
-moveit_setup_assistant_config:
-  URDF:
-    package: spiri_description
-    relative_path: urdf/spiri.gazebo.xacro
-  SRDF:
-    relative_path: config/spiri.srdf
-  CONFIG:
-    generated_timestamp: 1401908547
