@@ -44,7 +44,7 @@ cd ..
 catkin_make
 ```
 
-This command will build the code required for the Simulator.
+These commands will build the code required for the Simulator.
 
 
 ## Commands
