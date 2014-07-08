@@ -27,6 +27,10 @@ Install the ros-desktop-full package as it contains Gazebo and other programs re
 
 sudo apt-get install ros-hydro-hector-quadrotor
 
+- Install the Controllers
+
+sudo apt-get install ros-hydro-ros-controllers
+
 - Create a ros workspace
 
 http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
@@ -47,6 +51,15 @@ catkin_make
 
 These commands will build the code required for the Simulator.
 
+Make sure these commands are in your bashrc
+```bash
+
+nano ~/.bashrc
+
+source ~/catkin_ws/devel/setup.bash
+
+source /opt/ros/hydro/setup.bash
+```
 
 ## Commands
 
@@ -105,3 +118,25 @@ Launches spiri in a world with all its sensors
 - /stereo/left/image_raw
 - /stereo/right/image_raw
 
+
+## Troubleshooting
+
+### Error [ConnectionManager.cc:116] Failed to connect to master in 30 seconds
+
+This is a known bug in Gazebo
+
+https://bitbucket.org/osrf/gazebo/issue/732/gazebo-never-starts-when-loading-models
+
+To fix this do the following steps-:
+
+```bash
+cd catkin_ws/src
+
+hg clone https://bitbucket.org/osrf/gazebo_models
+
+Add this command to your bashrc
+
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/gazebo_models
+```
+
+Restart your terminal and it should fix the error
