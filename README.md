@@ -83,6 +83,24 @@ roscd spiri_description
 rosrun rviz rviz -d spiri_pointcloud.rviz
 ```
 
+## Nodes
 
+### gazebo
+Launches spiri in a world with all its sensors
 
+#### Subscribed topics 
+
+- /cmd_vel
+- /wind
+#### Published Topics
+
+- /altimeter
+- /fix
+- /fix/pose
+- /ground_truth/state
+- /imu
+- /pressure_height
+- /magnetic
+- /stereo/left/image_raw
+- /stereo/right/image_raw
 
