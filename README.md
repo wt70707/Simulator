@@ -31,6 +31,10 @@ sudo apt-get install ros-hydro-hector-quadrotor
 
 sudo apt-get install ros-hydro-ros-controllers
 
+- Install joystick drivers
+
+sudo apt-get install ros-hydro-joy
+
 - Create a ros workspace
 
 http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
