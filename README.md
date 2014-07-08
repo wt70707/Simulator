@@ -43,6 +43,7 @@ cd ..
 catkin_make
 
 This command will build the code required for the Simulator.
+
 -------------------------------------------------------------------
 
 -------------------------------------------------------------------
@@ -76,5 +77,6 @@ roscd spiri_description
 rosrun rviz rviz -d spiri_pointcloud.rviz
 
 -------------------------------------------------------------------
+
 
 
