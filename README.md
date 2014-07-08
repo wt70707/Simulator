@@ -99,7 +99,7 @@ Launches spiri in a world with all its sensors
 - /fix
 - /fix/pose
 - /ground_truth/state
-- /imu
+- /raw_imu
 - /pressure_height
 - /magnetic
 - /stereo/left/image_raw
