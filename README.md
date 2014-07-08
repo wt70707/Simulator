@@ -11,6 +11,7 @@ It contains the following functionalities-:
 
 - Control Spiri in the simulator by a joystick.
 
+The code has been tested on ROS Hydro and Ubuntu 12.04
 
 ## Installation instructions
 
