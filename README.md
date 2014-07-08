@@ -154,6 +154,17 @@ Launches spiri in a world with all its sensors
 - /stereo/left/image_raw
 - /stereo/right/image_raw
 
+### quadrotor_teleop
+Control Spiri with joystick
+
+#### Subscribed topics
+
+- /joy
+
+#### Published topics
+
+- /cmd_vel
+
 
 ## Troubleshooting
 
