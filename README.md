@@ -107,6 +107,23 @@ View the Depth Map
 rosrun image_view stereo_view stereo:=/stereo image:=image_rect_color _approximate_sync:=True _queue_size:=10
 ```
 
+View the front left camera
+
+```bash
+rosrun image_view image_view image:=/stereo/left/image_raw
+```
+
+View the front right camera
+
+```bash
+rosrun image_view image_view image:=/stereo/right/image_raw
+```
+
+View the bottom facing camera
+
+```bash
+rosrun image_view image_view image:=/downward_cam/camera/image
+```
 
 ## To visualize the robot and point cloud data in rviz
 
