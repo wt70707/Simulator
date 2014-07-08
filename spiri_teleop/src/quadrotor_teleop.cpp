@@ -31,7 +31,7 @@
 #include <sensor_msgs/Joy.h>
 #include <geometry_msgs/Twist.h>
 
-namespace hector_quadrotor {
+namespace spiri_quadrotor {
 
 class Teleop
 {
@@ -140,13 +140,13 @@ public:
   }
 };
 
-} // namespace hector_quadrotor
+} // namespace spiri_quadrotor
 
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "quadrotor_teleop");
 
-  hector_quadrotor::Teleop teleop;
+  spiri_quadrotor::Teleop teleop;
   ros::spin();
 
   return 0;
