@@ -80,6 +80,21 @@ To launch Spiri in Citadel Hill
 roslaunch spiri_description spiri_citadel.launch
 ```
 
+Control Spiri with a joystick
+
+Xbox controller 
+
+```bash
+roslaunch spiri_teleop xbox_controller.launch
+```
+
+Logitech Gamepad
+
+```bash
+roslaunch spiri_teleop logitech_gamepad.launch
+```  
+
+
 Script to process the Depth Map
 
 ```bash
