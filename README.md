@@ -25,6 +25,8 @@ chmod +x installation.sh
 
 This will install ROS, create a ROS workspace as well as download the Simulator code.
 
+It will require your password to install packages. 
+
 Jump to the command section.
 
 ### Install different components independently 
