@@ -15,7 +15,21 @@ The code has been tested on ROS Hydro and Ubuntu 12.04
 
 ## Installation instructions
 
+### Install using a script
 
+```bash
+wget https://raw.github.com/Pleiades-Spiri/Spiri_Public/installation_simulator/installation.sh
+chmod +x installation.sh
+./installation.sh
+```
+
+This will install ROS, create a ROS workspace as well as download the Simulator code.
+
+Jump to the command section.
+
+### Install different components independently 
+
+If you have installed using a script you dont need to do this.
 
 - Install ROS
 
