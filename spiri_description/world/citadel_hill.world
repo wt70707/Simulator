@@ -59,7 +59,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/world/citadel_tex1.dae</uri>
+              <uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/world/citadel_hill.dae</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -76,7 +76,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/world/citadel_tex1.dae</uri>
+              <uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/world/citadel_hill.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -113,15 +113,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='ground_plane'>
-        <pose>1 12 0 0 -0 0</pose>
-        <link name='link'>
-          <pose>1 12 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
+
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
@@ -129,54 +121,6 @@
         <view_controller>orbit</view_controller>
       </camera>
     </gui>
-    <model name='ground_plane'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='collision'>
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>400 200</size>
-            </plane>
-          </geometry>
-          <surface>
-            <friction>
-              <ode>
-                <mu>100</mu>
-                <mu2>50</mu2>
-              </ode>
-            </friction>
-            <bounce/>
-            <contact>
-              <ode/>
-            </contact>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='visual'>
-          <cast_shadows>0</cast_shadows>
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>400 200</size>
-            </plane>
-          </geometry>
-          <material>
-            <script>
-              <uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/Media/materials/scripts/citadel_floor.material</uri>
-              <name>spiri_description/citadel_floor</name>
-            </script>
-          </material>
-        </visual>
-        <velocity_decay>
-          <linear>0</linear>
-          <angular>0</angular>
-        </velocity_decay>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <gravity>1</gravity>
-      </link>
-      <pose>1 12 0 0 -0 0</pose>
-    </model>
+    
   </world>
 </sdf>
