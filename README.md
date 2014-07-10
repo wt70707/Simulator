@@ -66,7 +66,7 @@ wget https://raw.github.com/Pleiades-Spiri/Spiri_Public/installation_simulator/S
 
 tar -zxvf Simulator-1.0.tar.gz 
 
-mv -r Simulator-1.0 ./Simulator
+mv Simulator-1.0 ./Simulator
 
 cd ..
 
