@@ -62,7 +62,11 @@ After this step there should be a folder called as catkin_ws
 ```bash
 cd catkin_ws/src
 
-git clone https://github.com/Pleiades-Spiri/Simulator.git -b alpha-release
+wget https://raw.github.com/Pleiades-Spiri/Spiri_Public/installation_simulator/Simulator-1.0.tar.gz
+
+tar -zxvf Simulator-1.0.tar.gz 
+
+mv -r Simulator-1.0 ./Simulator
 
 cd ..
 
