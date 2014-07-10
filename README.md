@@ -72,7 +72,9 @@ cd ..
 
 catkin_make
 
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Simulator/spiri_description/models
+echo "export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Simulator/spiri_description/models" >> ~/.bashrc
+
+source ~/.bashrc
 ```
 
 These commands will build the code required for the Simulator.
@@ -85,6 +87,8 @@ nano ~/.bashrc
 source ~/catkin_ws/devel/setup.bash
 
 source /opt/ros/hydro/setup.bash
+
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Simulator/spiri_description/models
 ```
 
 ## Commands
