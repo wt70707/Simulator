@@ -67,6 +67,8 @@ git clone https://github.com/Pleiades-Spiri/Simulator.git -b alpha-release
 cd ..
 
 catkin_make
+
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Simulator/spiri_description/models
 ```
 
 These commands will build the code required for the Simulator.
