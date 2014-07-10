@@ -59,7 +59,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/world/citadel_hill.dae</uri>
+              <uri>model://citadel_collision.dae</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -76,7 +76,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file:///home/rohan/work_workspace/src/Simulator/spiri_description/world/citadel_hill.dae</uri>
+              <uri>model://citadel_hill.dae</uri>
             </mesh>
           </geometry>
         </visual>
