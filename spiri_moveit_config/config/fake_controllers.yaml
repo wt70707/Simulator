@@ -1,0 +1,4 @@
+controller_list:
+  - name: fake_spiri_controller
+    joints:
+      - virtual_join
