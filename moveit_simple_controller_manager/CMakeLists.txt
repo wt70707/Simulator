@@ -17,7 +17,7 @@ find_package(catkin COMPONENTS
   control_msgs
   REQUIRED)
 
-include_directories(${catkin_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS} ${action_controller_INCLUDE_DIRS})
 link_directories(${catkin_LIBRARY_DIRS})
 
 catkin_package(
