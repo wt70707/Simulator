@@ -29,7 +29,7 @@ class PID:
 		self.error.append(self.set_point.position.x - current_value.pose.position.x)
 		self.error.append(self.set_point.position.y - current_value.pose.position.y)
 		self.error.append(self.set_point.position.z - current_value.pose.position.z)
-		print self.error
+		#print self.error
 		PID=[]
 		for i in range(3):
 			#print type(self.Kp)

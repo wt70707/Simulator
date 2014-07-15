@@ -19,7 +19,7 @@ import time
 from planner_request import get_state
 from planner_request import pid
 from collections import deque
-#print action_controller.msg.MultiDofFollowJointTrajectoryAction()
+##print action_controller.msg.MultiDofFollowJointTrajectoryAction()
 class actioncontroller(object):
 	def __init__(self,name):
 
@@ -47,7 +47,7 @@ class actioncontroller(object):
 	        self.traj=gh.get_goal().trajectory
 		self.active_goal=gh
 		self.has_active_goal=True
-		print 'I am in the goal callback'
+		##print 'I am in the goal callback'
 		#self.executetraj()
 		goal=self.compute_goal()
 		#self.publishvel_goal(goal)
@@ -57,7 +57,7 @@ class actioncontroller(object):
 			self.pub.publish(Twist())
 			self.active_goal.set_canceled()
 			self.has_active_goal=False
-			print 'Cancelling the goal'
+			##print 'Cancelling the goal'
 
 
 
@@ -65,9 +65,9 @@ class actioncontroller(object):
 	def executetraj(self):
 		traj_points=Transform()
 		for i in range(len(self.traj.points)):
-			print i
+			##print i
 			traj_points=self.traj.points[i].transforms[0]
-			#print traj_points.transforms[0].translation
+			##print traj_points.transforms[0].translation
 			if(i!=0):
 				self.flag=self.publishvel(traj_points,False)
 				if i==len(self.traj.points)-1:
@@ -81,7 +81,7 @@ class actioncontroller(object):
 				self.lastPosition.translation=traj_points.translation
 				self.lastPosition.rotation=traj_points.rotation
 		self.active_goal.set_succeeded()
-		print ("goal has been reached")
+		#print ("goal has been reached")
 		self.has_active_goal=False
 
 
@@ -90,10 +90,10 @@ class actioncontroller(object):
 		#for i in range(len(goal)):
 		while counter<len(goal):
 			#self.robot_state()
-			print 'state is',self.state
-			print 'your state should be',goal[counter-1]
+			#print 'state is',self.state
+			#print 'your state should be',goal[counter-1]
 			#if self.state==goal[i-1]:
-			#	print 'I have following the trajectory'
+			#	#print 'I have following the trajectory'
 
 			#flag=True
 
@@ -102,13 +102,13 @@ class actioncontroller(object):
 			#self.vel.linear.x=self.pid_vel(goal[counter])
 			self.vel.linear.y=goal[counter].position.y-self.state.pose.position.y
 			self.vel.linear.z=goal[counter].position.z-self.state.pose.position.z
-			print "calculated the cmd vel topic"
+			##print "calculated the cmd vel topic"
 
 			# this loop is just for the agressive behaviour
 			if (abs(self.vel.linear.x)>=self.agg_scale or abs(self.vel.linear.y)>=self.agg_scale or abs(self.vel.linear.z)>=self.agg_scale):
-				print self.vel
+				##print self.vel
 				self.pub.publish(self.vel)
-				print "Published the commands"
+				##print "Published the commands"
 				time.sleep(1.0)
 			self.robot_state()
 			flag=self.checkgoal(goal[counter])
@@ -117,23 +117,23 @@ class actioncontroller(object):
 				#return True
 			else:
 				self.non_counter=self.non_counter+1
-				print 'didnt reach previous goal'
+				#print 'didnt reach previous goal'
 			# unnecessary
 			if self.non_counter>5:
 				rospy.signal_shutdown('too many tries')
 			self.pub.publish(Twist())
 		self.active_goal.set_succeeded()
-		print 'goal has been reached'
+		#print 'goal has been reached'
 		self.has_active_goal=False
 
 	def publishvel(self,traj_points,anyway):
 		self.vel.linear.x=traj_points.translation.x-self.lastPosition.translation.x
 		self.vel.linear.y=traj_points.translation.y-self.lastPosition.translation.y
 		self.vel.linear.z=traj_points.translation.z-self.lastPosition.translation.z
-		print "calculated the cmd vel topic"
+		#print "calculated the cmd vel topic"
 		if (anyway or self.vel.linear.x>=0.5 or self.vel.linear.y>=0.5 or self.vel.linear.z>=0.5):
 			self.pub.publish(self.vel)
-			print "Published the commands"
+			#print "Published the commands"
 			time.sleep(1.0)
 			return True
 		else:
@@ -168,8 +168,8 @@ class actioncontroller(object):
 			temp.position.y=goal[i-1].position.y+(self.traj.points[i].transforms[0].translation.y-self.traj.points[i-1].transforms[0].translation.y)
 			temp.position.z=goal[i-1].position.z+(self.traj.points[i].transforms[0].translation.z-self.traj.points[i-1].transforms[0].translation.z)
 			goal.append(temp)
-		#print self.traj.points
-		#print goal
+		##print self.traj.points
+		##print goal
 		return goal
 
 
@@ -188,12 +188,12 @@ class actioncontroller(object):
 		'''
 		for i in range(len(goal)):
 			p.setPoint(temp_goal.position.z)
-			print 'completed goal',i
+			#print 'completed goal',i
 			for i in range(10):
 				self.robot_state()
 				temp=p.update(self.state.position.z)
 				self.vel.linear.z=min(0.5,temp)
-				print self.vel.linear.z
+				#print self.vel.linear.z
 				self.pub.publish(self.vel)
 				time.sleep(1.0)
 		'''
@@ -216,26 +216,26 @@ class actioncontroller(object):
 				self.vel.linear.z=min(1.0,temp[2])
 				#self.vel=min(1.0,temp)
 				#self.vel.linear.z=temp
-				#print 'vel',self.vel
+				##print 'vel',self.vel
 				self.pub.publish(self.vel)
 				#time.sleep(1.0) # might not be required
 				#self.pub.publish(Twist())
 				self.robot_state()
-				#print kp,kd
-			#print 'state',self.state.pose
-			#print 'goal',temp_goal
-			#print 'sub goal completed',i
+				##print kp,kd
+			##print 'state',self.state.pose
+			##print 'goal',temp_goal
+			##print 'sub goal completed',i
 
 		#time.sleep(1.0)
 		self.pub.publish(Twist())
 		self.active_goal.set_succeeded()
-		print 'goal has been reached'
+		#print 'goal has been reached'
 		self.has_active_goal=False
 robot=get_state.Staterobot('/ground_truth/state')
 if __name__ == '__main__':
 
 	rospy.init_node('multi_dof_joint_trajectory_action')
-	#print rospy.get_name()
+	##print rospy.get_name()
 
 	actioncontroller(rospy.get_name())
 	rospy.spin()

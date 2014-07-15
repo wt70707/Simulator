@@ -22,7 +22,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://spiri_description/meshes/spiri.dae" />
+          filename="package://spiri_description/meshes/spiri.STL" />
       </geometry>
     
     </visual>
