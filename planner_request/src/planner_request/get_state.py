@@ -57,43 +57,43 @@ class Staterobot():
 		# this can be used internally otherwise we can return 7 values. This is useful if the use needs all the 7 values at the same timestep.
 		return self.state
 
-	def getposition(self):
+	def get_position(self):
 
 		return self.state.pose.position
-	def getorientation(self,format=0):
+	def get_orientation(self,format=0):
 		if format==1:
 
 			return self.state.pose.orientation
 		else:
 
 			euler=Vector3()
-			temp=euler_from_quaternion([self.state.pose.orientation.x,self.state.pose.orientation.y,self.state.pose.orientation.z,self.state.pose.orientation.w])
+			temp=euler_from_quaternion([self.state.orientation.x,self.state.orientation.y,self.state.orientation.z,self.state.orientation.w])
 			euler.x=temp[0];euler.y=temp[1];euler.z=temp[2]
 			return euler
-	def getorientation_imu(self,format=0):
+	def get_orientation_imu(self,format='euler'):
 	  # user wants it in quaternion
-		if format==1:
+		if format=='quat':
 
 			return self.orientation
 		else:
 
 			euler=Vector3()
-			temp=euler_from_quaternion([self.state.pose.orientation.x,self.state.pose.orientation.y,self.state.pose.orientation.z,self.state.pose.orientation.w])
+			temp=euler_from_quaternion([self.state.orientation.x,self.state.orientation.y,self.state.orientation.z,self.state.orientation.w])
 			euler.x=temp[0];euler.y=temp[1];euler.z=temp[2]
 			return euler
 
-	def getheight_altimeter(self):
+	def get_height_altimeter(self):
 		# returns one float
 		return self.altimeter_height
 
-	def getheight_pressure(self):
+	def get_height_pressure(self):
 		# return one float
 		return self.pressure_height
-	def getgpsdata(self):
+	def get_gps_data(self):
 		# return lat,long and height
 		return self.gps
 
-	def getgpsvel(self):
+	def get_gps_vel(self):
 		return self.gps_vel
 
 
@@ -130,8 +130,7 @@ class Staterobot():
 		# goal oncly accepts a list
 		#print state.orientation
 		#print self.state
-		goal=[0.0,0.0,0.0,state.orientation.x,state.orientation.y,state.orientation.z,state.orientation.w]#self.state.pose.position.y,self.state.pose.position.z,self.state.pose.orientation.x,self.state.pose.orientation.y,self.state.pose.orientation.z,self.state.pose.orientation.w]
-
+		goal=[0.0,0.0,0.0,state.orientation.x,state.orientation.y,state.orientation.z,state.orientation.w]
 		#print goal
 		goal[0]=x
 		goal[1]=y
@@ -170,7 +169,7 @@ class Staterobot():
 		# goal oncly accepts a list
 		#print state.orientation
 		#print self.state
-		goal=[0.0,0.0,0.0,state.orientation.x,state.orientation.y,state.orientation.z,state.orientation.w]#self.state.pose.position.y,self.state.pose.position.z,self.state.pose.orientation.x,self.state.pose.orientation.y,self.state.pose.orientation.z,self.state.pose.orientation.w]
+		goal=[0.0,0.0,0.0,state.orientation.x,state.orientation.y,state.orientation.z,state.orientation.w]
 
 		#print goal
 		goal[0]=state.position.x+x
@@ -182,13 +181,4 @@ class Staterobot():
 		#time.sleep(1.0)
 		group.execute(plan)
 		# should return something
-if __name__=='__main__':
-	obj=Staterobot()
-	rospy.init_node('spiri_state',anonymous=True)
-	try:
-		#print obj.getstate()
-		#obj.send_goal(0,0,1)
-		print obj.state
-		rospy.spin()
-	except KeyboardInterrupt:
-		print 'shutting down'
+
