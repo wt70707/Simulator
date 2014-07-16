@@ -9,7 +9,7 @@ class PID:
 	def __init__(self, P=[2.0,2.0,2.0], I=[0.0,0.0,0.0], D=[1.0,1.0,1.0], Derivator=[0.0,0.0,0.0], Integrator=0, Integrator_max=500, Integrator_min=-500):
 
 		self.Kp=P
-		
+
 		self.Ki=I
 		self.Kd=D
 		self.Derivator=Derivator
@@ -21,26 +21,26 @@ class PID:
 		self.set_point=Pose()
 		#self.error=[]
 
-	def update(self,current_value,dt):
+	def update(self,current_value):
 		"""
 		Calculate PID output value for given reference input and feedback
 		"""
 		self.error=[]
-		self.error.append(self.set_point.position.x - current_value.pose.position.x)
-		self.error.append(self.set_point.position.y - current_value.pose.position.y)
-		self.error.append(self.set_point.position.z - current_value.pose.position.z)
+		self.error.append(self.set_point.position.x - current_value.position.x)
+		self.error.append(self.set_point.position.y - current_value.position.y)
+		self.error.append(self.set_point.position.z - current_value.position.z)
 		#print self.error
 		PID=[]
 		for i in range(3):
 			#print type(self.Kp)
 			#print type(self.error)
-			
+
 			self.P_value = self.Kp[i] * float(self.error[i])
 			#print type(self.Derivator)
 			#print 'error',self.Derivator[i]
 			self.D_value = self.Kd[i] * (self.error[i] - self.Derivator[i])
 			self.Derivator[i] = self.error[i]
-			'''	
+			'''
 			self.Integrator = self.Integrator + dt * self.error
 
 			if self.Integrator > self.Integrator_max:
@@ -108,6 +108,3 @@ class PID:
 	def getDerivator(self):
 		return self.Derivator
 	'''
-
-	
-

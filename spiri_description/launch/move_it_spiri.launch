@@ -5,7 +5,8 @@
   <include file="$(find spiri_description)/launch/spiri_empty_world.launch" />
   
   <include file="$(find spiri_moveit_config)/launch/moveit_planning_execution.launch">
-  <arg name="viz" value="true"/>
+  <arg name="viz" value="false"/>
   </include> 
+  
 </launch>
 
