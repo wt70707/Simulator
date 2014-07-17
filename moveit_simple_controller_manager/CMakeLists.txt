@@ -10,6 +10,7 @@ include_directories(SYSTEM ${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 find_package(catkin COMPONENTS
+  action_controller
   moveit_core
   pluginlib
   actionlib
