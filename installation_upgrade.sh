@@ -6,7 +6,10 @@ read -p "Do you want to continue? [Y/n]" yn
 
 
 case $yn in
-	[Yy]* ) rm -r ~/catkin_ws/src/Simulator
+	[Yy]* )
+
+		sudo apt-get install ros-hydro-moveit-full ros-hydro-joystick-drivers
+		rm -r ~/catkin_ws/src/Simulator
 		# lower the version number
 		rm ~/catkin_ws/src/Simulator-1.0.tar.gz
 
