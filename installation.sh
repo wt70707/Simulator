@@ -20,7 +20,7 @@ wget https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -O - | sudo 
 sudo apt-get update
 # Install all the ROS required packages
 
-sudo apt-get install ros-hydro-desktop-full ros-hydro-hector-quadrotor ros-hydro-ros-controllers ros-hydro-joy ros-hydro-moveit-full
+sudo apt-get install ros-hydro-desktop-full ros-hydro-hector-quadrotor ros-hydro-ros-controllers ros-hydro-joy ros-hydro-moveit-full ros-hydro-joystick-drivers
 
 # Configuring ros workspace
 
