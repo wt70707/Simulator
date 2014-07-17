@@ -31,7 +31,7 @@ Jump to the command section.
 
 ### Install different components independently 
 
-If you have installed using a script you dont need to do this.
+If you have installed using a script you dont need to do this. [commands](#Commands)
 
 - Install ROS
 
@@ -91,7 +91,7 @@ source /opt/ros/hydro/setup.bash
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Simulator/spiri_description/models
 ```
 
-## Commands
+### Commands
 
 
 To launch Spiri in an empty world
