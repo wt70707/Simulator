@@ -1,6 +1,6 @@
 actions:
 - MultiDofFollowJointTrajectory
-authors: ''
+authors: 'Rohan Bhargava'
 brief: ''
 bugtracker: ''
 depends:
@@ -27,6 +27,6 @@ msgs:
 - MultiDofFollowJointTrajectoryActionResult
 - MultiDofFollowJointTrajectoryActionGoal
 package_type: package
-repo_url: ''
+repo_url: 'https://github.com/Pleiades-Spiri/Simulator.git'
 srvs: []
 url: ''
