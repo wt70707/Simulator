@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package>
   <name>planner_request</name>
-  <version>0.0.0</version>
-  <description>The planner_request package</description>
+  <version>1.1.1</version>
+  <description>This contains the code for the API.</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="rohan@todo.todo">rohan</maintainer>
+  <maintainer email="rob@pleiades.ca">Rohan Bhargava</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->

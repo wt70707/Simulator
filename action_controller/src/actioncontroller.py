@@ -1,4 +1,9 @@
 #! /usr/bin/env python
+
+## @package action_controller
+# Listens to trajectory and generates the appropriate velocity to move the Quadcopter.
+# @author Rohan Bhargava
+# @version 1.1.1
 import roslib
 
 #roslib.load_manifest('actionlib_tutorials')
@@ -20,9 +25,12 @@ import time
 from planner_request import get_state
 from planner_request import pid
 from collections import deque
-##print action_controller.msg.MultiDofFollowJointTrajectoryAction()
+
+## Class for generating velocity for Spiri
 class actioncontroller(object):
+  ## Constructor
 	def __init__(self,name):
+
 		self.state=Pose()
 		self._action_name=name
 		self.traj=trajectory_msgs.msg.MultiDOFJointTrajectory()
@@ -38,8 +46,14 @@ class actioncontroller(object):
 		self.state=Pose()
 		self.non_counter=0
 		self.agg_scale=0.0
+	## Callback function for the State topic.	This function will be called whenever a new message is published on a document
+	# @param self Object pointer
+	# @param data Contains data published on the topic
 	def callback(self,data):
+
 		self.state=data.pose.pose
+
+
 	def goalcb(self,gh):
 		if self.has_active_goal:
 			self.pub.publish(Twist())
@@ -51,7 +65,7 @@ class actioncontroller(object):
 	        self.traj=gh.get_goal().trajectory
 		self.active_goal=gh
 		self.has_active_goal=True
-		##print 'I am in the goal callback'
+		#print 'I am in the goal callback'
 		#self.executetraj()
 		goal=self.compute_goal()
 		#self.publishvel_goal(goal)
@@ -61,7 +75,7 @@ class actioncontroller(object):
 			self.pub.publish(Twist())
 			self.active_goal.set_canceled()
 			self.has_active_goal=False
-			##print 'Cancelling the goal'
+			#print 'Cancelling the goal'
 
 
 
@@ -69,9 +83,8 @@ class actioncontroller(object):
 	def executetraj(self):
 		traj_points=Transform()
 		for i in range(len(self.traj.points)):
-			##print i
 			traj_points=self.traj.points[i].transforms[0]
-			##print traj_points.transforms[0].translation
+			#print traj_points.transforms[0].translation
 			if(i!=0):
 				self.flag=self.publishvel(traj_points,False)
 				if i==len(self.traj.points)-1:
@@ -106,13 +119,13 @@ class actioncontroller(object):
 			#self.vel.linear.x=self.pid_vel(goal[counter])
 			self.vel.linear.y=goal[counter].position.y-self.state.pose.position.y
 			self.vel.linear.z=goal[counter].position.z-self.state.pose.position.z
-			##print "calculated the cmd vel topic"
+			#print "calculated the cmd vel topic"
 
 			# this loop is just for the agressive behaviour
 			if (abs(self.vel.linear.x)>=self.agg_scale or abs(self.vel.linear.y)>=self.agg_scale or abs(self.vel.linear.z)>=self.agg_scale):
-				##print self.vel
+				#print self.vel
 				self.pub.publish(self.vel)
-				##print "Published the commands"
+				#print"Published the commands"
 				time.sleep(1.0)
 			#self.robot_state()
 			flag=self.checkgoal(goal[counter])
@@ -171,8 +184,8 @@ class actioncontroller(object):
 			temp.position.y=goal[i-1].position.y+(self.traj.points[i].transforms[0].translation.y-self.traj.points[i-1].transforms[0].translation.y)
 			temp.position.z=goal[i-1].position.z+(self.traj.points[i].transforms[0].translation.z-self.traj.points[i-1].transforms[0].translation.z)
 			goal.append(temp)
-		##print self.traj.points
-		##print goal
+		#print self.traj.points
+		#print goal
 		return goal
 
 
@@ -219,15 +232,15 @@ class actioncontroller(object):
 				self.vel.linear.z=min(1.0,temp[2])
 				#self.vel=min(1.0,temp)
 				#self.vel.linear.z=temp
-				##print 'vel',self.vel
+				#print'vel',self.vel
 				self.pub.publish(self.vel)
 				#time.sleep(1.0) # might not be required
 				#self.pub.publish(Twist())
 				#self.robot_state()
-				##print kp,kd
-			##print 'state',self.state.pose
-			##print 'goal',temp_goal
-			##print 'sub goal completed',i
+				#printkp,kd
+			#print 'state',self.state.pose
+			#print 'goal',temp_goal
+			#print 'sub goal completed',i
 
 		#time.sleep(1.0)
 		self.pub.publish(Twist())
@@ -238,7 +251,7 @@ class actioncontroller(object):
 if __name__ == '__main__':
 
 	rospy.init_node('multi_dof_joint_trajectory_action')
-	##print rospy.get_name()
+	#print rospy.get_name()
 
 	actioncontroller(rospy.get_name())
 	rospy.spin()

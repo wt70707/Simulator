@@ -1,0 +1,18 @@
+actions: []
+authors: ''
+brief: ''
+bugtracker: ''
+depends:
+- catkin
+- moveit_msgs
+- rospy
+- roscpp
+- moveit_commander
+description: This contains the code for the API.
+license: TODO
+maintainers: Rohan Bhargava <rob@pleiades.ca>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''
