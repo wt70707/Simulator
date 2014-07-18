@@ -2,8 +2,8 @@
 Changelog for package spiri_moveit_config
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.2 (2014-07-17)
+------------------
 * added script to send goals
 * fixed the catkin issue again
 * added the folders for goal

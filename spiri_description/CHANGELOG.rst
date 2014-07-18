@@ -2,8 +2,8 @@
 Changelog for package spiri_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.2 (2014-07-17)
+------------------
 * added script to send goals
 * stopped spamming the console
 * fixed the catkin issue again

@@ -2,8 +2,8 @@
 Changelog for package planner_request
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.2 (2014-07-17)
+------------------
 * added example script to read sensors
 * added example script
 * added script to send goals

@@ -2,8 +2,8 @@
 Changelog for package spiri_teleop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.2 (2014-07-17)
+------------------
 * fixed teleop
 * added teleop by keyboard
 * added some changes

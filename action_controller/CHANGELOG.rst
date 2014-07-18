@@ -2,8 +2,8 @@
 Changelog for package action_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.2 (2014-07-17)
+------------------
 * added script to send goals
 * stopped spamming the console
 * some changes
