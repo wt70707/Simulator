@@ -1,0 +1,186 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simulating Spiri &mdash; Spiri Simulator 1.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Spiri Simulator 1.1.1 documentation" href="index.html" />
+    <link rel="next" title="Navigation with Spiri" href="navigation.html" />
+    <link rel="prev" title="Spiri Overview" href="overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="navigation.html" title="Navigation with Spiri"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Spiri Overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Spiri Simulator 1.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="simulating-spiri">
+<h1>Simulating Spiri<a class="headerlink" href="#simulating-spiri" title="Permalink to this headline">¶</a></h1>
+<p>Pleiades has created a simulation environment for Spiri built on
+the open source simulator <a class="reference external" href="http://gazebosim.org">Gazebo</a>. This simulator
+allows you to test certain pieces of code even when you do not have access to
+a robot, or before running certain code on the actual robot.</p>
+<p>It should be noted that this is a simulation, and is certainly not a perfect
+model of the world or the robot. Results between real world and simulation may
+vary wildly at times. Be sure to also note the limitations and differences
+of the simulated Spiri which are listed at the bottom of this page.</p>
+<div class="section" id="starting-the-simulator">
+<h2>Starting the Simulator<a class="headerlink" href="#starting-the-simulator" title="Permalink to this headline">¶</a></h2>
+<p>To start the simulator, you will run one of several roslaunch files. Each roslaunch file
+brings up a different environment. The simplest environment is started by running:</p>
+<div class="highlight-python"><pre>&gt;$ roslaunch spiri_description spiri_empty_world.launch</pre>
+</div>
+<p>This environment includes nothing except a robot and the floor.</p>
+<div class="align-centered figure align-center">
+<img alt="_images/gazebo-simulation-launch.png" src="_images/gazebo-simulation-launch.png" style="width: 100%;" />
+</div>
+<p>There are several other environments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">spiri_citadel.launch</span></tt> brings up the Citadel Hill.</li>
+<li>More enviornments will be added before the final realease</li>
+</ul>
+</div></blockquote>
+<div class="align-centered figure align-center">
+<img alt="_images/gazebo-simulation-launch-citadel.png" src="_images/gazebo-simulation-launch-citadel.png" style="width: 100%;" />
+</div>
+</div>
+<div class="section" id="teleoperating-the-simulated-spiri">
+<h2>Teleoperating the Simulated Spiri<a class="headerlink" href="#teleoperating-the-simulated-spiri" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>spiri_teleop</strong> package includes a number of scripts for commanding the robot
+to move its joints in certain ways. The first thing you probably want to do is
+drive the robot around.</p>
+<ul class="simple">
+<li>Using Joystick such as logitech gamepad or xbox 360 controller:</li>
+</ul>
+<div class="highlight-python"><pre>&gt;$ roslaunch spiri_teleop logitech_gamepad.launch
+&gt;$ roslaunch spiri_telop  xbox_controller.launch</pre>
+</div>
+<ul class="simple">
+<li>The <strong>keyboard_telop</strong> node allows you to do this:</li>
+</ul>
+<div class="highlight-python"><pre>  &gt;$ roslaunch spiri_teleop keyboard_teleop.launch
+  Reading from keyboard
+  -------------------------
+ Moving around:
+ u    i    o
+ j    k    l
+ m    ,    .
+p   : move up in z direction
+;   : move down in z directions
+Press any other key to stop the robot</pre>
+</div>
+<p>Now, if you press the &#8216;p&#8217; key, the robot will go up.</p>
+<p>One thing to note is how the topics are connected.
+The <strong>keyboard_teleop</strong> or <strong>quadrotor_teleop</strong>
+node publishes to a topic called <tt class="docutils literal"><span class="pre">cmd_vel</span></tt>. The controllers for Spiri listens to the <tt class="docutils literal"><span class="pre">cmd_vel</span></tt> topic and translate the velocity to thrust and force to move Spiri in the simulator.</p>
+</div>
+<div class="section" id="differences-and-limitations">
+<h2>Differences and Limitations<a class="headerlink" href="#differences-and-limitations" title="Permalink to this headline">¶</a></h2>
+<p>The simulated robot is not exactly the same as the real robot. Notable differences
+include:</p>
+<p>TODO.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Simulating Spiri</a><ul>
+<li><a class="reference internal" href="#starting-the-simulator">Starting the Simulator</a></li>
+<li><a class="reference internal" href="#teleoperating-the-simulated-spiri">Teleoperating the Simulated Spiri</a></li>
+<li><a class="reference internal" href="#differences-and-limitations">Differences and Limitations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Spiri Overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="navigation.html"
+                        title="next chapter">Navigation with Spiri</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/simulator.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="navigation.html" title="Navigation with Spiri"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Spiri Overview"
+             >previous</a> |</li>
+        <li><a href="index.html">Spiri Simulator 1.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Rohan Bhargava.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
