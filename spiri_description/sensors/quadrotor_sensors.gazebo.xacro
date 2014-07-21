@@ -61,23 +61,23 @@
     <!-- Downward facing camera -->
     <xacro:include filename="$(find spiri_description)/sensors/generic_camera.urdf.xacro" />
     <xacro:generic_camera name="downward_cam" parent="base_link" ros_topic="camera/image" cam_info_topic="camera/camera_info" update_rate="30" res_x="640" res_y="480" image_format="R8G8B8" hfov="65">
-      <origin xyz="-0.04 0.0 -0.015" rpy="0 ${M_PI/2} ${M_PI}"/>
+      <origin xyz="-0.04 0.0 -0.035" rpy="0 ${M_PI/2} ${M_PI}"/>
  </xacro:generic_camera>
 <!-- Left Forward facing camera -->
     <xacro:include filename="$(find spiri_description)/sensors/generic_camera.urdf.xacro" />
     <xacro:generic_camera name="stereo/left" parent="base_link" ros_topic="image_raw" cam_info_topic="camera_info" update_rate="30" res_x="320" res_y="240" image_format="R8G8B8" hfov="65.0">
-      <origin xyz="-0.064 -0.0245 -0.005" rpy="0 0.27 ${M_PI}"/>
+      <origin xyz="-0.064 -0.0245 -0.0265" rpy="0 0.27 ${M_PI}"/>
     </xacro:generic_camera>
 <!-- Right Forward facing camera -->
     <xacro:include filename="$(find spiri_description)/sensors/generic_camera.urdf.xacro" />
     <xacro:generic_camera name="stereo/right" parent="base_link" ros_topic="image_raw" cam_info_topic="camera_info" update_rate="30" res_x="320" res_y="240" image_format="R8G8B8" hfov="65.0">
-      <origin xyz="-0.064 0.0245 -0.005" rpy="0 0.27 ${M_PI}"/>
+      <origin xyz="-0.064 0.0245 -0.0265" rpy="0 0.27 ${M_PI}"/>
     </xacro:generic_camera>
 
 <!-- TOF camera -->
  <!--xacro:include filename="$(find spiri_description)/sensors/tof_kinect.urdf.xacro" />
      <xacro:kinect_camera name="camera" parent="base_link">
-      <origin xyz="-0.04 -0.00 0.05" rpy="0 0 ${M_PI}"/>
+      <origin xyz="-0.04 -0.00 0.1" rpy="0 0 ${M_PI}"/>
     </xacro:kinect_camera-->
  <!--xacro:include filename="$(find spiri_description)/sensors/tof.urdf.xacro" />
     <xacro:generic_tof name="tof" parent="forward_cam_link" ros_topic="tof" update_rate="30" noise="0.0">

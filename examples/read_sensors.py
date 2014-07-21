@@ -1,4 +1,4 @@
-from planner_request import get_state
+from spiri_api import get_state
 # create an object to communicate with Spiri
 spiri=get_state.Staterobot()
 # get orientation from IMU in euler format

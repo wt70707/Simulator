@@ -1,4 +1,4 @@
-from planner_request import get_state
+from spiri_api import get_state
 #create a object for sending commands to Spiri
 spiri=get_state.Staterobot()
 # send goals with respect to start position
