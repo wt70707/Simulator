@@ -9,61 +9,122 @@ from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 import time
 import cv2
+import numpy as np
+import threading
+from spiri_api import get_state
+from multiprocessing import Process
 ## Class defining all the functions for perception
 class camera_interface():
 
   ## Constructor
   def __init__(self):
+    #threading.Thread.__init__(self)
+    #self.t1=threading.Thread(target=self.callback_threading)
+    #self.t1.setDaemon(False)
+    #self.t1.start()
     self.left_image=Image()
     self.right_image=Image()
     self.bottom_image=Image()
     self.bridge=CvBridge()
-    rospy.init_node('spiri_api_camera',anonymous=True)
+    self.number=0
+    self.cv_image_left=np.zeros((10,10))
+    self.cv_image_right=np.zeros((10,10))
+    self.cv_image_bottom=np.zeros((10,10))
     rospy.Subscriber('/stereo/left/image_raw',Image,self.callback_left)
     rospy.Subscriber('/stereo/right/image_raw',Image,self.callback_right)
     rospy.Subscriber('/downward_cam/camera/image',Image,self.callback_bottom)
-    time.sleep(1.0)
+    #self.latest=False
+    #rospy.init_node('spiri_api_camera',anonymous=True)
+    #self.start()
+    #state_robot=get_state.Staterobot()
+  ## start the threads
+  # @todo Can create threads for every subscriber
+  def callback_threading(self):
+
+    rospy.Subscriber('/stereo/left/image_raw',Image,self.callback_left)
+    rospy.Subscriber('/stereo/right/image_raw',Image,self.callback_right)
+    rospy.Subscriber('/downward_cam/camera/image',Image,self.callback_bottom)
+
+  #time.sleep(1.0)
 
   def callback_left(self,data):
-    self.left_image=data
+    #self.latest=False
+    try:
 
+        self.cv_image_left=self.bridge.imgmsg_to_cv2(data,"bgr8")
+
+        self.number=self.number+1
+        print 'in the callback',self.number
+        #self.latest=True
+        #self.e.set()
+    except CvBridgeError,e:
+        print e
   def callback_right(self,data):
-    self.right_image=data
+    try:
+        self.cv_image_right=self.bridge.imgmsg_to_cv2(data,"bgr8")
+
+    except CvBridgeError,e:
+        print e
 
   def callback_bottom(self,data):
-    self.bottom_image=data
+    try:
+        self.cv_image_bottom=self.bridge.imgmsg_to_cv2(data,"bgr8")
+
+    except CvBridgeError,e:
+        print e
 
 
   def get_left_image(self):
-    try:
-        self.cv_image_left=self.bridge.imgmsg_to_cv2(self.left_image,"bgr8")
-        return self.cv_image_left
-    except CvBridgeError,e:
-        return e
+    time.sleep(0.0)
+    if self.cv_image_left.shape==(10,10):
+      return 0,None
+    else:
+      return 1,self.cv_image_left
 
 
   def get_right_image(self):
-    try:
-        self.cv_image_right=self.bridge.imgmsg_to_cv2(self.right_image,"bgr8")
-        return self.cv_image_right
-    except CvBridgeError,e:
-        return e
+    #time.sleep(1.0)
+    if self.cv_image_right.shape==(10,10):
+      return 0,None
+    else:
+      return 1,self.cv_image_right
 
 
   def get_bottom_image(self):
-    try:
-        self.cv_image_bottom=self.bridge.imgmsg_to_cv2(self.bottom_image,"bgr8")
-        return self.cv_image_bottom
-    except CvBridgeError,e:
-        return e
+    if self.cv_image_bottom.shape==(10,10):
+      return 0,None
+    else:
+      return 1,self.cv_image_bottom
 
+  def save_left_image_threading(self,path):
+    t2=Process(target=self.save_left_image,args=(path,))
+    t2.start()
+    t2.join()
   def save_left_image(self,path='./left.png'):
-    cv2.imwrite(path,self.get_left_image())
+    #self.t1=threading.Thread(target=self.save_left_image,args=(path,))
+    #self.t1.start()
+    #time.sleep(1.0)
+    #self.t1.start()
+    #self.t1.join()
+
+    #print 'got the image',self.number
+    #print 'inside the loop'
+
+    ret,img=self.get_left_image()
+    while ret==0:
+        ret,img=self.get_left_image()
+
+    cv2.imwrite(path,img)
+    print 'image saved'
+    #return True
+
 
   def save_right_image(self,path='./right.png'):
+    time.sleep(1.0)
     cv2.imwrite(path,self.get_right_image())
 
   def save_bottom_image(self,path='./bottom.png'):
+    time.sleep(1.0)
     cv2.imwrite(path,self.get_bottom_image())
 
   ## Functions to record video for a given time

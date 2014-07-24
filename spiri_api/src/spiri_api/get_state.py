@@ -18,6 +18,8 @@ from moveit_commander import MoveGroupCommander
 from moveit_msgs.msg import Constraints, JointConstraint, RobotState
 # for conversion between datatype
 from tf.transformations import euler_from_quaternion
+import threading
+from multiprocessing import Process
 
 ## Class defining all the functions to control Spiri
 class Staterobot():
@@ -25,6 +27,7 @@ class Staterobot():
 	## Constructor
 	## @todo The callback needs to be called before the user can send goals.
 	def __init__(self):
+		#threading.Thread.__init__(self)
 
 		self.state=Pose() #PoseStamped()
 		self.orientation=Quaternion()
@@ -60,7 +63,7 @@ class Staterobot():
 	def callback_imu(self,data):
 
 		self.orientation=data.orientation
-
+		#print 'in the callback'
 	## Callback function for the altimeter topic
 
 
@@ -247,9 +250,22 @@ class Staterobot():
 	# @param x  distance in metres in x axis
 	# @param y  distance in metres in y axis
 	# @param z distance in metres in z axis
+
+	def send_goal_relative_threading(self,x,y,z):
+
+		self.x=x
+		self.y=y
+		self.z=z
+		t2=Process(target=self.send_goal_relative(self.x,self.y,self.z,))
+
+		t2.start()
+		#t2.join()
+	def run(self):
+		self.send_goal_relative(self.x,self.y,self.z)
+
 	def send_goal_relative(self,x,y,z):
 
-		group=MoveGroupCommanderlove('spiri')
+		group=MoveGroupCommander('spiri')
 		group.set_planner_id('PRMkConfigDefault')
 		#group.set_workspace([-10.0,10.0,-10.0,10.0,-10.0,10.0])
 		state=self.getstate()
@@ -287,4 +303,5 @@ class Staterobot():
 
 		#time.sleep(1.0)
 		group.execute(plan)
+		print True
 		# should return something

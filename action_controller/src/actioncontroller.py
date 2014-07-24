@@ -22,8 +22,8 @@ from geometry_msgs.msg import Twist, PoseStamped,Pose
 from nav_msgs.msg import Odometry
 import time
 
-from planner_request import get_state
-from planner_request import pid
+
+from spiri_api import pid
 from collections import deque
 
 ## Class for generating velocity for Spiri
