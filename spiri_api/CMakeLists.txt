@@ -85,7 +85,7 @@ catkin_python_setup()
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS
+  INCLUDE_DIRS include
   LIBRARIES spiri_api
   CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core
   DEPENDS system_lib
@@ -97,7 +97,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
   #${EIGEN_INCLUDE_DIRS}
@@ -105,7 +105,8 @@ include_directories(
 )
 add_executable(goal src/goal.cpp)
 target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-
+add_executable(staterobot src/staterobot.cpp)
+target_link_libraries(staterobot ${catkin_LIBRARIES})
 ## Declare a cpp library
 # add_library(spiri_api
 #   src/${PROJECT_NAME}/spiri_api.cpp
