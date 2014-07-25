@@ -5,14 +5,18 @@ project(spiri_api)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  moveit_core
   moveit_commander
   moveit_msgs
   roscpp
   rospy
+  moveit_ros_planning_interface
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+## find_package(Boost REQUIRED COMPONENTS system)
+##f ind_package(Eigen REQUIRED)
+
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -81,10 +85,10 @@ catkin_python_setup()
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES spiri_api
-#  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy
-#  DEPENDS system_lib
+  INCLUDE_DIRS
+  LIBRARIES spiri_api
+  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core
+  DEPENDS system_lib
 )
 
 ###########
@@ -96,7 +100,11 @@ catkin_package(
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  #${EIGEN_INCLUDE_DIRS}
+  #${Boost_INCLUDE_DIRS}
 )
+add_executable(goal src/goal.cpp)
+target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 ## Declare a cpp library
 # add_library(spiri_api
