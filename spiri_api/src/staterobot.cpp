@@ -1,12 +1,15 @@
-#include "staterobot.h"
+#include <staterobot.h>
 #include <iostream>
+#include <ctime>
+#include <boost/timer.hpp>
 Staterobot::Staterobot()
 {
     int dummy_argc=0;
     ros::init((int&)dummy_argc,NULL,"spiri_api");
-    ros::NodeHandle n;
+    //ros::NodeHandle n;
     success_plan=false;
     success_execution=false;
+
 
 }
 
@@ -49,6 +52,48 @@ float Staterobot::get_height_altimeter()
     altimeter=ros::topic::waitForMessage<hector_uav_msgs::Altimeter>("/altimeter");
     return altimeter->altitude;
 }
+
+cv::Mat Staterobot::get_left_image()
+
+{
+    ros::NodeHandle n;
+    n.setCallbackQueue(&image_queue);
+    image_transport::ImageTransport it(n);
+    sub=it.subscribe("/stereo/left/image_raw", 1, &Staterobot::image_callback,this);
+
+
+    //ros::AsyncSpinner spinner(0,&image_queue);
+    //ros::AsyncSpinner spinner(1);
+    //spinner.start();
+    //sleep(2.0);
+    //spinner.stop();
+    image_queue.callAvailable(ros::WallDuration(0.2));
+    return this->left_image;
+    //ros
+    //ros::AsyncSpinner spinner(1);
+    //spinner.start();
+    //sleep(2.0);
+    //spinner.stop();
+    //ros::spin();
+    //return this->left_image;
+
+    //this->get_left_image()
+    //img=ros::topic::waitForMessage<sensor_msgs::Image>("/stereo/left/image_raw");
+    //cv_ptr=cv_bridge::toCvCopy(img,sensor_msgs::image_encodings::BGR8);
+
+    //return cv_ptr->image;
+}
+
+void Staterobot::image_callback(const sensor_msgs::ImageConstPtr & msg)
+{
+
+    left_image=cv_bridge::toCvShare(msg,"bgr8")->image;
+
+}
+
+
+
+
 
 bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 {
@@ -111,12 +156,32 @@ int main(int argc, char **argv)
     Staterobot robot;
     //robot.get_imu();
     //robot.get_height_altimeter();
-    robot.send_goal(1.0,0.0,1.0);
+
+    double average_time=0.0;
+    //for(int i=0;i<100;i++)
+    //{
+    //   boost::timer t;
+    //   robot.get_left_image();
+    //   average_time=average_time+t.elapsed();
+    //}
+    static const std::string OPENCV_WINDOW = "Image window";
+    //cv::namedWindow(OPENCV_WINDOW);
+    //while(1)
+    //{
+     //   cv::imshow(OPENCV_WINDOW,robot.get_left_image());
+     //   cv::waitKey(3);
+    //}
+    robot.get_left_image();
+    std::cout<<"hello world";
+    ros::spin();
+    //std::cout<<robot.get_left_image();
+    //std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
+    std::cout <<average_time/100 << std::endl;
     //ros::AsyncSpinner spinner(1);
     //spinner.start();
     //sleep(2.0);
     //std::cout<<robot.orientation;
-    //return 0;
+    return 0;
 
 }
 

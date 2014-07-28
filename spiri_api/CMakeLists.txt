@@ -11,12 +11,13 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   moveit_ros_planning_interface
+  cv_bridge
+  image_transport
 )
-
 ## System dependencies are found with CMake's conventions
 ## find_package(Boost REQUIRED COMPONENTS system)
-##f ind_package(Eigen REQUIRED)
 
+find_package(OpenCV REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -87,7 +88,7 @@ catkin_python_setup()
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES spiri_api
-  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core
+  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge
   DEPENDS system_lib
 )
 
@@ -100,6 +101,7 @@ catkin_package(
 include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
   #${EIGEN_INCLUDE_DIRS}
   #${Boost_INCLUDE_DIRS}
 )
