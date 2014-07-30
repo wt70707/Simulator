@@ -13,6 +13,7 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "move_group_interface_demo", ros::init_options::AnonymousName);
     // start a ROS spinning thread
+    bool success_execute=0;
     ros::NodeHandle node_handle;
 
     ros::AsyncSpinner spinner(1);
@@ -32,7 +33,7 @@ int main(int argc, char **argv)
     geometry_msgs::Transform transform;
     transform.translation.x=0.0;
     transform.translation.y=0.0;
-    transform.translation.z=1.0;
+    transform.translation.z=2.0;
     //transform.rotation.w=1.0;
     //float trans[] = {0,0,1};
     //string mystring;
@@ -59,22 +60,27 @@ int main(int argc, char **argv)
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
   
     //std::cout<<group_variable_values;
-    group_variable_values[2] = 3.0;
+    group_variable_values[2] = -1.0;
     group.setJointValueTarget(group_variable_values);
     //group.setJointValueTarget(target_pose);
     moveit::planning_interface::MoveGroup::Plan my_plan;
     bool success = group.plan(my_plan);
-    sleep(5.0);
+    //sleep(5.0);
     // std::cout<<success;
-    /*
+
     if(success==1)
     {
         ROS_INFO("Going to execute");
-        group.execute(my_plan);
+        success_execute=group.asyncExecute(my_plan);
+        std::cout<<success_execute;
     }
-    */
+
     ROS_INFO("Planned");
     //sleep(2.0);
+    while(success_execute==0)
+    {
+        std::cout<<"watiting";
+    }
 
     ros::shutdown();
 }

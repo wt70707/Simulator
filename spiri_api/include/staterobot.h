@@ -22,7 +22,10 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
-
+#include <string.h>
+#include <action_controller/MultiDofFollowJointTrajectoryActionResult.h>
+#include <boost/shared_ptr.hpp>
+#include <actionlib_msgs/GoalStatus.h>
 class Staterobot
 {
     std::vector<double> group_variable_values;
@@ -31,8 +34,10 @@ class Staterobot
     geometry_msgs::Pose current_state;
     bool success_plan;
     bool success_execution;
+
     cv::Mat left_image;
     ros::CallbackQueue image_queue;
+
 
 private:
 
@@ -44,12 +49,14 @@ public:
     void image_callback(const sensor_msgs::ImageConstPtr &);
     geometry_msgs::Pose get_state();
     float get_height_pressure();
-
+    bool wait_goal();
+    void callback_goal(const action_controller::MultiDofFollowJointTrajectoryActionResultPtr&);
     sensor_msgs::NavSatFixConstPtr get_gps_data();
     geometry_msgs::Vector3 get_gps_vel();
     float get_height_altimeter();
     bool send_goal(float x,float y,float z,bool relative);
     cv::Mat get_left_image();
+    void save_image(const std::string);
 
     sensor_msgs::ImuConstPtr imu;
     nav_msgs::OdometryConstPtr odom;
@@ -60,8 +67,9 @@ public:
     sensor_msgs::ImageConstPtr img;
     cv_bridge::CvImagePtr cv_ptr;
     image_transport::Subscriber sub;
-
-
+    action_controller::MultiDofFollowJointTrajectoryActionResult result;
+    boost::shared_ptr<action_controller::MultiDofFollowJointTrajectoryActionResult const> errorPtr;
+    bool status;
 };
 
 #endif // STATEROBOT_H

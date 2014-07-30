@@ -46,6 +46,7 @@ class actioncontroller(object):
 		self.state=Pose()
 		self.non_counter=0
 		self.agg_scale=0.0
+		
 	## Callback function for the State topic.	This function will be called whenever a new message is published on a document
 	# @param self Object pointer
 	# @param data Contains data published on the topic
@@ -68,6 +69,7 @@ class actioncontroller(object):
 		#print 'I am in the goal callback'
 		#self.executetraj()
 		goal=self.compute_goal()
+		rospy.set_param('execution',False)
 		#self.publishvel_goal(goal)
 		self.pid_vel(goal)
 	def cancelcb(self,gh):
@@ -245,6 +247,7 @@ class actioncontroller(object):
 		#time.sleep(1.0)
 		self.pub.publish(Twist())
 		self.active_goal.set_succeeded()
+		rospy.set_param('execution',True)
 		#print 'goal has been reached'
 		self.has_active_goal=False
 #robot=get_state.Staterobot()

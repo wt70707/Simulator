@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_ros_planning_interface
   cv_bridge
   image_transport
+  message_generation
+  std_msgs
 )
 ## System dependencies are found with CMake's conventions
 ## find_package(Boost REQUIRED COMPONENTS system)
@@ -57,11 +59,12 @@ catkin_python_setup()
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+
+add_service_files(
+   DIRECTORY srv
+   FILES
+   Goals.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -71,10 +74,9 @@ catkin_python_setup()
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   moveit_msgs
-# )
+
+generate_messages(DEPENDENCIES std_msgs
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -88,7 +90,7 @@ catkin_python_setup()
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES spiri_api
-  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge
+  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime
   DEPENDS system_lib
 )
 
@@ -103,12 +105,14 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   #${EIGEN_INCLUDE_DIRS}
-  #${Boost_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
 add_executable(goal src/goal.cpp)
 target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_executable(staterobot src/staterobot.cpp)
-target_link_libraries(staterobot ${catkin_LIBRARIES})
+target_link_libraries(staterobot ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+add_executable(request_goal src/service_move_it.cpp)
+target_link_libraries(request_goal ${catkin_LIBRARIES})
 ## Declare a cpp library
 # add_library(spiri_api
 #   src/${PROJECT_NAME}/spiri_api.cpp

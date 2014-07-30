@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime>
 #include <boost/timer.hpp>
+#include <sstream>
 Staterobot::Staterobot()
 {
     int dummy_argc=0;
@@ -62,38 +63,52 @@ cv::Mat Staterobot::get_left_image()
     sub=it.subscribe("/stereo/left/image_raw", 1, &Staterobot::image_callback,this);
 
 
-    //ros::AsyncSpinner spinner(0,&image_queue);
-    //ros::AsyncSpinner spinner(1);
-    //spinner.start();
-    //sleep(2.0);
-    //spinner.stop();
+
     image_queue.callAvailable(ros::WallDuration(0.2));
     return this->left_image;
-    //ros
-    //ros::AsyncSpinner spinner(1);
-    //spinner.start();
-    //sleep(2.0);
-    //spinner.stop();
-    //ros::spin();
-    //return this->left_image;
 
-    //this->get_left_image()
-    //img=ros::topic::waitForMessage<sensor_msgs::Image>("/stereo/left/image_raw");
-    //cv_ptr=cv_bridge::toCvCopy(img,sensor_msgs::image_encodings::BGR8);
-
-    //return cv_ptr->image;
 }
 
 void Staterobot::image_callback(const sensor_msgs::ImageConstPtr & msg)
 {
+
 
     left_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
 
 
+void Staterobot::save_image(const std::string path="")
+{
+    std::cout<<path;
+    cv::Mat image=get_left_image();
 
+    cv::imwrite(path,image);
+}
+bool Staterobot::wait_goal()
+{
+    bool param;
+    ros::param::get("execution",param);
+    return param;
+    //if (param=="true")
+    //{
+    //    return true;
+    //}
+    //else
+    //{
+    //    return false;
+    //}
+    //return result->SUCCESSFUL;
 
+}
+
+void Staterobot::callback_goal(const action_controller::MultiDofFollowJointTrajectoryActionResultPtr& msg)
+{
+    ROS_INFO("here");
+    //std::cout<<"here";
+    status=true;
+
+}
 
 bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 {
@@ -137,12 +152,13 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     if(success_plan==1)
     {
             ROS_INFO("Going to execute");
-            success_execution=group.execute(my_plan);
+            success_execution=group.asyncExecute(my_plan);
     }
     else
     {
         ROS_INFO("Couldn't find a valid plan");
     }
+    ROS_INFO("out of this loop");
     spinner.stop();
     return success_execution;
 
@@ -150,37 +166,36 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 
 int main(int argc, char **argv)
 {
-    //int dummy_argc=0;
-    //ros::init((int&)dummy_argc,NULL,"listener");
-    //ros::init(argc,argv,"listener");
-    Staterobot robot;
-    //robot.get_imu();
-    //robot.get_height_altimeter();
 
-    double average_time=0.0;
-    //for(int i=0;i<100;i++)
-    //{
-    //   boost::timer t;
-    //   robot.get_left_image();
-    //   average_time=average_time+t.elapsed();
-    //}
+    Staterobot robot;
+    //robot.save_image("/home/rob/Documents/start.jpg");
     static const std::string OPENCV_WINDOW = "Image window";
-    //cv::namedWindow(OPENCV_WINDOW);
-    //while(1)
-    //{
-     //   cv::imshow(OPENCV_WINDOW,robot.get_left_image());
-     //   cv::waitKey(3);
-    //}
-    robot.get_left_image();
-    std::cout<<"hello world";
-    ros::spin();
-    //std::cout<<robot.get_left_image();
-    //std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
-    std::cout <<average_time/100 << std::endl;
-    //ros::AsyncSpinner spinner(1);
-    //spinner.start();
-    //sleep(2.0);
-    //std::cout<<robot.orientation;
+    robot.send_goal(0,0,-1,true);
+    int i=0;
+    std::ostringstream oss;
+
+    std::string path="/home/rohan/";
+    //path+=oss.str();
+    std::string extension=".jpg";
+    //path+=extenstion;
+
+
+
+    while(robot.wait_goal()==0)
+    {
+        std::ostringstream oss;
+
+        std::string path="/home/rob/";
+        //path+=oss.str();
+        std::string extension=".jpg";
+        oss<<i;
+        path+=oss.str();
+        path+=extension;
+        robot.save_image(path);
+        i++;
+    }
+
+
     return 0;
 
 }
