@@ -60,11 +60,11 @@ catkin_python_setup()
 
 ## Generate services in the 'srv' folder
 
-add_service_files(
-   DIRECTORY srv
-   FILES
-   Goals.srv
-)
+#add_service_files(
+#   DIRECTORY srv
+#   FILES
+#   Goals.srv
+#)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -111,8 +111,7 @@ add_executable(goal src/goal.cpp)
 target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_executable(staterobot src/staterobot.cpp)
 target_link_libraries(staterobot ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-add_executable(request_goal src/service_move_it.cpp)
-target_link_libraries(request_goal ${catkin_LIBRARIES})
+
 ## Declare a cpp library
 # add_library(spiri_api
 #   src/${PROJECT_NAME}/spiri_api.cpp

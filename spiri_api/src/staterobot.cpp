@@ -60,28 +60,90 @@ cv::Mat Staterobot::get_left_image()
     ros::NodeHandle n;
     n.setCallbackQueue(&image_queue);
     image_transport::ImageTransport it(n);
-    sub=it.subscribe("/stereo/left/image_raw", 1, &Staterobot::image_callback,this);
+    sub=it.subscribe("/stereo/left/image_raw", 1, &Staterobot::image_left_callback,this);
 
 
 
-    image_queue.callAvailable(ros::WallDuration(0.2));
+    image_queue.callAvailable(ros::WallDuration(1.0));
     return this->left_image;
 
 }
 
-void Staterobot::image_callback(const sensor_msgs::ImageConstPtr & msg)
+void Staterobot::image_left_callback(const sensor_msgs::ImageConstPtr & msg)
 {
 
 
     left_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
+cv::Mat Staterobot::get_right_image()
 
-
-void Staterobot::save_image(const std::string path="")
 {
-    std::cout<<path;
-    cv::Mat image=get_left_image();
+    ros::NodeHandle n;
+    n.setCallbackQueue(&image_queue);
+    image_transport::ImageTransport it(n);
+    sub=it.subscribe("/stereo/right/image_raw", 1, &Staterobot::image_right_callback,this);
+
+
+
+    image_queue.callAvailable(ros::WallDuration(1.0));
+    return this->right_image;
+
+}
+void Staterobot::image_right_callback(const sensor_msgs::ImageConstPtr & msg)
+{
+
+
+    right_image=cv_bridge::toCvShare(msg,"bgr8")->image;
+
+}
+cv::Mat Staterobot::get_bottom_image()
+
+{
+    ros::NodeHandle n;
+    n.setCallbackQueue(&image_queue);
+    image_transport::ImageTransport it(n);
+    sub=it.subscribe("/downward_cam/camera/image", 1, &Staterobot::image_bottom_callback,this);
+
+
+
+    image_queue.callAvailable(ros::WallDuration(1.0));
+    return this->bottom_image;
+
+}
+void Staterobot::image_bottom_callback(const sensor_msgs::ImageConstPtr & msg)
+{
+
+
+    bottom_image=cv_bridge::toCvShare(msg,"bgr8")->image;
+
+}
+
+void Staterobot::save_image(const std::string path="",const std::string camera="")
+{
+    //std::cout<<path;
+    cv::Mat image;
+    if(camera=="left")
+    {
+
+            image=get_left_image();
+    }
+    else if(camera=="right")
+    {
+        image=get_right_image();
+    }
+    else if(camera=="bottom")
+    {
+        image=get_bottom_image();
+    }
+    else
+    {
+        std::cout<<"Please pass a valid camera type";
+
+    }
+
+
+    //cv::Mat image=get_left_image();
 
     cv::imwrite(path,image);
 }
@@ -170,17 +232,18 @@ int main(int argc, char **argv)
     Staterobot robot;
     //robot.save_image("/home/rob/Documents/start.jpg");
     static const std::string OPENCV_WINDOW = "Image window";
-    robot.send_goal(0,0,-1,true);
+    //robot.send_goal(0,0,-1,true);
     int i=0;
     std::ostringstream oss;
 
     std::string path="/home/rohan/";
     //path+=oss.str();
     std::string extension=".jpg";
+    robot.save_image("/home/rob/start.jpg","bottom");
     //path+=extenstion;
 
 
-
+    /*
     while(robot.wait_goal()==0)
     {
         std::ostringstream oss;
@@ -195,6 +258,7 @@ int main(int argc, char **argv)
         i++;
     }
 
+    */
 
     return 0;
 

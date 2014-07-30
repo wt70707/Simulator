@@ -36,6 +36,8 @@ class Staterobot
     bool success_execution;
 
     cv::Mat left_image;
+    cv::Mat right_image;
+    cv::Mat bottom_image;
     ros::CallbackQueue image_queue;
 
 
@@ -45,8 +47,10 @@ public:
     Staterobot();
 
     geometry_msgs::Quaternion get_imu();
-    cv::Mat get_left_camera();
-    void image_callback(const sensor_msgs::ImageConstPtr &);
+
+    void image_left_callback(const sensor_msgs::ImageConstPtr &);
+    void image_right_callback(const sensor_msgs::ImageConstPtr &);
+    void image_bottom_callback(const sensor_msgs::ImageConstPtr &);
     geometry_msgs::Pose get_state();
     float get_height_pressure();
     bool wait_goal();
@@ -56,7 +60,9 @@ public:
     float get_height_altimeter();
     bool send_goal(float x,float y,float z,bool relative);
     cv::Mat get_left_image();
-    void save_image(const std::string);
+    cv::Mat get_right_image();
+    cv::Mat get_bottom_image();
+    void save_image(const std::string,const std::string);
 
     sensor_msgs::ImuConstPtr imu;
     nav_msgs::OdometryConstPtr odom;
