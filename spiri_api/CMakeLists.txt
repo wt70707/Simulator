@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   message_generation
   std_msgs
-
+  action_controller
 
 )
 ## System dependencies are found with CMake's conventions
@@ -95,7 +95,7 @@ catkin_python_setup()
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES spiri_api
-  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime
+  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime action_controller
   DEPENDS system_lib
 )
 
@@ -117,6 +117,8 @@ add_executable(goal src/goal.cpp)
 target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_library(spiri_api src/staterobot.cpp)
 target_link_libraries(spiri_api ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+add_dependencies(spiri_api action_controller_generate_messages_cpp)
+
 #add_library(spiri_api_python src/python_bindings.cpp)
 #target_link_libraries(spiri_api_python ${catkin_LIBRARIES} ${PYTHON_LIBRARIES})
 ## Declare a cpp library

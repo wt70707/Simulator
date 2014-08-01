@@ -25,7 +25,7 @@ catkin_package(
   LIBRARIES
   INCLUDE_DIRS
   DEPENDS
-    moveit_core
+    moveit_core 
     )
 
 include_directories(include)
@@ -39,3 +39,8 @@ install(TARGETS moveit_simple_controller_manager LIBRARY DESTINATION ${CATKIN_PA
 install(FILES moveit_simple_controller_manager_plugin_description.xml
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
        )
+ install(DIRECTORY include/${PROJECT_NAME}/
+   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+   FILES_MATCHING PATTERN "*.h"
+   PATTERN ".svn" EXCLUDE
+ )
