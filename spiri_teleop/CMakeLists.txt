@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   roscpp
   sensor_msgs
+  rospy
 )
 
 ## System dependencies are found with CMake's conventions
@@ -101,7 +102,8 @@ include_directories(
 # add_library(spiri_teleop
 #   src/${PROJECT_NAME}/spiri_teleop.cpp
 # )
-
+add_executable(spiri_teleop src/quadrotor_teleop.cpp)
+target_link_libraries(spiri_teleop ${catkin_LIBRARIES})
 ## Declare a cpp executable
 # add_executable(spiri_teleop_node src/spiri_teleop_node.cpp)
 

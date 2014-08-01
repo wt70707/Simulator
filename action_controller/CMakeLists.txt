@@ -8,16 +8,17 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   actionlib_msgs
   geometry_msgs
+  message_generation
   moveit_msgs
   roscpp
   roslib
   std_msgs
-  message_generation
-  trajectory_msgs 
+  trajectory_msgs
+
 )
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS system thread)
+#find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -50,18 +51,14 @@ find_package(Boost REQUIRED COMPONENTS system thread)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
- #add_message_files(
- #  FILES
- #  MultiDofFollowJointTrajectoryAction.msg
- #  MultiDofFollowJointTrajectoryActionFeedback.msg
- #  MultiDofFollowJointTrajectoryActionGoal.msg
- #  MultiDofFollowJointTrajectoryActionResult.msg
- #  MultiDofFollowJointTrajectoryFeedback.msg
- #  MultiDofFollowJointTrajectoryGoal.msg
- #  MultiDofFollowJointTrajectoryResult.msg
- #)
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
 ## Generate services in the 'srv' folder
+# add_service_files(
 #   FILES
 #   Service1.srv
 #   Service2.srv
@@ -92,8 +89,8 @@ find_package(Boost REQUIRED COMPONENTS system thread)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES action_controller
-   CATKIN_DEPENDS actionlib actionlib_msgs geometry_msgs moveit_msgs roscpp roslib std_msgs trajectory_msgs message_runtime
+#  LIBRARIES action_controller_python
+  CATKIN_DEPENDS actionlib actionlib_msgs geometry_msgs moveit_msgs roscpp roslib std_msgs trajectory_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -109,21 +106,21 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(action_controller
-#   src/${PROJECT_NAME}/action_controller.cpp
+# add_library(action_controller_python
+#   src/${PROJECT_NAME}/action_controller_python.cpp
 # )
 
 ## Declare a cpp executable
-add_executable(actionController src/actionController.cpp)
+# add_executable(action_controller_python_node src/action_controller_python_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-#add_dependencies(actionController actionController_generate_messages_cpp)
+# add_dependencies(action_controller_python_node action_controller_python_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(actionController
-   ${catkin_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
- )
+# target_link_libraries(action_controller_python_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
@@ -140,7 +137,7 @@ add_executable(actionController src/actionController.cpp)
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS action_controller action_controller_node
+# install(TARGETS action_controller_python action_controller_python_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -165,7 +162,7 @@ add_executable(actionController src/actionController.cpp)
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_action_controller.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_action_controller_python.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

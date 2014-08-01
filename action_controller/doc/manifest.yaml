@@ -1,0 +1,32 @@
+actions:
+- MultiDofFollowJointTrajectory
+authors: 'Rohan Bhargava'
+brief: ''
+bugtracker: ''
+depends:
+- trajectory_msgs
+- catkin
+- roscpp
+- actionlib
+- roslib
+- std_msgs
+- moveit_msgs
+- geometry_msgs
+- message_generation
+- message_runtime
+- actionlib_msgs
+description: The action_controller python package
+license: TODO
+maintainers: rohan <rohan@todo.todo>
+msgs:
+- MultiDofFollowJointTrajectoryActionFeedback
+- MultiDofFollowJointTrajectoryAction
+- MultiDofFollowJointTrajectoryResult
+- MultiDofFollowJointTrajectoryFeedback
+- MultiDofFollowJointTrajectoryGoal
+- MultiDofFollowJointTrajectoryActionResult
+- MultiDofFollowJointTrajectoryActionGoal
+package_type: package
+repo_url: 'https://github.com/Pleiades-Spiri/Simulator.git'
+srvs: []
+url: ''

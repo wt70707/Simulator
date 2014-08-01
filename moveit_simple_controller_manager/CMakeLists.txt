@@ -10,6 +10,7 @@ include_directories(SYSTEM ${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 find_package(catkin COMPONENTS
+  action_controller
   moveit_core
   pluginlib
   actionlib
@@ -29,9 +30,10 @@ catkin_package(
 
 include_directories(include)
 
+
 add_library(moveit_simple_controller_manager src/moveit_simple_controller_manager.cpp)
 target_link_libraries(moveit_simple_controller_manager ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-
+add_dependencies(moveit_simple_controller_manager action_controller_generate_messages_cpp)
 install(TARGETS moveit_simple_controller_manager LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
 install(FILES moveit_simple_controller_manager_plugin_description.xml
