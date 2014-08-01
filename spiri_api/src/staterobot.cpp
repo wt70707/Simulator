@@ -1,4 +1,4 @@
-#include <staterobot.h>
+#include <spiri_api/staterobot.h>
 #include <iostream>
 #include <ctime>
 #include <boost/timer.hpp>
@@ -7,7 +7,7 @@ Staterobot::Staterobot()
 {
     int dummy_argc=0;
     ros::init((int&)dummy_argc,NULL,"spiri_api");
-    //ros::NodeHandle n;
+    ros::NodeHandle n;
     success_plan=false;
     success_execution=false;
 
@@ -79,6 +79,9 @@ void Staterobot::image_left_callback(const sensor_msgs::ImageConstPtr & msg)
 cv::Mat Staterobot::get_right_image()
 
 {
+    // @todo there is a better way to do this. Callback to a subscriber. No need to create a node
+
+    // @todo the image callback needs to be called once or else it return an older image.
     ros::NodeHandle n;
     n.setCallbackQueue(&image_queue);
     image_transport::ImageTransport it(n);
@@ -152,15 +155,7 @@ bool Staterobot::wait_goal()
     bool param;
     ros::param::get("execution",param);
     return param;
-    //if (param=="true")
-    //{
-    //    return true;
-    //}
-    //else
-    //{
-    //    return false;
-    //}
-    //return result->SUCCESSFUL;
+
 
 }
 
@@ -226,42 +221,6 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 
 }
 
-int main(int argc, char **argv)
-{
 
-    Staterobot robot;
-    //robot.save_image("/home/rob/Documents/start.jpg");
-    static const std::string OPENCV_WINDOW = "Image window";
-    //robot.send_goal(0,0,-1,true);
-    int i=0;
-    std::ostringstream oss;
-
-    std::string path="/home/rohan/";
-    //path+=oss.str();
-    std::string extension=".jpg";
-    robot.save_image("/home/rob/start.jpg","bottom");
-    //path+=extenstion;
-
-
-    /*
-    while(robot.wait_goal()==0)
-    {
-        std::ostringstream oss;
-
-        std::string path="/home/rob/";
-        //path+=oss.str();
-        std::string extension=".jpg";
-        oss<<i;
-        path+=oss.str();
-        path+=extension;
-        robot.save_image(path);
-        i++;
-    }
-
-    */
-
-    return 0;
-
-}
 
 

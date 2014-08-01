@@ -15,9 +15,13 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   message_generation
   std_msgs
+
+
 )
 ## System dependencies are found with CMake's conventions
-## find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system python)
+
+find_package(PythonLibs 2.7 REQUIRED)
 
 find_package(OpenCV REQUIRED)
 
@@ -25,6 +29,7 @@ find_package(OpenCV REQUIRED)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+
 catkin_python_setup()
 
 ################################################
@@ -75,8 +80,8 @@ catkin_python_setup()
 
 ## Generate added messages and services with any dependencies listed here
 
-generate_messages(DEPENDENCIES std_msgs
-)
+#generate_messages(DEPENDENCIES std_msgs
+#)
 
 ###################################
 ## catkin specific configuration ##
@@ -106,12 +111,14 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
   #${EIGEN_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+    ${PYTHON_INCLUDE_DIRS}
 )
 add_executable(goal src/goal.cpp)
 target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-add_executable(staterobot src/staterobot.cpp)
-target_link_libraries(staterobot ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-
+add_library(spiri_api src/staterobot.cpp)
+target_link_libraries(spiri_api ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#add_library(spiri_api_python src/python_bindings.cpp)
+#target_link_libraries(spiri_api_python ${catkin_LIBRARIES} ${PYTHON_LIBRARIES})
 ## Declare a cpp library
 # add_library(spiri_api
 #   src/${PROJECT_NAME}/spiri_api.cpp
@@ -144,18 +151,18 @@ target_link_libraries(staterobot ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS spiri_api spiri_api_node
+ install(TARGETS spiri_api 
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+ )
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+ install(DIRECTORY include/${PROJECT_NAME}/
+   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+   FILES_MATCHING PATTERN "*.h"
+   PATTERN ".svn" EXCLUDE
+ )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
