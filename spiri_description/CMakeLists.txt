@@ -143,12 +143,10 @@ include_directories(
 # )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
-install(DIRECTORY launch urdf Media DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(FILES spiri_pointcloud.rviz  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(DIRECTORY launch Media meshes models sensors urdf world DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
+catkin_add_env_hooks(99.spiri_description SHELLS sh DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/env-hooks)
 
 #############
 ## Testing ##
