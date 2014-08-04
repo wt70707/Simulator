@@ -4,7 +4,6 @@ from distutils.extension import Extension
 
 d = generate_distutils_setup()
 d['packages'] = ['spiri_api']
-d['scripts'] = []
 d['package_dir'] = {'': 'python'}
-
+d['scripts']=['bin/spiri_create_pkg']
 setup(**d)
