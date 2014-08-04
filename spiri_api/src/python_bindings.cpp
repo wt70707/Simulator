@@ -1,7 +1,7 @@
-#include <staterobot.h>
+#include <spiri_api/staterobot.h>
+
+
 #include <iostream>
-
-
 #include <boost/python.hpp>
 using namespace boost::python;
 
