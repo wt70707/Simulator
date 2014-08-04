@@ -4,6 +4,7 @@
 int main()
 {
     Staterobot robot;
+    
     robot.send_goal(0,0,1,true);
     int i=0;
     // save images while moving towards a goal
@@ -19,6 +20,13 @@ int main()
       robot.save_image(path,"left");
       i++;
     }
+    
+    /*
+    robot.send_vel(1,0,0);
+    sleep(1.0);
+    robot.send_vel(0,0,0);
+    */
+    
     /*
     // save only the last image
     

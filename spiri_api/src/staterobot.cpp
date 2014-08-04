@@ -222,5 +222,30 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 }
 
 
+void Staterobot::send_vel(float x,float y,float z)
+{
 
+    ROS_INFO("testing");
+    ros::NodeHandle nh;
+    ros::Publisher vel_chatter = nh.advertise<geometry_msgs::Twist>("cmd_vel",1000);
+    // ROS needs time to connect a subscriber. We can have advertise options but this an easy way to do it.
+    ros::Rate poll_rate(100);
+
+    while(vel_chatter.getNumSubscribers()==0)
+    {
+        poll_rate.sleep();
+    }
+    geometry_msgs::Twist vel;
+
+    vel.linear.x=x;
+    vel.linear.y=y;
+    vel.linear.z=z;
+    std::cout<<vel;
+    ROS_INFO("Publishing velocity");
+    vel_chatter.publish(vel);
+    ros::spinOnce();
+
+
+
+}
 

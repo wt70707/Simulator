@@ -220,6 +220,12 @@ _CATKIN_GTEST_INCLUDE:FILEPATH=/usr/include/gtest/gtest.h
 //Path to a file.
 _CATKIN_GTEST_SRC:FILEPATH=/usr/src/gtest/src/gtest.cc
 
+//The directory containing a CMake configuration file for action_controller.
+action_controller_DIR:PATH=/home/rob/catkin_ws/install/share/action_controller/cmake
+
+//The directory containing a CMake configuration file for actionlib.
+actionlib_DIR:PATH=/opt/ros/hydro/share/actionlib/cmake
+
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/hydro/share/actionlib_msgs/cmake
 
@@ -291,7 +297,7 @@ image_transport_DIR:PATH=/opt/ros/hydro/share/image_transport/cmake
 kdl_parser_DIR:PATH=/opt/ros/hydro/share/kdl_parser/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/hydro/lib/libcv_bridge.so
+lib:FILEPATH=/usr/lib/x86_64-linux-gnu/libpthread.so
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/hydro/share/message_filters/cmake
