@@ -22,8 +22,8 @@ int main()
     }
     
     /*
-    robot.send_vel(1,0,0);
-    sleep(1.0);
+    robot.send_vel(0,0,1);
+    //sleep(1.0);
     robot.send_vel(0,0,0);
     */
     
