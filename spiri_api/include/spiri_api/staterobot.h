@@ -26,6 +26,15 @@
 #include <action_controller/MultiDofFollowJointTrajectoryActionResult.h>
 #include <boost/shared_ptr.hpp>
 #include <actionlib_msgs/GoalStatus.h>
+#include <std_msgs/UInt32.h>
+#include <boost/python.hpp>
+#include <moveit/py_bindings_tools/py_conversions.h>
+#include <boost/python.hpp>
+#include <numpy/arrayobject.h>
+
+#include <opencv2/core/core.hpp>
+
+
 class Staterobot
 {
     std::vector<double> group_variable_values;
@@ -39,6 +48,7 @@ class Staterobot
     cv::Mat right_image;
     cv::Mat bottom_image;
     ros::CallbackQueue image_queue;
+
 
 
 private:
@@ -76,6 +86,12 @@ public:
     action_controller::MultiDofFollowJointTrajectoryActionResult result;
     boost::shared_ptr<action_controller::MultiDofFollowJointTrajectoryActionResult const> errorPtr;
     bool status;
+    boost::python::list get_imu_python();
+    boost::python::list get_state_python();
+    boost::python::list get_gps_data_python();
+    boost::python::list get_gps_vel_python();
+
+
 };
 
 #endif // STATEROBOT_H

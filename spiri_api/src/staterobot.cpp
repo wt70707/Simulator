@@ -21,11 +21,35 @@ geometry_msgs::Quaternion Staterobot::get_imu()
     return imu->orientation;
 }
 
+boost::python::list Staterobot::get_imu_python()
+{
+    geometry_msgs::Quaternion imu_data=this->get_imu();
+    std::vector<double> v(3);
+    v[0]=imu_data.x;
+    v[1]=imu_data.y;
+    v[2]=imu_data.z;
+    return moveit::py_bindings_tools::listFromDouble(v);
+}
+
 geometry_msgs::Pose Staterobot::get_state()
 {
     odom=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
     return odom->pose.pose;
 
+}
+
+boost::python::list Staterobot::get_state_python()
+{
+    geometry_msgs::Pose pose_data=this->get_state();
+    std::vector<double> v(7);
+    v[0]=pose_data.position.x;
+    v[1]=pose_data.position.y;
+    v[2]=pose_data.position.z;
+    v[3]=pose_data.orientation.x;
+    v[4]=pose_data.orientation.y;
+    v[5]=pose_data.orientation.z;
+    v[6]=pose_data.orientation.w;
+    return moveit::py_bindings_tools::listFromDouble(v);
 }
 
 
@@ -42,11 +66,33 @@ sensor_msgs::NavSatFixConstPtr Staterobot::get_gps_data()
     return gps;
 }
 
+boost::python::list Staterobot::get_gps_data_python()
+{
+    sensor_msgs::NavSatFixConstPtr gps_data=this->get_gps_data();
+    std::vector<double> v(3);
+    v[0]=gps_data->latitude;
+    v[1]=gps_data->longitude;
+    v[2]=gps_data->altitude;
+    return moveit::py_bindings_tools::listFromDouble(v);
+}
+
 geometry_msgs::Vector3 Staterobot::get_gps_vel()
 {
     gps_vel=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
     return gps_vel->vector;
 }
+
+boost::python::list Staterobot::get_gps_vel_python()
+{
+    geometry_msgs::Vector3 vel_data=this->get_gps_vel();
+    std::vector<double> v(3);
+    v[0]=vel_data.x;
+    v[1]=vel_data.y;
+    v[2]=vel_data.z;
+    return moveit::py_bindings_tools::listFromDouble(v);
+
+}
+
 
 float Staterobot::get_height_altimeter()
 {

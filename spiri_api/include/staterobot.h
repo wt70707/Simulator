@@ -76,6 +76,7 @@ public:
     action_controller::MultiDofFollowJointTrajectoryActionResult result;
     boost::shared_ptr<action_controller::MultiDofFollowJointTrajectoryActionResult const> errorPtr;
     bool status;
+    );
 };
 
 #endif // STATEROBOT_H

@@ -6,6 +6,6 @@ d = generate_distutils_setup()
 d['packages'] = ['spiri_api']
 d['package_dir'] = {'': 'src'}
 d['scripts']=['bin/spiri_create_pkg']
-d['ext_moudles']=[Extension("spiri_api_python",["python_bindings.cpp"],
+d['ext_modules']=[Extension("spiri_api_python",["src/python_bindings.cpp"],
 		  libraries=["boost_python"])]
 setup(**d)
