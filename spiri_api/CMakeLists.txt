@@ -16,8 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   std_msgs
   action_controller
-  pano_py
-
+  
 )
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system python)
@@ -31,7 +30,7 @@ find_package(OpenCV REQUIRED)
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
 
-#catkin_python_setup()
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -96,7 +95,7 @@ find_package(OpenCV REQUIRED)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES spiri_api
-  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime action_controller pano_py
+  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime action_controller 
   DEPENDS system_lib
 )
 
@@ -154,12 +153,20 @@ target_link_libraries(spiri_api_python ${catkin_LIBRARIES} ${PYTHON_LIBRARIES} s
 # )
 
 ## Mark executables and/or libraries for installation
- install(TARGETS spiri_api spiri_api_python
+ install(TARGETS spiri_api 
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
+ 
+install(TARGETS spiri_api_python 
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_PYTHON_DESTINATION}
+  # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+ )
+ 
+ 
 ## Mark cpp header files for installation
  install(DIRECTORY include/${PROJECT_NAME}/
    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
