@@ -10,6 +10,7 @@
 export CATKIN_TEST_RESULTS_DIR="/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/test_results"
 export CMAKE_PREFIX_PATH="/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/devel:$CMAKE_PREFIX_PATH"
 export CPATH="/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/devel/include:$CPATH"
+export GAZEBO_MODEL_PATH=":/home/rob/catkin_ws/src/Simulator/spiri_description/models:/home/rob/catkin_ws/install/share/spiri_description/models"
 export LD_LIBRARY_PATH="/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/devel/lib:$LD_LIBRARY_PATH"
 export PATH="/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/devel/bin:$PATH"
 export PKG_CONFIG_PATH="/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
