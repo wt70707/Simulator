@@ -73,7 +73,7 @@ public:
     cv::Mat get_right_image();
     cv::Mat get_bottom_image();
     void save_image(const std::string,const std::string);
-
+    void send_vel(float x,float y,float z);
     sensor_msgs::ImuConstPtr imu;
     nav_msgs::OdometryConstPtr odom;
     geometry_msgs::PointStampedConstPtr pressure;
@@ -95,6 +95,8 @@ public:
     std::string get_bottom_image_python();
     bool send_goal_python(boost::python::list &);
     bool send_goal_python_relative(boost::python::list &);
+    void send_vel_python(boost::python::list &);
+
 
 };
 

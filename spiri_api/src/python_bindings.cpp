@@ -19,5 +19,6 @@ BOOST_PYTHON_MODULE(libspiri_api_python)
              .def("get_bottom_image",&Staterobot::get_bottom_image_python)
 	     .def("send_goal",&Staterobot::send_goal_python)
 	     .def("send_goal_relative",&Staterobot::send_goal_python_relative)
+            .def("send_vel",&Staterobot::send_vel_python)
     ;
 }
