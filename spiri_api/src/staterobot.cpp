@@ -115,6 +115,23 @@ cv::Mat Staterobot::get_left_image()
 
 }
 
+
+std::string Staterobot::get_left_image_python()
+
+{
+    cv::Mat mat=this->get_left_image();
+    cv::Size size = mat.size();
+    int total = size.width * size.height * mat.channels();
+
+    std::vector<uchar> data(mat.ptr(),mat.ptr()+total);
+    std::string image(data.begin(),data.end());
+
+    return image;
+
+}
+
+
+
 void Staterobot::image_left_callback(const sensor_msgs::ImageConstPtr & msg)
 {
 
@@ -139,6 +156,20 @@ cv::Mat Staterobot::get_right_image()
     return this->right_image;
 
 }
+
+std::string Staterobot::get_right_image_python()
+
+{
+    cv::Mat mat=this->get_right_image();
+    cv::Size size = mat.size();
+    int total = size.width * size.height * mat.channels();
+
+    std::vector<uchar> data(mat.ptr(),mat.ptr()+total);
+    std::string image(data.begin(),data.end());
+
+    return image;
+
+}
 void Staterobot::image_right_callback(const sensor_msgs::ImageConstPtr & msg)
 {
 
@@ -158,6 +189,20 @@ cv::Mat Staterobot::get_bottom_image()
 
     image_queue.callAvailable(ros::WallDuration(1.0));
     return this->bottom_image;
+
+}
+
+std::string Staterobot::get_bottom_image_python()
+
+{
+    cv::Mat mat=this->get_bottom_image();
+    cv::Size size = mat.size();
+    int total = size.width * size.height * mat.channels();
+
+    std::vector<uchar> data(mat.ptr(),mat.ptr()+total);
+    std::string image(data.begin(),data.end());
+
+    return image;
 
 }
 void Staterobot::image_bottom_callback(const sensor_msgs::ImageConstPtr & msg)
@@ -266,6 +311,23 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     return success_execution;
 
 }
+
+bool Staterobot::send_goal_python(boost::python::list &values)
+{
+    std::vector<double> v(3);
+    v=moveit::py_bindings_tools::doubleFromList(values);
+    bool flag=this->send_goal(v[0],v[1],v[2],false);
+    return flag;
+}
+
+bool Staterobot::send_goal_python_relative(boost::python::list &values)
+{
+    std::vector<double> v(3);
+    v=moveit::py_bindings_tools::doubleFromList(values);
+    bool flag=this->send_goal(v[0],v[1],v[2],true);
+    return flag;
+}
+
 
 
 

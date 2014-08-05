@@ -90,7 +90,11 @@ public:
     boost::python::list get_state_python();
     boost::python::list get_gps_data_python();
     boost::python::list get_gps_vel_python();
-
+    std::string get_left_image_python();
+    std::string get_right_image_python();
+    std::string get_bottom_image_python();
+    bool send_goal_python(boost::python::list &);
+    bool send_goal_python_relative(boost::python::list &);
 
 };
 
