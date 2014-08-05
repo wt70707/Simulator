@@ -16,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   std_msgs
   action_controller
-
+  
 )
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system python)
@@ -95,7 +95,7 @@ catkin_python_setup()
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES spiri_api
-  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime action_controller
+  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime action_controller 
   DEPENDS system_lib
 )
 
@@ -119,8 +119,8 @@ add_library(spiri_api src/staterobot.cpp)
 target_link_libraries(spiri_api ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_dependencies(spiri_api action_controller_generate_messages_cpp)
 
-#add_library(spiri_api_python src/python_bindings.cpp)
-#target_link_libraries(spiri_api_python ${catkin_LIBRARIES} ${PYTHON_LIBRARIES})
+add_library(spiri_api_python src/python_bindings.cpp)
+target_link_libraries(spiri_api_python ${catkin_LIBRARIES} ${PYTHON_LIBRARIES} spiri_api)
 ## Declare a cpp library
 # add_library(spiri_api
 #   src/${PROJECT_NAME}/spiri_api.cpp
@@ -156,9 +156,17 @@ add_dependencies(spiri_api action_controller_generate_messages_cpp)
  install(TARGETS spiri_api 
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
+ 
+install(TARGETS spiri_api_python 
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_PYTHON_DESTINATION}
+  # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+ )
+ 
+ 
 ## Mark cpp header files for installation
  install(DIRECTORY include/${PROJECT_NAME}/
    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
