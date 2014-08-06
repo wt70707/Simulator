@@ -3,6 +3,9 @@
 #include <ctime>
 #include <boost/timer.hpp>
 #include <sstream>
+/*!
+  Constructor
+  */
 Staterobot::Staterobot()
 {
     int dummy_argc=0;
@@ -13,6 +16,12 @@ Staterobot::Staterobot()
 
 
 }
+
+/*!
+  Get the orientation in quaternion from IMU
+
+  @return Orientation (x,y,z,w) of Spiri
+  */
 
 std::vector<double> Staterobot::get_imu()
 {
@@ -26,6 +35,12 @@ std::vector<double> Staterobot::get_imu()
 
     return v;
 }
+
+/*!
+  Get the state
+
+  @return Position(x,y,z) and orientation (x,y,z,w) of Spiri
+  */
 
 std::vector<double> Staterobot::get_state()
 {
@@ -42,7 +57,11 @@ std::vector<double> Staterobot::get_state()
     return v;
 
 }
+/*!
+  Get the height in metres from pressure sensor
 
+  @return Altitude of Spiri
+  */
 
 float Staterobot::get_height_pressure()
 {
@@ -50,6 +69,12 @@ float Staterobot::get_height_pressure()
     return pressure->point.z;
 }
 
+
+/*!
+  Get the gps position
+
+  @return GPS (latitude,longitude,altitude) of Spiri
+  */
 std::vector<double> Staterobot::get_gps_data()
 {
     gps=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("/fix");
@@ -61,6 +86,11 @@ std::vector<double> Staterobot::get_gps_data()
     return v;
 }
 
+/*!
+  Get the velocity reporetd by the GPS
+
+  @return Velocity (x,y,z) of Spiri
+  */
 std::vector<double> Staterobot::get_gps_vel()
 {
     gps_vel=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
@@ -72,11 +102,23 @@ std::vector<double> Staterobot::get_gps_vel()
     return v;
 }
 
+/*!
+  Get the height in metres from altimeter
+
+  @return Altitude of Spiri
+  */
 float Staterobot::get_height_altimeter()
 {
     altimeter=ros::topic::waitForMessage<hector_uav_msgs::Altimeter>("/altimeter");
     return altimeter->altitude;
 }
+
+
+/*!
+  Get the image from left front camera.
+
+  @return Image (640X480)
+  */
 
 cv::Mat Staterobot::get_left_image()
 
@@ -100,6 +142,12 @@ void Staterobot::image_left_callback(const sensor_msgs::ImageConstPtr & msg)
     left_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
+
+/*!
+  Get the image from right front camera
+
+  @return Image (640X480)
+  */
 cv::Mat Staterobot::get_right_image()
 
 {
@@ -124,6 +172,11 @@ void Staterobot::image_right_callback(const sensor_msgs::ImageConstPtr & msg)
     right_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
+/*!
+  Get the image from bottom camera
+
+  @return Image (640X480)
+  */
 cv::Mat Staterobot::get_bottom_image()
 
 {
@@ -145,7 +198,14 @@ void Staterobot::image_bottom_callback(const sensor_msgs::ImageConstPtr & msg)
     bottom_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
+/*!
+  Save the image
 
+  @param path location to save the files
+  @param camera which camera to save the image from [left,right,bottom]
+
+  @return Image (640X480)
+  */
 void Staterobot::save_image(const std::string path="",const std::string camera="")
 {
     //std::cout<<path;
@@ -190,7 +250,16 @@ void Staterobot::callback_goal(const action_controller::MultiDofFollowJointTraje
     status=true;
 
 }
+/*!
+  Send goal to Spiri
 
+  @param x coordinate in x direction
+  @param y coordinate in y direction
+  @param z coordinate in z direction
+  @param relative If set then goal is calculated with respect to the start position otherwise coordinates are with respect to the world
+
+  @return Succesfully executed or not
+  */
 bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 {
     ros::AsyncSpinner spinner(1);
@@ -244,7 +313,15 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     return success_execution;
 
 }
+/*!
+  Send velocity to Spiri.
 
+  @param x velocity in x direction
+  @param y velocity in y direction
+  @param z velocity in z direction
+
+
+  */
 
 void Staterobot::send_vel(float x,float y,float z)
 {
@@ -263,6 +340,7 @@ void Staterobot::send_vel(float x,float y,float z)
     
     vel_chatter.publish(vel);
     // this is hack but it looks like it is not possible in ROS
+    /*! @todo This is hack. If there exists a better way in ROS need to find that*/
     sleep(1.0);
     //ros::spinOnce();
 
