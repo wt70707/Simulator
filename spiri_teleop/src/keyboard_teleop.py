@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 import roslib; roslib.load_manifest('spiri_teleop')
 import rospy
-
+import time
 from geometry_msgs.msg import Twist
 
 import sys, select, termios, tty
+from spiri_api import spiri_api_py
+spiri=spiri_api_py.Staterobot()
+
 
 msg = """
 Reading from the keyboard  and Publishing to Twist!
@@ -19,6 +22,8 @@ w/x : increase/decrease only linear speed by 10%
 e/c : increase/decrease only angular speed by 10%
 p   : move up in z direction
 ;   : move down in z directions
+h   : Hover
+n   : Land
 anything else : stop
 
 CTRL-C to quit
@@ -35,7 +40,9 @@ moveBindings = {
 		'm':(-1,-1,0),
     		'p':(0,0,1),
                 ';':(0,0,-1),
-	       }
+                'h':(0,0,0),
+                'n':(0,0,0),
+               }
 
 speedBindings={
 		'q':(1.1,1.1),
@@ -74,12 +81,38 @@ if __name__=="__main__":
 		print msg
 		print vels(speed,turn)
 		while(1):
+			state=spiri.get_state()
 			key = getKey()
 			if key in moveBindings.keys():
-				x = moveBindings[key][0]
-				th = moveBindings[key][1]
-       				#print moveBindings[key]
-        			z=moveBindings[key][2]
+				print key
+				if key=='h':
+				  
+				  if state[2]<1.0:
+				    twist=Twist()
+				    twist.linear.z=1.0
+				    pub.publish(twist)
+				    time.sleep(1.0)
+				    twist=Twist()
+				    pub.publish(twist)
+				    x=moveBindings[key][0]
+				    th=moveBindings[key][1]
+				    z=moveBindings[key][2]
+				elif key=='n':
+				  twist=Twist()
+				  twist.linear.z=-state[2]
+				  pub.publish(twist)
+				  time.sleep(1.0)
+				  twist=Twist()
+				  pub.publish(twist)
+				  x=moveBindings[key][0]
+				  th=moveBindings[key][1]
+				  z=moveBindings[key][2]
+				      
+				else:
+				  x = moveBindings[key][0]
+				  th = moveBindings[key][1]
+				  #print moveBindings[key]
+				  z=moveBindings[key][2]
 			elif key in speedBindings.keys():
 				speed = speed * speedBindings[key][0]
 				turn = turn * speedBindings[key][1]
@@ -102,7 +135,7 @@ if __name__=="__main__":
 			pub.publish(twist)
 
 	except:
-		print e
+		print 'error'
 
 	finally:
 		twist = Twist()
