@@ -17,6 +17,33 @@
 //Build shared libraries (DLLs).
 BUILD_SHARED_LIBS:BOOL=ON
 
+//The directory containing a CMake configuration file for Boost.
+Boost_DIR:PATH=Boost_DIR-NOTFOUND
+
+//Path to a file.
+Boost_INCLUDE_DIR:PATH=/usr/include
+
+//Boost library directory
+Boost_LIBRARY_DIRS:FILEPATH=/usr/lib
+
+//The Boost PYTHON library
+Boost_PYTHON_LIBRARY:FILEPATH=/usr/lib/libboost_python.so
+
+//Boost python library (debug)
+Boost_PYTHON_LIBRARY_DEBUG:FILEPATH=/usr/lib/libboost_python.so
+
+//Boost python library (release)
+Boost_PYTHON_LIBRARY_RELEASE:FILEPATH=/usr/lib/libboost_python.so
+
+//The Boost SYSTEM library
+Boost_SYSTEM_LIBRARY:FILEPATH=/usr/lib/libboost_system-mt.so
+
+//Boost system library (debug)
+Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/libboost_system-mt.so
+
+//Boost system library (release)
+Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/lib/libboost_system-mt.so
+
 //Catkin enable testing
 CATKIN_ENABLE_TESTING:BOOL=ON
 
@@ -199,6 +226,12 @@ NOSETESTS:FILEPATH=/usr/bin/nosetests
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python
 
+//Path to a file.
+PYTHON_INCLUDE_DIR:PATH=/usr/include/python2.7
+
+//Path to a library.
+PYTHON_LIBRARY:FILEPATH=/usr/lib/libpython2.7.so
+
 //Specify specific Python version to use ('major.minor' or 'major')
 PYTHON_VERSION:STRING=
 
@@ -363,7 +396,7 @@ shape_msgs_DIR:PATH=/opt/ros/hydro/share/shape_msgs/cmake
 shape_tools_DIR:PATH=/opt/ros/hydro/share/shape_tools/cmake
 
 //The directory containing a CMake configuration file for spiri_api.
-spiri_api_DIR:PATH=/home/rob/catkin_ws/devel/share/spiri_api/cmake
+spiri_api_DIR:PATH=/home/rob/catkin_ws/install/share/spiri_api/cmake
 
 //Value Computed by CMake
 spiri_inspection_BINARY_DIR:STATIC=/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection
@@ -391,6 +424,30 @@ xmlrpcpp_DIR:PATH=/opt/ros/hydro/share/xmlrpcpp/cmake
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: Boost_INCLUDE_DIR
+Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIRS
+Boost_LIBRARY_DIRS-ADVANCED:INTERNAL=1
+//The library version string for boost libraries
+Boost_LIB_VERSION:INTERNAL=1_46_1
+//Whether the Boost PYTHON library found
+Boost_PYTHON_FOUND:INTERNAL=ON
+//ADVANCED property for variable: Boost_PYTHON_LIBRARY
+Boost_PYTHON_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_PYTHON_LIBRARY_DEBUG
+Boost_PYTHON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_PYTHON_LIBRARY_RELEASE
+Boost_PYTHON_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//Whether the Boost SYSTEM library found
+Boost_SYSTEM_FOUND:INTERNAL=ON
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY
+Boost_SYSTEM_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_DEBUG
+Boost_SYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_RELEASE
+Boost_SYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//The version number for boost libraries
+Boost_VERSION:INTERNAL=104601
 //catkin environment
 CATKIN_ENV:INTERNAL=/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/catkin_generated/env_cached.sh
 CATKIN_TEST_RESULTS_DIR:INTERNAL=/home/rob/catkin_ws/src/Simulator/spiri_apps/spiri_inspection/test_results
@@ -521,6 +578,8 @@ CMAKE_USE_RELATIVE_PATHS-ADVANCED:INTERNAL=1
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python][v2.7.3()]
+//Details about finding PythonLibs
+FIND_PACKAGE_MESSAGE_DETAILS_PythonLibs:INTERNAL=[/usr/lib/libpython2.7.so][/usr/include/python2.7][v(2.7)]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 GTEST_FROM_SOURCE_FOUND:INTERNAL=TRUE
@@ -540,8 +599,14 @@ GTEST_MAIN_LIBRARY-ADVANCED:INTERNAL=1
 GTEST_MAIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_INCLUDE_DIR
+PYTHON_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//Path to where Python.h is found (deprecated)
+PYTHON_INCLUDE_PATH:INTERNAL=/usr/include/python2.7
 //This needs to be in PYTHONPATH when 'setup.py install' is called.
 //  And it needs to match.  But setuptools won't tell us where
 // it will install things.
 PYTHON_INSTALL_DIR:INTERNAL=lib/python2.7/dist-packages
+//ADVANCED property for variable: PYTHON_LIBRARY
+PYTHON_LIBRARY-ADVANCED:INTERNAL=1
 

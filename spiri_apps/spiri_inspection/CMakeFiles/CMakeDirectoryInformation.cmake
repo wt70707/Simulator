@@ -11,10 +11,10 @@ SET(CMAKE_FORCE_UNIX_PATHS 1)
 # The C and CXX include file search paths:
 SET(CMAKE_C_INCLUDE_PATH
   "/home/rob/catkin_ws/install/include"
-  "/home/rob/catkin_ws/src/Simulator/spiri_api/include"
   "/opt/ros/hydro/include"
   "/opt/ros/hydro/include/opencv"
   "/usr/include/eigen3"
+  "/usr/include/python2.7"
   )
 SET(CMAKE_CXX_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})
 SET(CMAKE_Fortran_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})
