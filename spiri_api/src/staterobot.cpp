@@ -320,6 +320,7 @@ bool Staterobot::send_goal_python(boost::python::list &values)
     return flag;
 }
 
+
 bool Staterobot::send_goal_python_relative(boost::python::list &values)
 {
     std::vector<double> v(3);
@@ -339,6 +340,7 @@ void Staterobot::send_vel(float x,float y,float z)
 
     geometry_msgs::Twist vel;
 
+
     vel.linear.x=x;
     vel.linear.y=y;
     vel.linear.z=z;
@@ -356,5 +358,8 @@ void Staterobot::send_vel_python(boost::python::list &val)
     v=moveit::py_bindings_tools::doubleFromList(val);
     this->send_vel(v[0],v[1],v[2]);
 }
+
+
+
 
 
