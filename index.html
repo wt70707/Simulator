@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Simulator by Pleiades-Spiri</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Simulator</h1>
+        <h2></h2>
+
+        <section id="downloads">
+          <a href="https://github.com/Pleiades-Spiri/Simulator/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/Pleiades-Spiri/Simulator/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/Pleiades-Spiri/Simulator" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="simulator" class="anchor" href="#simulator"><span class="octicon octicon-link"></span></a>Simulator</h1>
+
+<p>This branch contains the alpha release of the simulator.</p>
+
+<p>It contains the following functionalities-:</p>
+
+<ul>
+<li><p>Spawn Spiri in Gazebo with a choice of a world</p></li>
+<li><p>Publish sensor data on individual topics.</p></li>
+<li><p>Control Spiri in the simulator by a joystick.</p></li>
+</ul><p>The code has been tested on ROS Hydro and Ubuntu 12.04</p>
+
+<h2>
+<a name="installation-instructions" class="anchor" href="#installation-instructions"><span class="octicon octicon-link"></span></a>Installation instructions</h2>
+
+<h3>
+<a name="install-using-a-script" class="anchor" href="#install-using-a-script"><span class="octicon octicon-link"></span></a>Install using a script</h3>
+
+<div class="highlight highlight-bash"><pre>wget https://raw.github.com/Pleiades-Spiri/Spiri_Public/installation_simulator/installation.sh
+chmod +x installation.sh
+./installation.sh
+</pre></div>
+
+<p>This will install ROS, create a ROS workspace as well as download the Simulator code.</p>
+
+<p>It will require your password to install packages. </p>
+
+<p>Jump to the command section.</p>
+
+<h3>
+<a name="install-different-components-independently" class="anchor" href="#install-different-components-independently"><span class="octicon octicon-link"></span></a>Install different components independently</h3>
+
+<p>If you have installed using a script you dont need to do this. <a href="#Commands">commands</a></p>
+
+<ul>
+<li>Install ROS</li>
+</ul><p><a href="http://wiki.ros.org/hydro/Installation/Ubuntu">http://wiki.ros.org/hydro/Installation/Ubuntu</a></p>
+
+<p>Install the ros-desktop-full package as it contains Gazebo and other programs required for the simulator.</p>
+
+<ul>
+<li>Install Gazebo sensor plugins</li>
+</ul><p>sudo apt-get install ros-hydro-hector-quadrotor</p>
+
+<ul>
+<li>Install the Controllers</li>
+</ul><p>sudo apt-get install ros-hydro-ros-controllers</p>
+
+<ul>
+<li>Install joystick drivers</li>
+</ul><p>sudo apt-get install ros-hydro-joy</p>
+
+<ul>
+<li>Create a ros workspace</li>
+</ul><p><a href="http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment">http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment</a></p>
+
+<p>After this step there should be a folder called as catkin_ws</p>
+
+<ul>
+<li>Get the Simulator</li>
+</ul><div class="highlight highlight-bash"><pre><span class="nb">cd </span>catkin_ws/src
+
+wget https://raw.github.com/Pleiades-Spiri/Spiri_Public/installation_simulator/Simulator-1.0.tar.gz
+
+tar -zxvf Simulator-1.0.tar.gz 
+
+mv Simulator-1.0 ./Simulator
+
+<span class="nb">cd</span> ..
+
+catkin_make
+
+<span class="nb">echo</span> <span class="s2">"export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Simulator/spiri_description/models"</span> &gt;&gt; ~/.bashrc
+
+<span class="nb">source</span> ~/.bashrc
+</pre></div>
+
+<p>These commands will build the code required for the Simulator.</p>
+
+<p>Make sure these commands are in your bashrc</p>
+
+<div class="highlight highlight-bash"><pre>
+nano ~/.bashrc
+
+<span class="nb">source</span> ~/catkin_ws/devel/setup.bash
+
+<span class="nb">source</span> /opt/ros/hydro/setup.bash
+
+<span class="nb">export </span><span class="nv">GAZEBO_MODEL_PATH</span><span class="o">=</span><span class="nv">$GAZEBO_MODEL_PATH</span>:~/catkin_ws/src/Simulator/spiri_description/models
+</pre></div>
+
+<h3>
+<a name="commands" class="anchor" href="#commands"><span class="octicon octicon-link"></span></a>Commands</h3>
+
+<p>To launch Spiri in an empty world</p>
+
+<div class="highlight highlight-bash"><pre>roslaunch spiri_description spiri_empty_world.launch
+</pre></div>
+
+<p>To launch Spiri in Citadel Hill</p>
+
+<div class="highlight highlight-bash"><pre>roslaunch spiri_description spiri_citadel.launch
+</pre></div>
+
+<p>Control Spiri with a joystick</p>
+
+<p>Xbox controller </p>
+
+<div class="highlight highlight-bash"><pre>roslaunch spiri_teleop xbox_controller.launch
+</pre></div>
+
+<p>Logitech Gamepad</p>
+
+<div class="highlight highlight-bash"><pre>roslaunch spiri_teleop logitech_gamepad.launch
+</pre></div>
+
+<p>Script to process the Depth Map</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">ROS_NAMESPACE</span><span class="o">=</span>stereo rosrun stereo_image_proc stereo_image_proc _approximate_sync:<span class="o">=</span>True _queue_size:<span class="o">=</span>10
+</pre></div>
+
+<p>View the Depth Map</p>
+
+<div class="highlight highlight-bash"><pre>rosrun image_view stereo_view stereo:<span class="o">=</span>/stereo image:<span class="o">=</span>image_rect_color _approximate_sync:<span class="o">=</span>True _queue_size:<span class="o">=</span>10
+</pre></div>
+
+<p>View the front left camera</p>
+
+<div class="highlight highlight-bash"><pre>rosrun image_view image_view image:<span class="o">=</span>/stereo/left/image_raw
+</pre></div>
+
+<p>View the front right camera</p>
+
+<div class="highlight highlight-bash"><pre>rosrun image_view image_view image:<span class="o">=</span>/stereo/right/image_raw
+</pre></div>
+
+<p>View the bottom facing camera</p>
+
+<div class="highlight highlight-bash"><pre>rosrun image_view image_view image:<span class="o">=</span>/downward_cam/camera/image
+</pre></div>
+
+<h2>
+<a name="to-visualize-the-robot-and-point-cloud-data-in-rviz" class="anchor" href="#to-visualize-the-robot-and-point-cloud-data-in-rviz"><span class="octicon octicon-link"></span></a>To visualize the robot and point cloud data in rviz</h2>
+
+<div class="highlight highlight-bash"><pre>roscd spiri_description
+
+rosrun rviz rviz -d spiri_pointcloud.rviz
+</pre></div>
+
+<h2>
+<a name="nodes" class="anchor" href="#nodes"><span class="octicon octicon-link"></span></a>Nodes</h2>
+
+<h3>
+<a name="gazebo" class="anchor" href="#gazebo"><span class="octicon octicon-link"></span></a>gazebo</h3>
+
+<p>Launches spiri in a world with all its sensors</p>
+
+<h4>
+<a name="subscribed-topics" class="anchor" href="#subscribed-topics"><span class="octicon octicon-link"></span></a>Subscribed topics</h4>
+
+<ul>
+<li>/cmd_vel</li>
+<li>
+<p>/wind</p>
+
+<h4>
+<a name="published-topics" class="anchor" href="#published-topics"><span class="octicon octicon-link"></span></a>Published Topics</h4>
+</li>
+<li><p>/altimeter</p></li>
+<li>/fix</li>
+<li>/fix/pose</li>
+<li>/ground_truth/state</li>
+<li>/raw_imu</li>
+<li>/pressure_height</li>
+<li>/magnetic</li>
+<li>/stereo/left/image_raw</li>
+<li>/stereo/right/image_raw</li>
+</ul><h3>
+<a name="quadrotor_teleop" class="anchor" href="#quadrotor_teleop"><span class="octicon octicon-link"></span></a>quadrotor_teleop</h3>
+
+<p>Control Spiri with joystick</p>
+
+<h4>
+<a name="subscribed-topics-1" class="anchor" href="#subscribed-topics-1"><span class="octicon octicon-link"></span></a>Subscribed topics</h4>
+
+<ul>
+<li>/joy</li>
+</ul><h4>
+<a name="published-topics-1" class="anchor" href="#published-topics-1"><span class="octicon octicon-link"></span></a>Published topics</h4>
+
+<ul>
+<li>/cmd_vel</li>
+</ul><h2>
+<a name="troubleshooting" class="anchor" href="#troubleshooting"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
+
+<h3>
+<a name="error-connectionmanagercc116-failed-to-connect-to-master-in-30-seconds" class="anchor" href="#error-connectionmanagercc116-failed-to-connect-to-master-in-30-seconds"><span class="octicon octicon-link"></span></a>Error [ConnectionManager.cc:116] Failed to connect to master in 30 seconds</h3>
+
+<p>This is a known bug in Gazebo</p>
+
+<p><a href="https://bitbucket.org/osrf/gazebo/issue/732/gazebo-never-starts-when-loading-models">https://bitbucket.org/osrf/gazebo/issue/732/gazebo-never-starts-when-loading-models</a></p>
+
+<p>To fix this do the following steps-:</p>
+
+<div class="highlight highlight-bash"><pre><span class="nb">cd </span>catkin_ws/src
+
+hg clone https://bitbucket.org/osrf/gazebo_models
+
+Add this <span class="nb">command </span>to your bashrc
+
+<span class="nb">export </span><span class="nv">GAZEBO_MODEL_PATH</span><span class="o">=</span><span class="nv">$GAZEBO_MODEL_PATH</span>:~/catkin_ws/src/gazebo_models
+</pre></div>
+
+<p>Restart your terminal and it should fix the error</p>
+
+<h2>
+<a name="general-ros-commands" class="anchor" href="#general-ros-commands"><span class="octicon octicon-link"></span></a>General ROS commands</h2>
+
+<p>To list all ROS topics</p>
+
+<div class="highlight highlight-bash"><pre>rostopic list
+</pre></div>
+
+<p>To view any ROS topic </p>
+
+<div class="highlight highlight-bash"><pre>rostopic <span class="nb">echo </span>topic_name
+</pre></div>
+
+<p>For example to view altimeter data</p>
+
+<div class="highlight highlight-bash"><pre>rostopic <span class="nb">echo</span> /altimeter
+</pre></div>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
