@@ -6,12 +6,12 @@ class spiri_camera_interface():
     self.camera_api=s.Staterobot()
   def get_left_image(self):
     
-    image=(np.fromstring(self.camera_api.get_left_image(),dtype=np.uint8)).reshape(320,240,3)
+    image=(np.fromstring(self.camera_api.get_left_image(),dtype=np.uint8)).reshape(640,480,3)
     return image
   
   def get_right_image(self):
     
-    image=(np.fromstring(self.camera_api.get_right_image(),dtype=np.uint8)).reshape(320,240,3)
+    image=(np.fromstring(self.camera_api.get_right_image(),dtype=np.uint8)).reshape(640,480,3)
     return image
   
   def get_bottom_image(self):
