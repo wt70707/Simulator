@@ -327,6 +327,7 @@ bool Staterobot::send_goal_python_relative(boost::python::list &values)
     v=moveit::py_bindings_tools::doubleFromList(values);
     bool flag=this->send_goal(v[0],v[1],v[2],true);
     return flag;
+}
 
 void Staterobot::send_vel(float x,float y,float z)
 {
