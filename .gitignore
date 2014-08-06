@@ -36,3 +36,7 @@
 ehthumbs.db
 Thumbs.db
 *~
+
+# Catkig generated files #
+#########################
+CMakeCache.txt
