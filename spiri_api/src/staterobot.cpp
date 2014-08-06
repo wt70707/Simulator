@@ -14,17 +14,32 @@ Staterobot::Staterobot()
 
 }
 
-geometry_msgs::Quaternion Staterobot::get_imu()
+std::vector<double> Staterobot::get_imu()
 {
 
     imu=ros::topic::waitForMessage<sensor_msgs::Imu>("/raw_imu");
-    return imu->orientation;
+    std::vector<double> v(4);
+    v[0]=imu->orientation.x;
+    v[1]=imu->orientation.y;
+    v[2]=imu->orientation.z;
+    v[3]=imu->orientation.w;
+
+    return v;
 }
 
-geometry_msgs::Pose Staterobot::get_state()
+std::vector<double> Staterobot::get_state()
 {
     odom=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
-    return odom->pose.pose;
+    std::vector<double> v(7);
+    v[0]=odom->pose.pose.position.x;
+    v[1]=odom->pose.pose.position.y;
+    v[2]=odom->pose.pose.position.z;
+    v[3]=odom->pose.pose.orientation.x;
+    v[4]=odom->pose.pose.orientation.y;
+    v[5]=odom->pose.pose.orientation.z;
+    v[6]=odom->pose.pose.orientation.w;
+
+    return v;
 
 }
 
@@ -35,17 +50,26 @@ float Staterobot::get_height_pressure()
     return pressure->point.z;
 }
 
-sensor_msgs::NavSatFixConstPtr Staterobot::get_gps_data()
+std::vector<double> Staterobot::get_gps_data()
 {
     gps=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("/fix");
+    std::vector<double> v(3);
+    v[0]=gps->latitude;
+    v[1]=gps->longitude;
+    v[2]=gps->altitude;
     // @todo Need to return three floats or some sort of structure
-    return gps;
+    return v;
 }
 
-geometry_msgs::Vector3 Staterobot::get_gps_vel()
+std::vector<double> Staterobot::get_gps_vel()
 {
     gps_vel=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
-    return gps_vel->vector;
+    std::vector<double> v(3);
+    v[0]=gps_vel->vector.x;
+    v[1]=gps_vel->vector.y;
+    v[2]=gps_vel->vector.z;
+
+    return v;
 }
 
 float Staterobot::get_height_altimeter()
@@ -174,13 +198,13 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
     current_state=get_state();
-    transform.translation.x=current_state.position.x;
-    transform.translation.y=current_state.position.y;
-    transform.translation.z=current_state.position.z;
-    transform.rotation.x=current_state.orientation.x;
-    transform.rotation.y=current_state.orientation.y;
-    transform.rotation.z=current_state.orientation.z;
-    transform.rotation.w=current_state.orientation.w;
+    transform.translation.x=current_state[0];
+    transform.translation.y=current_state[1];
+    transform.translation.z=current_state[2];
+    transform.rotation.x=current_state[3];
+    transform.rotation.y=current_state[4];
+    transform.rotation.z=current_state[5];
+    transform.rotation.w=current_state[6];
     start_state.multi_dof_joint_state.joint_names.push_back("virtual_join");
     start_state.multi_dof_joint_state.transforms.push_back(transform);
     start_state.joint_state.header.frame_id="/nav";
@@ -191,9 +215,9 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     if (relative==true)
     {
 
-        group_variable_values[0]=current_state.position.x+x;
-        group_variable_values[1]=current_state.position.y+y;
-        group_variable_values[2]=current_state.position.z+z;
+        group_variable_values[0]=current_state[0]+x;
+        group_variable_values[1]=current_state[1]+y;
+        group_variable_values[2]=current_state[2]+z;
     }
     else
     {
@@ -222,5 +246,27 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 }
 
 
+void Staterobot::send_vel(float x,float y,float z)
+{
 
+    ROS_INFO("testing");
+    ros::NodeHandle nh;
+    bool latch=1;
+    ros::Publisher vel_chatter = nh.advertise<geometry_msgs::Twist>("cmd_vel",1,latch);
+
+
+    geometry_msgs::Twist vel;
+
+    vel.linear.x=x;
+    vel.linear.y=y;
+    vel.linear.z=z;
+    
+    vel_chatter.publish(vel);
+    // this is hack but it looks like it is not possible in ROS
+    sleep(1.0);
+    //ros::spinOnce();
+
+
+
+}
 
