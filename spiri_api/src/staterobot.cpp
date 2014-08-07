@@ -21,13 +21,20 @@ geometry_msgs::Quaternion Staterobot::get_imu()
     return imu->orientation;
 }
 
+/**
+  Get orientation from IMU
+
+  @return The orientation in quaternion (x,y,z,w)
+
+ */
 boost::python::list Staterobot::get_imu_python()
 {
     geometry_msgs::Quaternion imu_data=this->get_imu();
-    std::vector<double> v(3);
+    std::vector<double> v(4);
     v[0]=imu_data.x;
     v[1]=imu_data.y;
     v[2]=imu_data.z;
+    v[4]=imu_data.w;
     return moveit::py_bindings_tools::listFromDouble(v);
 }
 
@@ -38,6 +45,11 @@ geometry_msgs::Pose Staterobot::get_state()
 
 }
 
+/**
+  Get the state of Spiri
+
+  @return Position(x,y,z) and orientation(x,y,z,w)
+ */
 boost::python::list Staterobot::get_state_python()
 {
     geometry_msgs::Pose pose_data=this->get_state();
@@ -65,7 +77,11 @@ sensor_msgs::NavSatFixConstPtr Staterobot::get_gps_data()
     // @todo Need to return three floats or some sort of structure
     return gps;
 }
+/**
+    Get the gps data
 
+    @return Latitude, longitude and altitude
+ */
 boost::python::list Staterobot::get_gps_data_python()
 {
     sensor_msgs::NavSatFixConstPtr gps_data=this->get_gps_data();
@@ -81,7 +97,11 @@ geometry_msgs::Vector3 Staterobot::get_gps_vel()
     gps_vel=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
     return gps_vel->vector;
 }
+/**
+  Velocity reported by GPS
 
+  @return Velocity in x,y and z direction
+ */
 boost::python::list Staterobot::get_gps_vel_python()
 {
     geometry_msgs::Vector3 vel_data=this->get_gps_vel();
@@ -115,7 +135,11 @@ cv::Mat Staterobot::get_left_image()
 
 }
 
+/**
+  Get image from the left camera
 
+  @return Image which is converted by the python api into a numpy array
+ */
 std::string Staterobot::get_left_image_python()
 
 {
@@ -157,6 +181,11 @@ cv::Mat Staterobot::get_right_image()
 
 }
 
+/**
+  Get image from the right camera
+
+  @return Image which is converted by the python api into a numpy array
+ */
 std::string Staterobot::get_right_image_python()
 
 {
@@ -192,6 +221,12 @@ cv::Mat Staterobot::get_bottom_image()
 
 }
 
+
+/**
+  Get image from the bottom camera
+
+  @return Image which is converted by the python api into a numpy array
+ */
 std::string Staterobot::get_bottom_image_python()
 
 {
@@ -311,7 +346,13 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     return success_execution;
 
 }
+/**
+  Send goal to Spiri with respect to the world
 
+  @param values Cooridinates in x,y,z
+
+  @return Succesfull
+ */
 bool Staterobot::send_goal_python(boost::python::list &values)
 {
     std::vector<double> v(3);
@@ -320,7 +361,13 @@ bool Staterobot::send_goal_python(boost::python::list &values)
     return flag;
 }
 
+/**
+  Send goal to Spiri with respect to the current position
 
+  @param values Cooridinates in x,y,z
+
+  @return Succesfull
+ */
 bool Staterobot::send_goal_python_relative(boost::python::list &values)
 {
     std::vector<double> v(3);
@@ -351,7 +398,13 @@ void Staterobot::send_vel(float x,float y,float z)
     //ros::spinOnce();
 
 }
+/**
+  Send velocity commands to Spiri
 
+  @param val Velocities in m/s in x,y,z direction
+
+
+ */
 void Staterobot::send_vel_python(boost::python::list &val)
 {
     std::vector<double> v(3);
