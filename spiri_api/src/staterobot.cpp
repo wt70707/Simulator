@@ -3,6 +3,9 @@
 #include <ctime>
 #include <boost/timer.hpp>
 #include <sstream>
+/*!
+  Constructor
+  */
 Staterobot::Staterobot()
 {
     int dummy_argc=0;
@@ -14,14 +17,27 @@ Staterobot::Staterobot()
 
 }
 
-geometry_msgs::Quaternion Staterobot::get_imu()
+/*!
+  Get the orientation in quaternion from IMU
+
+  @return Orientation (x,y,z,w) of Spiri
+  */
+
+std::vector<double> Staterobot::get_imu()
 {
 
     imu=ros::topic::waitForMessage<sensor_msgs::Imu>("/raw_imu");
-    return imu->orientation;
+    std::vector<double> v(4);
+    v[0]=imu->orientation.x;
+    v[1]=imu->orientation.y;
+    v[2]=imu->orientation.z;
+    v[3]=imu->orientation.w;
+
+    return v;
 }
 
-/**
+
+/*!
   Get orientation from IMU
 
   @return The orientation in quaternion (x,y,z,w)
@@ -38,14 +54,32 @@ boost::python::list Staterobot::get_imu_python()
     return moveit::py_bindings_tools::listFromDouble(v);
 }
 
-geometry_msgs::Pose Staterobot::get_state()
+
+/*!
+  Get the state
+
+  @return Position(x,y,z) and orientation (x,y,z,w) of Spiri
+  */
+
+std::vector<double> Staterobot::get_state()
+
 {
     odom=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
-    return odom->pose.pose;
+    std::vector<double> v(7);
+    v[0]=odom->pose.pose.position.x;
+    v[1]=odom->pose.pose.position.y;
+    v[2]=odom->pose.pose.position.z;
+    v[3]=odom->pose.pose.orientation.x;
+    v[4]=odom->pose.pose.orientation.y;
+    v[5]=odom->pose.pose.orientation.z;
+    v[6]=odom->pose.pose.orientation.w;
+
+    return v;
 
 }
 
-/**
+
+/*!
   Get the state of Spiri
 
   @return Position(x,y,z) and orientation(x,y,z,w)
@@ -63,6 +97,11 @@ boost::python::list Staterobot::get_state_python()
     v[6]=pose_data.orientation.w;
     return moveit::py_bindings_tools::listFromDouble(v);
 }
+/*!
+  Get the height in metres from pressure sensor
+
+  @return Altitude of Spiri
+  */
 
 
 float Staterobot::get_height_pressure()
@@ -71,13 +110,23 @@ float Staterobot::get_height_pressure()
     return pressure->point.z;
 }
 
-sensor_msgs::NavSatFixConstPtr Staterobot::get_gps_data()
+
+/*!
+  Get the gps position
+
+  @return GPS (latitude,longitude,altitude) of Spiri
+  */
+std::vector<double> Staterobot::get_gps_data()
 {
     gps=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("/fix");
+    std::vector<double> v(3);
+    v[0]=gps->latitude;
+    v[1]=gps->longitude;
+    v[2]=gps->altitude;
     // @todo Need to return three floats or some sort of structure
-    return gps;
+    return v;
 }
-/**
+/*!
     Get the gps data
 
     @return Latitude, longitude and altitude
@@ -92,12 +141,22 @@ boost::python::list Staterobot::get_gps_data_python()
     return moveit::py_bindings_tools::listFromDouble(v);
 }
 
-geometry_msgs::Vector3 Staterobot::get_gps_vel()
+/*!
+  Get the velocity reporetd by the GPS
+
+  @return Velocity (x,y,z) of Spiri
+  */
+std::vector<double> Staterobot::get_gps_vel()
 {
     gps_vel=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
-    return gps_vel->vector;
+    std::vector<double> v(3);
+    v[0]=gps_vel->vector.x;
+    v[1]=gps_vel->vector.y;
+    v[2]=gps_vel->vector.z;
+
+    return v;
 }
-/**
+/*!
   Velocity reported by GPS
 
   @return Velocity in x,y and z direction
@@ -114,11 +173,23 @@ boost::python::list Staterobot::get_gps_vel_python()
 }
 
 
+/*!
+  Get the height in metres from altimeter
+
+  @return Altitude of Spiri
+  */
 float Staterobot::get_height_altimeter()
 {
     altimeter=ros::topic::waitForMessage<hector_uav_msgs::Altimeter>("/altimeter");
     return altimeter->altitude;
 }
+
+
+/*!
+  Get the image from left front camera.
+
+  @return Image (640X480)
+  */
 
 cv::Mat Staterobot::get_left_image()
 
@@ -135,7 +206,7 @@ cv::Mat Staterobot::get_left_image()
 
 }
 
-/**
+/*!
   Get image from the left camera
 
   @return Image which is converted by the python api into a numpy array
@@ -163,6 +234,12 @@ void Staterobot::image_left_callback(const sensor_msgs::ImageConstPtr & msg)
     left_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
+
+/*!
+  Get the image from right front camera
+
+  @return Image (640X480)
+  */
 cv::Mat Staterobot::get_right_image()
 
 {
@@ -181,7 +258,7 @@ cv::Mat Staterobot::get_right_image()
 
 }
 
-/**
+/*!
   Get image from the right camera
 
   @return Image which is converted by the python api into a numpy array
@@ -206,6 +283,11 @@ void Staterobot::image_right_callback(const sensor_msgs::ImageConstPtr & msg)
     right_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
+/*!
+  Get the image from bottom camera
+
+  @return Image (640X480)
+  */
 cv::Mat Staterobot::get_bottom_image()
 
 {
@@ -222,7 +304,7 @@ cv::Mat Staterobot::get_bottom_image()
 }
 
 
-/**
+/*!
   Get image from the bottom camera
 
   @return Image which is converted by the python api into a numpy array
@@ -247,7 +329,14 @@ void Staterobot::image_bottom_callback(const sensor_msgs::ImageConstPtr & msg)
     bottom_image=cv_bridge::toCvShare(msg,"bgr8")->image;
 
 }
+/*!
+  Save the image
 
+  @param path location to save the files
+  @param camera which camera to save the image from [left,right,bottom]
+
+  @return Image (640X480)
+  */
 void Staterobot::save_image(const std::string path="",const std::string camera="")
 {
     //std::cout<<path;
@@ -292,7 +381,16 @@ void Staterobot::callback_goal(const action_controller::MultiDofFollowJointTraje
     status=true;
 
 }
+/*!
+  Send goal to Spiri
 
+  @param x coordinate in x direction
+  @param y coordinate in y direction
+  @param z coordinate in z direction
+  @param relative If set then goal is calculated with respect to the start position otherwise coordinates are with respect to the world
+
+  @return Succesfully executed or not
+  */
 bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 {
     ros::AsyncSpinner spinner(1);
@@ -300,13 +398,13 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
     current_state=get_state();
-    transform.translation.x=current_state.position.x;
-    transform.translation.y=current_state.position.y;
-    transform.translation.z=current_state.position.z;
-    transform.rotation.x=current_state.orientation.x;
-    transform.rotation.y=current_state.orientation.y;
-    transform.rotation.z=current_state.orientation.z;
-    transform.rotation.w=current_state.orientation.w;
+    transform.translation.x=current_state[0];
+    transform.translation.y=current_state[1];
+    transform.translation.z=current_state[2];
+    transform.rotation.x=current_state[3];
+    transform.rotation.y=current_state[4];
+    transform.rotation.z=current_state[5];
+    transform.rotation.w=current_state[6];
     start_state.multi_dof_joint_state.joint_names.push_back("virtual_join");
     start_state.multi_dof_joint_state.transforms.push_back(transform);
     start_state.joint_state.header.frame_id="/nav";
@@ -317,9 +415,9 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     if (relative==true)
     {
 
-        group_variable_values[0]=current_state.position.x+x;
-        group_variable_values[1]=current_state.position.y+y;
-        group_variable_values[2]=current_state.position.z+z;
+        group_variable_values[0]=current_state[0]+x;
+        group_variable_values[1]=current_state[1]+y;
+        group_variable_values[2]=current_state[2]+z;
     }
     else
     {
@@ -346,7 +444,8 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     return success_execution;
 
 }
-/**
+
+/*!
   Send goal to Spiri with respect to the world
 
   @param values Cooridinates in x,y,z
@@ -361,7 +460,7 @@ bool Staterobot::send_goal_python(boost::python::list &values)
     return flag;
 }
 
-/**
+/*!
   Send goal to Spiri with respect to the current position
 
   @param values Cooridinates in x,y,z
@@ -375,6 +474,17 @@ bool Staterobot::send_goal_python_relative(boost::python::list &values)
     bool flag=this->send_goal(v[0],v[1],v[2],true);
     return flag;
 }
+
+/*!
+  Send velocity to Spiri.
+
+  @param x velocity in x direction
+  @param y velocity in y direction
+  @param z velocity in z direction
+
+
+  */
+
 
 void Staterobot::send_vel(float x,float y,float z)
 {
@@ -394,11 +504,12 @@ void Staterobot::send_vel(float x,float y,float z)
 
     vel_chatter.publish(vel);
     // this is hack but it looks like it is not possible in ROS
+    /*! @todo This is hack. If there exists a better way in ROS need to find that*/
     sleep(1.0);
     //ros::spinOnce();
 
 }
-/**
+/*!
   Send velocity commands to Spiri
 
   @param val Velocities in m/s in x,y,z direction

@@ -40,7 +40,7 @@ class Staterobot
     std::vector<double> group_variable_values;
     moveit_msgs::RobotState start_state;
     geometry_msgs::Transform transform;
-    geometry_msgs::Pose current_state;
+    std::vector<double> current_state;
     bool success_plan;
     bool success_execution;
 
@@ -56,17 +56,17 @@ private:
 public:
     Staterobot();
 
-    geometry_msgs::Quaternion get_imu();
+    std::vector<double> get_imu();
 
     void image_left_callback(const sensor_msgs::ImageConstPtr &);
     void image_right_callback(const sensor_msgs::ImageConstPtr &);
     void image_bottom_callback(const sensor_msgs::ImageConstPtr &);
-    geometry_msgs::Pose get_state();
+    std::vector<double> get_state();
     float get_height_pressure();
     bool wait_goal();
     void callback_goal(const action_controller::MultiDofFollowJointTrajectoryActionResultPtr&);
-    sensor_msgs::NavSatFixConstPtr get_gps_data();
-    geometry_msgs::Vector3 get_gps_vel();
+    std::vector<double> get_gps_data();
+    std::vector<double> get_gps_vel();
     float get_height_altimeter();
     bool send_goal(float x,float y,float z,bool relative);
     cv::Mat get_left_image();
