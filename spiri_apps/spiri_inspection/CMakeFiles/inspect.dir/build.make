@@ -77,7 +77,7 @@ inspect_OBJECTS = \
 inspect_EXTERNAL_OBJECTS =
 
 inspect: CMakeFiles/inspect.dir/inspect.cpp.o
-inspect: /home/rob/catkin_ws/devel/lib/libspiri_api.so
+inspect: /home/rob/catkin_ws/install/lib/libspiri_api.so
 inspect: /opt/ros/hydro/lib/libmoveit_exceptions.so
 inspect: /opt/ros/hydro/lib/libmoveit_background_processing.so
 inspect: /opt/ros/hydro/lib/libmoveit_kinematics_base.so
@@ -157,6 +157,15 @@ inspect: /usr/lib/libboost_thread-mt.so
 inspect: /usr/lib/x86_64-linux-gnu/libpthread.so
 inspect: /opt/ros/hydro/lib/libcpp_common.so
 inspect: /opt/ros/hydro/lib/libconsole_bridge.so
+inspect: /usr/lib/libboost_system-mt.so
+inspect: /usr/lib/libboost_python.so
+inspect: /usr/lib/libpython2.7.so
+inspect: /usr/lib/libboost_thread-mt.so
+inspect: /usr/lib/x86_64-linux-gnu/libpthread.so
+inspect: /opt/ros/hydro/lib/libcpp_common.so
+inspect: /opt/ros/hydro/lib/libconsole_bridge.so
+inspect: /usr/lib/libboost_python.so
+inspect: /usr/lib/libpython2.7.so
 inspect: CMakeFiles/inspect.dir/build.make
 inspect: CMakeFiles/inspect.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable inspect"
