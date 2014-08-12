@@ -4,13 +4,13 @@
 int main()
 {
     Staterobot robot;
-    Staterobot::state state=robot.get_state();
-    std::cout<<state.position.x;
-    /*
-    robot.send_goal(0,0,1,true);
-    int i=0;
-    // save images while moving towards a goal
+    //Staterobot::state state=robot.get_state();
+    //std::cout<<state.position.x;
     
+    robot.send_goal(0,0,20,true);
+    //int i=0;
+    // save images while moving towards a goal
+    /*
     while(robot.wait_goal()==0)
     {
       std::ostringstream oss;

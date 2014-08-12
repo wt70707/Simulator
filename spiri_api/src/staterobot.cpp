@@ -410,6 +410,7 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     spinner.start();
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
+    group.setWorkspace(-5.0,-5.0,-5.0,100.0,100.0,100.0);
     state current_state=get_state();
     transform.translation.x=current_state.position.x;
     transform.translation.y=current_state.position.y;
