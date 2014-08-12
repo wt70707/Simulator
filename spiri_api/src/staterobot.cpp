@@ -27,15 +27,7 @@ Staterobot::imu Staterobot::get_imu()
 {
 
     imu_ptr=ros::topic::waitForMessage<sensor_msgs::Imu>("/raw_imu");
-    /*
-    std::vector<double> v(4);
-    v[0]=imu->orientation.x;
-    v[1]=imu->orientation.y;
-    v[2]=imu->orientation.z;
-    v[3]=imu->orientation.w;
 
-    return v;
-    */
 
     imu imu_data;
     imu_data.x=imu_ptr->orientation.x;

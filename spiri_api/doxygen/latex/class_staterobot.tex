@@ -1,22 +1,27 @@
-\hypertarget{class_staterobot}{\section{Staterobot Class Reference}
-\label{class_staterobot}\index{Staterobot@{Staterobot}}
+\hypertarget{class_staterobot}{\section{\-Staterobot \-Class \-Reference}
+\label{class_staterobot}\index{\-Staterobot@{\-Staterobot}}
 }
-
-
-Collaboration diagram for Staterobot\-:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=214pt]{class_staterobot__coll__graph}
-\end{center}
-\end{figure}
-\subsection*{Public Member Functions}
+\subsection*{\-Classes}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_staterobot_ab99a92f98d724c96989a744aee273155}{Staterobot} ()
+struct \hyperlink{struct_staterobot_1_1gps}{gps}
 \item 
-std\-::vector$<$ double $>$ \hyperlink{class_staterobot_a50e002ec81917b295a87463127648a52}{get\-\_\-imu} ()
+struct \hyperlink{struct_staterobot_1_1gps__vel}{gps\-\_\-vel}
+\item 
+struct \hyperlink{struct_staterobot_1_1imu}{imu}
+\item 
+struct \hyperlink{struct_staterobot_1_1orientation}{orientation}
+\item 
+struct \hyperlink{struct_staterobot_1_1position}{position}
+\item 
+struct \hyperlink{struct_staterobot_1_1state}{state}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_staterobot_ab99a92f98d724c96989a744aee273155}{\-Staterobot} ()
+\item 
+\hyperlink{struct_staterobot_1_1imu}{\-Staterobot\-::imu} \hyperlink{class_staterobot_a05732dbb16bda2339b88a7c60fa2b7ad}{get\-\_\-imu} ()
 \item 
 \hypertarget{class_staterobot_a4cb41f60186d02b210f354d0199584a4}{void {\bfseries image\-\_\-left\-\_\-callback} (const sensor\-\_\-msgs\-::\-Image\-Const\-Ptr \&)}\label{class_staterobot_a4cb41f60186d02b210f354d0199584a4}
 
@@ -27,7 +32,7 @@ std\-::vector$<$ double $>$ \hyperlink{class_staterobot_a50e002ec81917b295a87463
 \hypertarget{class_staterobot_a8ad49fe9f855e5874d8736067fa7fac0}{void {\bfseries image\-\_\-bottom\-\_\-callback} (const sensor\-\_\-msgs\-::\-Image\-Const\-Ptr \&)}\label{class_staterobot_a8ad49fe9f855e5874d8736067fa7fac0}
 
 \item 
-std\-::vector$<$ double $>$ \hyperlink{class_staterobot_a51670cc44348eae6328f220421ea328f}{get\-\_\-state} ()
+\hyperlink{struct_staterobot_1_1state}{\-Staterobot\-::state} \hyperlink{class_staterobot_a2dd739316c9cf438b13e21543aaff91f}{get\-\_\-state} ()
 \item 
 float \hyperlink{class_staterobot_a0318f7abf24c5c60aee915224af6af02}{get\-\_\-height\-\_\-pressure} ()
 \item 
@@ -37,9 +42,9 @@ float \hyperlink{class_staterobot_a0318f7abf24c5c60aee915224af6af02}{get\-\_\-he
 \hypertarget{class_staterobot_a37cbdfcb1cc30194f0fa0742952a0aad}{void {\bfseries callback\-\_\-goal} (const action\-\_\-controller\-::\-Multi\-Dof\-Follow\-Joint\-Trajectory\-Action\-Result\-Ptr \&)}\label{class_staterobot_a37cbdfcb1cc30194f0fa0742952a0aad}
 
 \item 
-std\-::vector$<$ double $>$ \hyperlink{class_staterobot_a31dcc23cfb620c95e58f3b5ad4bb6b6d}{get\-\_\-gps\-\_\-data} ()
+\hyperlink{struct_staterobot_1_1gps}{\-Staterobot\-::gps} \hyperlink{class_staterobot_a3a3ce270f01e5eb9ee6c48a7cf0ae2d4}{get\-\_\-gps\-\_\-data} ()
 \item 
-std\-::vector$<$ double $>$ \hyperlink{class_staterobot_a3a9ee7a49cbb278ffc5f3b201dcae951}{get\-\_\-gps\-\_\-vel} ()
+\hyperlink{struct_staterobot_1_1gps__vel}{\-Staterobot\-::gps\-\_\-vel} \hyperlink{class_staterobot_ad4c1e88bb08e09049ccaf66d540a2fca}{get\-\_\-gps\-\_\-vel} ()
 \item 
 float \hyperlink{class_staterobot_a3e92b9d6f17c0812e8ed435602d1f717}{get\-\_\-height\-\_\-altimeter} ()
 \item 
@@ -75,22 +80,22 @@ bool \hyperlink{class_staterobot_a5ec7a1fdfa9757ddea8c1587e8324f4a}{send\-\_\-go
 \item 
 void \hyperlink{class_staterobot_ae47718241f57b27cf4854730cfb50201}{send\-\_\-vel\-\_\-python} (boost\-::python\-::list \&)
 \end{DoxyCompactItemize}
-\subsection*{Public Attributes}
+\subsection*{\-Public \-Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_staterobot_ae6075d8fe1f2714e62f98ecfcfabab5f}{sensor\-\_\-msgs\-::\-Imu\-Const\-Ptr {\bfseries imu}}\label{class_staterobot_ae6075d8fe1f2714e62f98ecfcfabab5f}
+\hypertarget{class_staterobot_af4cb7b1acaf2d9dc163661e031f148f2}{sensor\-\_\-msgs\-::\-Imu\-Const\-Ptr {\bfseries imu\-\_\-ptr}}\label{class_staterobot_af4cb7b1acaf2d9dc163661e031f148f2}
 
 \item 
-\hypertarget{class_staterobot_a647d9af50a8896f64fa9456b5719157b}{nav\-\_\-msgs\-::\-Odometry\-Const\-Ptr {\bfseries odom}}\label{class_staterobot_a647d9af50a8896f64fa9456b5719157b}
+\hypertarget{class_staterobot_af147a2b2a09d1c5b101628eb61339b03}{nav\-\_\-msgs\-::\-Odometry\-Const\-Ptr {\bfseries state\-\_\-ptr}}\label{class_staterobot_af147a2b2a09d1c5b101628eb61339b03}
 
 \item 
 \hypertarget{class_staterobot_a8ab2546d67712dbed7d288f66430d923}{geometry\-\_\-msgs\-::\-Point\-Stamped\-Const\-Ptr {\bfseries pressure}}\label{class_staterobot_a8ab2546d67712dbed7d288f66430d923}
 
 \item 
-\hypertarget{class_staterobot_aaade9f6f0d32fb6baaef1c745fa138de}{sensor\-\_\-msgs\-::\-Nav\-Sat\-Fix\-Const\-Ptr {\bfseries gps}}\label{class_staterobot_aaade9f6f0d32fb6baaef1c745fa138de}
+\hypertarget{class_staterobot_a032ce0d173993f78b179d3964aad98ee}{sensor\-\_\-msgs\-::\-Nav\-Sat\-Fix\-Const\-Ptr {\bfseries gps\-\_\-ptr}}\label{class_staterobot_a032ce0d173993f78b179d3964aad98ee}
 
 \item 
-\hypertarget{class_staterobot_a78d4a58c9335c40740c830f7d8499c75}{geometry\-\_\-msgs\-::\-Vector3\-Stamped\-Const\-Ptr {\bfseries gps\-\_\-vel}}\label{class_staterobot_a78d4a58c9335c40740c830f7d8499c75}
+\hypertarget{class_staterobot_aff1f5ea1732d5fc0298f7bd114715ebe}{geometry\-\_\-msgs\-::\-Vector3\-Stamped\-Const\-Ptr {\bfseries gps\-\_\-vel\-\_\-ptr}}\label{class_staterobot_aff1f5ea1732d5fc0298f7bd114715ebe}
 
 \item 
 \hypertarget{class_staterobot_a08857351f3bb69c9590778240fcf2d78}{hector\-\_\-uav\-\_\-msgs\-::\-Altimeter\-Const\-Ptr {\bfseries altimeter}}\label{class_staterobot_a08857351f3bb69c9590778240fcf2d78}
@@ -108,8 +113,8 @@ void \hyperlink{class_staterobot_ae47718241f57b27cf4854730cfb50201}{send\-\_\-ve
 \hypertarget{class_staterobot_a87ce5439fd3c0f2b07a021469819ac43}{action\-\_\-controller\-::\-Multi\-Dof\-Follow\-Joint\-Trajectory\-Action\-Result {\bfseries result}}\label{class_staterobot_a87ce5439fd3c0f2b07a021469819ac43}
 
 \item 
-\hypertarget{class_staterobot_aead4ba8f811be3fb0973fc79f7ea7460}{boost\-::shared\-\_\-ptr\\*
-$<$ action\-\_\-controller\-::\-Multi\-Dof\-Follow\-Joint\-Trajectory\-Action\-Result \\*
+\hypertarget{class_staterobot_aead4ba8f811be3fb0973fc79f7ea7460}{boost\-::shared\-\_\-ptr\*
+$<$ action\-\_\-controller\-::\-Multi\-Dof\-Follow\-Joint\-Trajectory\-Action\-Result \*
 const  $>$ {\bfseries error\-Ptr}}\label{class_staterobot_aead4ba8f811be3fb0973fc79f7ea7460}
 
 \item 
@@ -118,232 +123,232 @@ const  $>$ {\bfseries error\-Ptr}}\label{class_staterobot_aead4ba8f811be3fb0973f
 \end{DoxyCompactItemize}
 
 
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_staterobot_ab99a92f98d724c96989a744aee273155}{\index{Staterobot@{Staterobot}!Staterobot@{Staterobot}}
-\index{Staterobot@{Staterobot}!Staterobot@{Staterobot}}
-\subsubsection[{Staterobot}]{\setlength{\rightskip}{0pt plus 5cm}Staterobot\-::\-Staterobot (
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{class_staterobot_ab99a92f98d724c96989a744aee273155}{\index{\-Staterobot@{\-Staterobot}!\-Staterobot@{\-Staterobot}}
+\index{\-Staterobot@{\-Staterobot}!Staterobot@{\-Staterobot}}
+\subsubsection[{\-Staterobot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Staterobot\-::\-Staterobot} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_ab99a92f98d724c96989a744aee273155}
-Constructor 
+\-Constructor 
 
-\subsection{Member Function Documentation}
-\hypertarget{class_staterobot_a310b2c9315316f96054357ebb705438f}{\index{Staterobot@{Staterobot}!get\-\_\-bottom\-\_\-image@{get\-\_\-bottom\-\_\-image}}
-\index{get\-\_\-bottom\-\_\-image@{get\-\_\-bottom\-\_\-image}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-bottom\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Mat Staterobot\-::get\-\_\-bottom\-\_\-image (
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{class_staterobot_a310b2c9315316f96054357ebb705438f}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-bottom\-\_\-image@{get\-\_\-bottom\-\_\-image}}
+\index{get\-\_\-bottom\-\_\-image@{get\-\_\-bottom\-\_\-image}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-bottom\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Mat {\bf \-Staterobot\-::get\-\_\-bottom\-\_\-image} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a310b2c9315316f96054357ebb705438f}
-Get the image from bottom camera
+\-Get the image from bottom camera
 
-\begin{DoxyReturn}{Returns}
-Image (640\-X480) 
+\begin{DoxyReturn}{\-Returns}
+\-Image (640\-X480) 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a36d188439ca66b3e56cff58877297945}{\index{Staterobot@{Staterobot}!get\-\_\-bottom\-\_\-image\-\_\-python@{get\-\_\-bottom\-\_\-image\-\_\-python}}
-\index{get\-\_\-bottom\-\_\-image\-\_\-python@{get\-\_\-bottom\-\_\-image\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-bottom\-\_\-image\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Staterobot\-::get\-\_\-bottom\-\_\-image\-\_\-python (
+\hypertarget{class_staterobot_a36d188439ca66b3e56cff58877297945}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-bottom\-\_\-image\-\_\-python@{get\-\_\-bottom\-\_\-image\-\_\-python}}
+\index{get\-\_\-bottom\-\_\-image\-\_\-python@{get\-\_\-bottom\-\_\-image\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-bottom\-\_\-image\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string {\bf \-Staterobot\-::get\-\_\-bottom\-\_\-image\-\_\-python} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a36d188439ca66b3e56cff58877297945}
-Get image from the bottom camera
+\-Get image from the bottom camera
 
-\begin{DoxyReturn}{Returns}
-Image which is converted by the python api into a numpy array 
+\begin{DoxyReturn}{\-Returns}
+\-Image which is converted by the python api into a numpy array 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a31dcc23cfb620c95e58f3b5ad4bb6b6d}{\index{Staterobot@{Staterobot}!get\-\_\-gps\-\_\-data@{get\-\_\-gps\-\_\-data}}
-\index{get\-\_\-gps\-\_\-data@{get\-\_\-gps\-\_\-data}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-gps\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ double $>$ Staterobot\-::get\-\_\-gps\-\_\-data (
+\hypertarget{class_staterobot_a3a3ce270f01e5eb9ee6c48a7cf0ae2d4}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-gps\-\_\-data@{get\-\_\-gps\-\_\-data}}
+\index{get\-\_\-gps\-\_\-data@{get\-\_\-gps\-\_\-data}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-gps\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Staterobot\-::gps} {\bf \-Staterobot\-::get\-\_\-gps\-\_\-data} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{class_staterobot_a31dcc23cfb620c95e58f3b5ad4bb6b6d}
-Get the gps position
+)}}\label{class_staterobot_a3a3ce270f01e5eb9ee6c48a7cf0ae2d4}
+\-Get the gps position
 
-\begin{DoxyReturn}{Returns}
-G\-P\-S (latitude,longitude,altitude) of Spiri 
+\begin{DoxyReturn}{\-Returns}
+\-G\-P\-S (latitude,longitude,altitude) of \-Spiri 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_ac2fe6ca526d21c1bcb2e284f000759a4}{\index{Staterobot@{Staterobot}!get\-\_\-gps\-\_\-data\-\_\-python@{get\-\_\-gps\-\_\-data\-\_\-python}}
-\index{get\-\_\-gps\-\_\-data\-\_\-python@{get\-\_\-gps\-\_\-data\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-gps\-\_\-data\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list Staterobot\-::get\-\_\-gps\-\_\-data\-\_\-python (
+\hypertarget{class_staterobot_ac2fe6ca526d21c1bcb2e284f000759a4}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-gps\-\_\-data\-\_\-python@{get\-\_\-gps\-\_\-data\-\_\-python}}
+\index{get\-\_\-gps\-\_\-data\-\_\-python@{get\-\_\-gps\-\_\-data\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-gps\-\_\-data\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list {\bf \-Staterobot\-::get\-\_\-gps\-\_\-data\-\_\-python} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_ac2fe6ca526d21c1bcb2e284f000759a4}
-Get the gps data
+\-Get the gps data
 
-\begin{DoxyReturn}{Returns}
-Latitude, longitude and altitude 
+\begin{DoxyReturn}{\-Returns}
+\-Latitude, longitude and altitude 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a3a9ee7a49cbb278ffc5f3b201dcae951}{\index{Staterobot@{Staterobot}!get\-\_\-gps\-\_\-vel@{get\-\_\-gps\-\_\-vel}}
-\index{get\-\_\-gps\-\_\-vel@{get\-\_\-gps\-\_\-vel}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-gps\-\_\-vel}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ double $>$ Staterobot\-::get\-\_\-gps\-\_\-vel (
+\hypertarget{class_staterobot_ad4c1e88bb08e09049ccaf66d540a2fca}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-gps\-\_\-vel@{get\-\_\-gps\-\_\-vel}}
+\index{get\-\_\-gps\-\_\-vel@{get\-\_\-gps\-\_\-vel}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-gps\-\_\-vel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Staterobot\-::gps\-\_\-vel} {\bf \-Staterobot\-::get\-\_\-gps\-\_\-vel} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{class_staterobot_a3a9ee7a49cbb278ffc5f3b201dcae951}
-Get the velocity reporetd by the G\-P\-S
+)}}\label{class_staterobot_ad4c1e88bb08e09049ccaf66d540a2fca}
+\-Get the velocity reporetd by the \-G\-P\-S
 
-\begin{DoxyReturn}{Returns}
-Velocity (x,y,z) of Spiri 
+\begin{DoxyReturn}{\-Returns}
+\-Velocity (x,y,z) of \-Spiri 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_aed3a2e6aa076fe6e38f97eb9ab9ef41a}{\index{Staterobot@{Staterobot}!get\-\_\-gps\-\_\-vel\-\_\-python@{get\-\_\-gps\-\_\-vel\-\_\-python}}
-\index{get\-\_\-gps\-\_\-vel\-\_\-python@{get\-\_\-gps\-\_\-vel\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-gps\-\_\-vel\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list Staterobot\-::get\-\_\-gps\-\_\-vel\-\_\-python (
+\hypertarget{class_staterobot_aed3a2e6aa076fe6e38f97eb9ab9ef41a}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-gps\-\_\-vel\-\_\-python@{get\-\_\-gps\-\_\-vel\-\_\-python}}
+\index{get\-\_\-gps\-\_\-vel\-\_\-python@{get\-\_\-gps\-\_\-vel\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-gps\-\_\-vel\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list {\bf \-Staterobot\-::get\-\_\-gps\-\_\-vel\-\_\-python} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_aed3a2e6aa076fe6e38f97eb9ab9ef41a}
-Velocity reported by G\-P\-S
+\-Velocity reported by \-G\-P\-S
 
-\begin{DoxyReturn}{Returns}
-Velocity in x,y and z direction 
+\begin{DoxyReturn}{\-Returns}
+\-Velocity in x,y and z direction 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a3e92b9d6f17c0812e8ed435602d1f717}{\index{Staterobot@{Staterobot}!get\-\_\-height\-\_\-altimeter@{get\-\_\-height\-\_\-altimeter}}
-\index{get\-\_\-height\-\_\-altimeter@{get\-\_\-height\-\_\-altimeter}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-height\-\_\-altimeter}]{\setlength{\rightskip}{0pt plus 5cm}float Staterobot\-::get\-\_\-height\-\_\-altimeter (
+\hypertarget{class_staterobot_a3e92b9d6f17c0812e8ed435602d1f717}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-height\-\_\-altimeter@{get\-\_\-height\-\_\-altimeter}}
+\index{get\-\_\-height\-\_\-altimeter@{get\-\_\-height\-\_\-altimeter}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-height\-\_\-altimeter}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf \-Staterobot\-::get\-\_\-height\-\_\-altimeter} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a3e92b9d6f17c0812e8ed435602d1f717}
-Get the height in metres from altimeter
+\-Get the height in metres from altimeter
 
-\begin{DoxyReturn}{Returns}
-Altitude of Spiri 
+\begin{DoxyReturn}{\-Returns}
+\-Altitude of \-Spiri 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a0318f7abf24c5c60aee915224af6af02}{\index{Staterobot@{Staterobot}!get\-\_\-height\-\_\-pressure@{get\-\_\-height\-\_\-pressure}}
-\index{get\-\_\-height\-\_\-pressure@{get\-\_\-height\-\_\-pressure}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-height\-\_\-pressure}]{\setlength{\rightskip}{0pt plus 5cm}float Staterobot\-::get\-\_\-height\-\_\-pressure (
+\hypertarget{class_staterobot_a0318f7abf24c5c60aee915224af6af02}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-height\-\_\-pressure@{get\-\_\-height\-\_\-pressure}}
+\index{get\-\_\-height\-\_\-pressure@{get\-\_\-height\-\_\-pressure}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-height\-\_\-pressure}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf \-Staterobot\-::get\-\_\-height\-\_\-pressure} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a0318f7abf24c5c60aee915224af6af02}
-Get the height in metres from pressure sensor
+\-Get the height in metres from pressure sensor
 
-\begin{DoxyReturn}{Returns}
-Altitude of Spiri 
+\begin{DoxyReturn}{\-Returns}
+\-Altitude of \-Spiri 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a50e002ec81917b295a87463127648a52}{\index{Staterobot@{Staterobot}!get\-\_\-imu@{get\-\_\-imu}}
-\index{get\-\_\-imu@{get\-\_\-imu}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-imu}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ double $>$ Staterobot\-::get\-\_\-imu (
+\hypertarget{class_staterobot_a05732dbb16bda2339b88a7c60fa2b7ad}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-imu@{get\-\_\-imu}}
+\index{get\-\_\-imu@{get\-\_\-imu}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-imu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Staterobot\-::imu} {\bf \-Staterobot\-::get\-\_\-imu} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{class_staterobot_a50e002ec81917b295a87463127648a52}
-Get the orientation in quaternion from I\-M\-U
+)}}\label{class_staterobot_a05732dbb16bda2339b88a7c60fa2b7ad}
+\-Get the orientation in quaternion from \-I\-M\-U
 
-\begin{DoxyReturn}{Returns}
-Orientation (x,y,z,w) of Spiri 
+\begin{DoxyReturn}{\-Returns}
+\-Orientation (x,y,z,w) of \-Spiri 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a3e6bd1883c62204de398342cf8004351}{\index{Staterobot@{Staterobot}!get\-\_\-imu\-\_\-python@{get\-\_\-imu\-\_\-python}}
-\index{get\-\_\-imu\-\_\-python@{get\-\_\-imu\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-imu\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list Staterobot\-::get\-\_\-imu\-\_\-python (
+\hypertarget{class_staterobot_a3e6bd1883c62204de398342cf8004351}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-imu\-\_\-python@{get\-\_\-imu\-\_\-python}}
+\index{get\-\_\-imu\-\_\-python@{get\-\_\-imu\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-imu\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list {\bf \-Staterobot\-::get\-\_\-imu\-\_\-python} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a3e6bd1883c62204de398342cf8004351}
-Get orientation from I\-M\-U
+\-Get orientation from \-I\-M\-U
 
-\begin{DoxyReturn}{Returns}
-The orientation in quaternion (x,y,z,w) 
+\begin{DoxyReturn}{\-Returns}
+\-The orientation in quaternion (x,y,z,w) 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a5b0323154aa0a19ed82b02cfe7376974}{\index{Staterobot@{Staterobot}!get\-\_\-left\-\_\-image@{get\-\_\-left\-\_\-image}}
-\index{get\-\_\-left\-\_\-image@{get\-\_\-left\-\_\-image}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-left\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Mat Staterobot\-::get\-\_\-left\-\_\-image (
+\hypertarget{class_staterobot_a5b0323154aa0a19ed82b02cfe7376974}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-left\-\_\-image@{get\-\_\-left\-\_\-image}}
+\index{get\-\_\-left\-\_\-image@{get\-\_\-left\-\_\-image}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-left\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Mat {\bf \-Staterobot\-::get\-\_\-left\-\_\-image} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a5b0323154aa0a19ed82b02cfe7376974}
-Get the image from left front camera.
+\-Get the image from left front camera.
 
-\begin{DoxyReturn}{Returns}
-Image (640\-X480) 
+\begin{DoxyReturn}{\-Returns}
+\-Image (640\-X480) 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_ab7e02e341f1f3ccfaaa322a2fc1e2caf}{\index{Staterobot@{Staterobot}!get\-\_\-left\-\_\-image\-\_\-python@{get\-\_\-left\-\_\-image\-\_\-python}}
-\index{get\-\_\-left\-\_\-image\-\_\-python@{get\-\_\-left\-\_\-image\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-left\-\_\-image\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Staterobot\-::get\-\_\-left\-\_\-image\-\_\-python (
+\hypertarget{class_staterobot_ab7e02e341f1f3ccfaaa322a2fc1e2caf}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-left\-\_\-image\-\_\-python@{get\-\_\-left\-\_\-image\-\_\-python}}
+\index{get\-\_\-left\-\_\-image\-\_\-python@{get\-\_\-left\-\_\-image\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-left\-\_\-image\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string {\bf \-Staterobot\-::get\-\_\-left\-\_\-image\-\_\-python} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_ab7e02e341f1f3ccfaaa322a2fc1e2caf}
-Get image from the left camera
+\-Get image from the left camera
 
-\begin{DoxyReturn}{Returns}
-Image which is converted by the python api into a numpy array 
+\begin{DoxyReturn}{\-Returns}
+\-Image which is converted by the python api into a numpy array 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_ab1d8f9bfdbd766b96110c0a65fe08f43}{\index{Staterobot@{Staterobot}!get\-\_\-right\-\_\-image@{get\-\_\-right\-\_\-image}}
-\index{get\-\_\-right\-\_\-image@{get\-\_\-right\-\_\-image}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-right\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Mat Staterobot\-::get\-\_\-right\-\_\-image (
+\hypertarget{class_staterobot_ab1d8f9bfdbd766b96110c0a65fe08f43}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-right\-\_\-image@{get\-\_\-right\-\_\-image}}
+\index{get\-\_\-right\-\_\-image@{get\-\_\-right\-\_\-image}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-right\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Mat {\bf \-Staterobot\-::get\-\_\-right\-\_\-image} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_ab1d8f9bfdbd766b96110c0a65fe08f43}
-Get the image from right front camera
+\-Get the image from right front camera
 
-\begin{DoxyReturn}{Returns}
-Image (640\-X480) 
+\begin{DoxyReturn}{\-Returns}
+\-Image (640\-X480) 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_ab222942f5fe07919fc4999eb600706d1}{\index{Staterobot@{Staterobot}!get\-\_\-right\-\_\-image\-\_\-python@{get\-\_\-right\-\_\-image\-\_\-python}}
-\index{get\-\_\-right\-\_\-image\-\_\-python@{get\-\_\-right\-\_\-image\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-right\-\_\-image\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Staterobot\-::get\-\_\-right\-\_\-image\-\_\-python (
+\hypertarget{class_staterobot_ab222942f5fe07919fc4999eb600706d1}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-right\-\_\-image\-\_\-python@{get\-\_\-right\-\_\-image\-\_\-python}}
+\index{get\-\_\-right\-\_\-image\-\_\-python@{get\-\_\-right\-\_\-image\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-right\-\_\-image\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string {\bf \-Staterobot\-::get\-\_\-right\-\_\-image\-\_\-python} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_ab222942f5fe07919fc4999eb600706d1}
-Get image from the right camera
+\-Get image from the right camera
 
-\begin{DoxyReturn}{Returns}
-Image which is converted by the python api into a numpy array 
+\begin{DoxyReturn}{\-Returns}
+\-Image which is converted by the python api into a numpy array 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a51670cc44348eae6328f220421ea328f}{\index{Staterobot@{Staterobot}!get\-\_\-state@{get\-\_\-state}}
-\index{get\-\_\-state@{get\-\_\-state}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ double $>$ Staterobot\-::get\-\_\-state (
+\hypertarget{class_staterobot_a2dd739316c9cf438b13e21543aaff91f}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-state@{get\-\_\-state}}
+\index{get\-\_\-state@{get\-\_\-state}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Staterobot\-::state} {\bf \-Staterobot\-::get\-\_\-state} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{class_staterobot_a51670cc44348eae6328f220421ea328f}
-Get the state
+)}}\label{class_staterobot_a2dd739316c9cf438b13e21543aaff91f}
+\-Get the state
 
-\begin{DoxyReturn}{Returns}
-Position(x,y,z) and orientation (x,y,z,w) of Spiri 
+\begin{DoxyReturn}{\-Returns}
+\-Position(x,y,z) and orientation (x,y,z,w) of \-Spiri 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a91206b2bef7c39193df2eef7b8bae523}{\index{Staterobot@{Staterobot}!get\-\_\-state\-\_\-python@{get\-\_\-state\-\_\-python}}
-\index{get\-\_\-state\-\_\-python@{get\-\_\-state\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{get\-\_\-state\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list Staterobot\-::get\-\_\-state\-\_\-python (
+\hypertarget{class_staterobot_a91206b2bef7c39193df2eef7b8bae523}{\index{\-Staterobot@{\-Staterobot}!get\-\_\-state\-\_\-python@{get\-\_\-state\-\_\-python}}
+\index{get\-\_\-state\-\_\-python@{get\-\_\-state\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{get\-\_\-state\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}boost\-::python\-::list {\bf \-Staterobot\-::get\-\_\-state\-\_\-python} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a91206b2bef7c39193df2eef7b8bae523}
-Get the state of Spiri
+\-Get the state of \-Spiri
 
-\begin{DoxyReturn}{Returns}
-Position(x,y,z) and orientation(x,y,z,w) 
+\begin{DoxyReturn}{\-Returns}
+\-Position(x,y,z) and orientation(x,y,z,w) 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a1da31a1c7a8f39878d2511ca86adeb8f}{\index{Staterobot@{Staterobot}!save\-\_\-image@{save\-\_\-image}}
-\index{save\-\_\-image@{save\-\_\-image}!Staterobot@{Staterobot}}
-\subsubsection[{save\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}void Staterobot\-::save\-\_\-image (
+\hypertarget{class_staterobot_a1da31a1c7a8f39878d2511ca86adeb8f}{\index{\-Staterobot@{\-Staterobot}!save\-\_\-image@{save\-\_\-image}}
+\index{save\-\_\-image@{save\-\_\-image}!Staterobot@{\-Staterobot}}
+\subsubsection[{save\-\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Staterobot\-::save\-\_\-image} (
 \begin{DoxyParamCaption}
 \item[{const std\-::string}]{path = {\ttfamily \char`\"{}\char`\"{}}, }
 \item[{const std\-::string}]{camera = {\ttfamily \char`\"{}\char`\"{}}}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a1da31a1c7a8f39878d2511ca86adeb8f}
-Save the image
+\-Save the image
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{\-Parameters}
 {\em path} & location to save the files \\
 \hline
 {\em camera} & which camera to save the image from \mbox{[}left,right,bottom\mbox{]}\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Image (640\-X480) 
+\begin{DoxyReturn}{\-Returns}
+\-Image (640\-X480) 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a4f1aff1c608a045faa07fa8b9cff4b65}{\index{Staterobot@{Staterobot}!send\-\_\-goal@{send\-\_\-goal}}
-\index{send\-\_\-goal@{send\-\_\-goal}!Staterobot@{Staterobot}}
-\subsubsection[{send\-\_\-goal}]{\setlength{\rightskip}{0pt plus 5cm}bool Staterobot\-::send\-\_\-goal (
+\hypertarget{class_staterobot_a4f1aff1c608a045faa07fa8b9cff4b65}{\index{\-Staterobot@{\-Staterobot}!send\-\_\-goal@{send\-\_\-goal}}
+\index{send\-\_\-goal@{send\-\_\-goal}!Staterobot@{\-Staterobot}}
+\subsubsection[{send\-\_\-goal}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Staterobot\-::send\-\_\-goal} (
 \begin{DoxyParamCaption}
 \item[{float}]{x, }
 \item[{float}]{y, }
@@ -351,69 +356,69 @@ Image (640\-X480)
 \item[{bool}]{relative = {\ttfamily false}}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a4f1aff1c608a045faa07fa8b9cff4b65}
-Send goal to Spiri
+\-Send goal to \-Spiri
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{\-Parameters}
 {\em x} & coordinate in x direction \\
 \hline
 {\em y} & coordinate in y direction \\
 \hline
 {\em z} & coordinate in z direction \\
 \hline
-{\em relative} & If set then goal is calculated with respect to the start position otherwise coordinates are with respect to the world\\
+{\em relative} & \-If set then goal is calculated with respect to the start position otherwise coordinates are with respect to the world\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Succesfully executed or not 
+\begin{DoxyReturn}{\-Returns}
+\-Succesfully executed or not 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_abc938e713a748e1803a304e30145e3d1}{\index{Staterobot@{Staterobot}!send\-\_\-goal\-\_\-python@{send\-\_\-goal\-\_\-python}}
-\index{send\-\_\-goal\-\_\-python@{send\-\_\-goal\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{send\-\_\-goal\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}bool Staterobot\-::send\-\_\-goal\-\_\-python (
+\hypertarget{class_staterobot_abc938e713a748e1803a304e30145e3d1}{\index{\-Staterobot@{\-Staterobot}!send\-\_\-goal\-\_\-python@{send\-\_\-goal\-\_\-python}}
+\index{send\-\_\-goal\-\_\-python@{send\-\_\-goal\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{send\-\_\-goal\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Staterobot\-::send\-\_\-goal\-\_\-python} (
 \begin{DoxyParamCaption}
 \item[{boost\-::python\-::list \&}]{values}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_abc938e713a748e1803a304e30145e3d1}
-Send goal to Spiri with respect to the world
+\-Send goal to \-Spiri with respect to the world
 
 
-\begin{DoxyParams}{Parameters}
-{\em values} & Cooridinates in x,y,z\\
+\begin{DoxyParams}{\-Parameters}
+{\em values} & \-Cooridinates in x,y,z\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Succesfull 
+\begin{DoxyReturn}{\-Returns}
+\-Succesfull 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_a5ec7a1fdfa9757ddea8c1587e8324f4a}{\index{Staterobot@{Staterobot}!send\-\_\-goal\-\_\-python\-\_\-relative@{send\-\_\-goal\-\_\-python\-\_\-relative}}
-\index{send\-\_\-goal\-\_\-python\-\_\-relative@{send\-\_\-goal\-\_\-python\-\_\-relative}!Staterobot@{Staterobot}}
-\subsubsection[{send\-\_\-goal\-\_\-python\-\_\-relative}]{\setlength{\rightskip}{0pt plus 5cm}bool Staterobot\-::send\-\_\-goal\-\_\-python\-\_\-relative (
+\hypertarget{class_staterobot_a5ec7a1fdfa9757ddea8c1587e8324f4a}{\index{\-Staterobot@{\-Staterobot}!send\-\_\-goal\-\_\-python\-\_\-relative@{send\-\_\-goal\-\_\-python\-\_\-relative}}
+\index{send\-\_\-goal\-\_\-python\-\_\-relative@{send\-\_\-goal\-\_\-python\-\_\-relative}!Staterobot@{\-Staterobot}}
+\subsubsection[{send\-\_\-goal\-\_\-python\-\_\-relative}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Staterobot\-::send\-\_\-goal\-\_\-python\-\_\-relative} (
 \begin{DoxyParamCaption}
 \item[{boost\-::python\-::list \&}]{values}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_a5ec7a1fdfa9757ddea8c1587e8324f4a}
-Send goal to Spiri with respect to the current position
+\-Send goal to \-Spiri with respect to the current position
 
 
-\begin{DoxyParams}{Parameters}
-{\em values} & Cooridinates in x,y,z\\
+\begin{DoxyParams}{\-Parameters}
+{\em values} & \-Cooridinates in x,y,z\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Succesfull 
+\begin{DoxyReturn}{\-Returns}
+\-Succesfull 
 \end{DoxyReturn}
-\hypertarget{class_staterobot_addfc245d53239eed664812a50a916428}{\index{Staterobot@{Staterobot}!send\-\_\-vel@{send\-\_\-vel}}
-\index{send\-\_\-vel@{send\-\_\-vel}!Staterobot@{Staterobot}}
-\subsubsection[{send\-\_\-vel}]{\setlength{\rightskip}{0pt plus 5cm}void Staterobot\-::send\-\_\-vel (
+\hypertarget{class_staterobot_addfc245d53239eed664812a50a916428}{\index{\-Staterobot@{\-Staterobot}!send\-\_\-vel@{send\-\_\-vel}}
+\index{send\-\_\-vel@{send\-\_\-vel}!Staterobot@{\-Staterobot}}
+\subsubsection[{send\-\_\-vel}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Staterobot\-::send\-\_\-vel} (
 \begin{DoxyParamCaption}
 \item[{float}]{x, }
 \item[{float}]{y, }
 \item[{float}]{z}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_addfc245d53239eed664812a50a916428}
-Send velocity to Spiri.
+\-Send velocity to \-Spiri.
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{\-Parameters}
 {\em x} & velocity in x direction \\
 \hline
 {\em y} & velocity in y direction \\
@@ -421,25 +426,25 @@ Send velocity to Spiri.
 {\em z} & velocity in z direction \\
 \hline
 \end{DoxyParams}
-\begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000004}{Todo}]This is hack. If there exists a better way in R\-O\-S need to find that \end{DoxyRefDesc}
-\hypertarget{class_staterobot_ae47718241f57b27cf4854730cfb50201}{\index{Staterobot@{Staterobot}!send\-\_\-vel\-\_\-python@{send\-\_\-vel\-\_\-python}}
-\index{send\-\_\-vel\-\_\-python@{send\-\_\-vel\-\_\-python}!Staterobot@{Staterobot}}
-\subsubsection[{send\-\_\-vel\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}void Staterobot\-::send\-\_\-vel\-\_\-python (
+\begin{DoxyRefDesc}{\-Todo}
+\item[\hyperlink{todo__todo000004}{\-Todo}]\-This is hack. \-If there exists a better way in \-R\-O\-S need to find that \end{DoxyRefDesc}
+\hypertarget{class_staterobot_ae47718241f57b27cf4854730cfb50201}{\index{\-Staterobot@{\-Staterobot}!send\-\_\-vel\-\_\-python@{send\-\_\-vel\-\_\-python}}
+\index{send\-\_\-vel\-\_\-python@{send\-\_\-vel\-\_\-python}!Staterobot@{\-Staterobot}}
+\subsubsection[{send\-\_\-vel\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Staterobot\-::send\-\_\-vel\-\_\-python} (
 \begin{DoxyParamCaption}
 \item[{boost\-::python\-::list \&}]{val}
 \end{DoxyParamCaption}
 )}}\label{class_staterobot_ae47718241f57b27cf4854730cfb50201}
-Send velocity commands to Spiri
+\-Send velocity commands to \-Spiri
 
 
-\begin{DoxyParams}{Parameters}
-{\em val} & Velocities in m/s in x,y,z direction \\
+\begin{DoxyParams}{\-Parameters}
+{\em val} & \-Velocities in m/s in x,y,z direction \\
 \hline
 \end{DoxyParams}
 
 
-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
 include/spiri\-\_\-api/staterobot.\-h\item 
 src/staterobot.\-cpp\end{DoxyCompactItemize}
