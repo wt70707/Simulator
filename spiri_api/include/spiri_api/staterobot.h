@@ -51,22 +51,58 @@ class Staterobot
 
 
 
+
 private:
 
 public:
     Staterobot();
+    struct imu{
+        double x;
+        double y;
+        double z;
+        double w;
+    };
+    struct position{
+        double x;
+        double y;
+        double z;
+    };
+    struct orientation{
+        double x;
+        double y;
+        double z;
+        double w;
+    };
+    struct state{
+        struct position position;
+        struct orientation orientation;
 
-    std::vector<double> get_imu();
+    };
+    struct gps
+    {
+        double latitude;
+        double longitude;
+        double altitude;
+    };
+    struct gps_vel{
+        double x;
+        double y;
+        double z;
+    };
+
+
+
+    Staterobot::imu get_imu();
 
     void image_left_callback(const sensor_msgs::ImageConstPtr &);
     void image_right_callback(const sensor_msgs::ImageConstPtr &);
     void image_bottom_callback(const sensor_msgs::ImageConstPtr &);
-    std::vector<double> get_state();
+    Staterobot::state get_state();
     float get_height_pressure();
     bool wait_goal();
     void callback_goal(const action_controller::MultiDofFollowJointTrajectoryActionResultPtr&);
-    std::vector<double> get_gps_data();
-    std::vector<double> get_gps_vel();
+    Staterobot::gps get_gps_data();
+    Staterobot::gps_vel get_gps_vel();
     float get_height_altimeter();
     bool send_goal(float x,float y,float z,bool relative);
     cv::Mat get_left_image();
@@ -74,11 +110,11 @@ public:
     cv::Mat get_bottom_image();
     void save_image(const std::string,const std::string);
     void send_vel(float x,float y,float z);
-    sensor_msgs::ImuConstPtr imu;
-    nav_msgs::OdometryConstPtr odom;
+    sensor_msgs::ImuConstPtr imu_ptr;
+    nav_msgs::OdometryConstPtr state_ptr;
     geometry_msgs::PointStampedConstPtr pressure;
-    sensor_msgs::NavSatFixConstPtr gps;
-    geometry_msgs::Vector3StampedConstPtr gps_vel;
+    sensor_msgs::NavSatFixConstPtr gps_ptr;
+    geometry_msgs::Vector3StampedConstPtr gps_vel_ptr;
     hector_uav_msgs::AltimeterConstPtr altimeter;
     sensor_msgs::ImageConstPtr img;
     cv_bridge::CvImagePtr cv_ptr;
@@ -96,6 +132,8 @@ public:
     bool send_goal_python(boost::python::list &);
     bool send_goal_python_relative(boost::python::list &);
     void send_vel_python(boost::python::list &);
+
+
 
 
 };

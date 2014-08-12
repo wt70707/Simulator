@@ -23,10 +23,11 @@ Staterobot::Staterobot()
   @return Orientation (x,y,z,w) of Spiri
   */
 
-std::vector<double> Staterobot::get_imu()
+Staterobot::imu Staterobot::get_imu()
 {
 
-    imu=ros::topic::waitForMessage<sensor_msgs::Imu>("/raw_imu");
+    imu_ptr=ros::topic::waitForMessage<sensor_msgs::Imu>("/raw_imu");
+    /*
     std::vector<double> v(4);
     v[0]=imu->orientation.x;
     v[1]=imu->orientation.y;
@@ -34,6 +35,17 @@ std::vector<double> Staterobot::get_imu()
     v[3]=imu->orientation.w;
 
     return v;
+    */
+
+    imu imu_data;
+    imu_data.x=imu_ptr->orientation.x;
+    imu_data.y=imu_ptr->orientation.y;
+    imu_data.z=imu_ptr->orientation.z;
+    imu_data.w=imu_ptr->orientation.w;
+    return imu_data;
+
+
+
 }
 
 
@@ -43,14 +55,16 @@ std::vector<double> Staterobot::get_imu()
   @return The orientation in quaternion (x,y,z,w)
 
  */
+
 boost::python::list Staterobot::get_imu_python()
 {
-    geometry_msgs::Quaternion imu_data=this->get_imu();
+    Staterobot::imu imu_data=this->get_imu();
     std::vector<double> v(4);
     v[0]=imu_data.x;
     v[1]=imu_data.y;
     v[2]=imu_data.z;
-    v[4]=imu_data.w;
+    v[3]=imu_data.w;
+
     return moveit::py_bindings_tools::listFromDouble(v);
 }
 
@@ -61,20 +75,20 @@ boost::python::list Staterobot::get_imu_python()
   @return Position(x,y,z) and orientation (x,y,z,w) of Spiri
   */
 
-std::vector<double> Staterobot::get_state()
+Staterobot::state Staterobot::get_state()
 
 {
-    odom=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
-    std::vector<double> v(7);
-    v[0]=odom->pose.pose.position.x;
-    v[1]=odom->pose.pose.position.y;
-    v[2]=odom->pose.pose.position.z;
-    v[3]=odom->pose.pose.orientation.x;
-    v[4]=odom->pose.pose.orientation.y;
-    v[5]=odom->pose.pose.orientation.z;
-    v[6]=odom->pose.pose.orientation.w;
+    state_ptr=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
+    state state_data;
+    state_data.position.x=state_ptr->pose.pose.position.x;
+    state_data.position.y=state_ptr->pose.pose.position.y;
+    state_data.position.z=state_ptr->pose.pose.position.z;
+    state_data.orientation.x=state_ptr->pose.pose.orientation.x;
+    state_data.orientation.y=state_ptr->pose.pose.orientation.y;
+    state_data.orientation.z=state_ptr->pose.pose.orientation.z;
+    state_data.orientation.w=state_ptr->pose.pose.orientation.w;
 
-    return v;
+    return state_data;
 
 }
 
@@ -84,9 +98,11 @@ std::vector<double> Staterobot::get_state()
 
   @return Position(x,y,z) and orientation(x,y,z,w)
  */
+
 boost::python::list Staterobot::get_state_python()
 {
-    geometry_msgs::Pose pose_data=this->get_state();
+    state pose_data=this->get_state();
+
     std::vector<double> v(7);
     v[0]=pose_data.position.x;
     v[1]=pose_data.position.y;
@@ -95,8 +111,10 @@ boost::python::list Staterobot::get_state_python()
     v[4]=pose_data.orientation.y;
     v[5]=pose_data.orientation.z;
     v[6]=pose_data.orientation.w;
+
     return moveit::py_bindings_tools::listFromDouble(v);
 }
+
 /*!
   Get the height in metres from pressure sensor
 
@@ -116,15 +134,14 @@ float Staterobot::get_height_pressure()
 
   @return GPS (latitude,longitude,altitude) of Spiri
   */
-std::vector<double> Staterobot::get_gps_data()
+Staterobot::gps Staterobot::get_gps_data()
 {
-    gps=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("/fix");
-    std::vector<double> v(3);
-    v[0]=gps->latitude;
-    v[1]=gps->longitude;
-    v[2]=gps->altitude;
-    // @todo Need to return three floats or some sort of structure
-    return v;
+    gps_ptr=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("/fix");
+    gps gps_data;
+    gps_data.latitude=gps_ptr->latitude;
+    gps_data.longitude=gps_ptr->longitude;
+    gps_data.altitude=gps_ptr->altitude;
+    return gps_data;
 }
 /*!
     Get the gps data
@@ -133,11 +150,13 @@ std::vector<double> Staterobot::get_gps_data()
  */
 boost::python::list Staterobot::get_gps_data_python()
 {
-    sensor_msgs::NavSatFixConstPtr gps_data=this->get_gps_data();
+    gps gps_data=this->get_gps_data();
+
     std::vector<double> v(3);
-    v[0]=gps_data->latitude;
-    v[1]=gps_data->longitude;
-    v[2]=gps_data->altitude;
+    v[0]=gps_data.latitude;
+    v[1]=gps_data.longitude;
+    v[2]=gps_data.altitude;
+
     return moveit::py_bindings_tools::listFromDouble(v);
 }
 
@@ -146,15 +165,15 @@ boost::python::list Staterobot::get_gps_data_python()
 
   @return Velocity (x,y,z) of Spiri
   */
-std::vector<double> Staterobot::get_gps_vel()
+Staterobot::gps_vel Staterobot::get_gps_vel()
 {
-    gps_vel=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
-    std::vector<double> v(3);
-    v[0]=gps_vel->vector.x;
-    v[1]=gps_vel->vector.y;
-    v[2]=gps_vel->vector.z;
+    gps_vel_ptr=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
+    gps_vel gps_vel_data;
+    gps_vel_data.x=gps_vel_ptr->vector.x;
+    gps_vel_data.y=gps_vel_ptr->vector.y;
+    gps_vel_data.z=gps_vel_ptr->vector.z;
 
-    return v;
+    return gps_vel_data;
 }
 /*!
   Velocity reported by GPS
@@ -163,11 +182,13 @@ std::vector<double> Staterobot::get_gps_vel()
  */
 boost::python::list Staterobot::get_gps_vel_python()
 {
-    geometry_msgs::Vector3 vel_data=this->get_gps_vel();
+    gps_vel vel_data=this->get_gps_vel();
+
     std::vector<double> v(3);
     v[0]=vel_data.x;
     v[1]=vel_data.y;
     v[2]=vel_data.z;
+
     return moveit::py_bindings_tools::listFromDouble(v);
 
 }
@@ -397,14 +418,14 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     spinner.start();
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
-    current_state=get_state();
-    transform.translation.x=current_state[0];
-    transform.translation.y=current_state[1];
-    transform.translation.z=current_state[2];
-    transform.rotation.x=current_state[3];
-    transform.rotation.y=current_state[4];
-    transform.rotation.z=current_state[5];
-    transform.rotation.w=current_state[6];
+    state current_state=get_state();
+    transform.translation.x=current_state.position.x;
+    transform.translation.y=current_state.position.y;
+    transform.translation.z=current_state.position.z;
+    transform.rotation.x=current_state.orientation.x;
+    transform.rotation.y=current_state.orientation.y;
+    transform.rotation.z=current_state.orientation.z;
+    transform.rotation.w=current_state.orientation.w;
     start_state.multi_dof_joint_state.joint_names.push_back("virtual_join");
     start_state.multi_dof_joint_state.transforms.push_back(transform);
     start_state.joint_state.header.frame_id="/nav";
@@ -415,9 +436,9 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     if (relative==true)
     {
 
-        group_variable_values[0]=current_state[0]+x;
-        group_variable_values[1]=current_state[1]+y;
-        group_variable_values[2]=current_state[2]+z;
+        group_variable_values[0]=current_state.position.x+x;
+        group_variable_values[1]=current_state.position.y+y;
+        group_variable_values[2]=current_state.position.z+z;
     }
     else
     {

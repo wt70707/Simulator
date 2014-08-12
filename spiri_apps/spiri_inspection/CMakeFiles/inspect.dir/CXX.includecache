@@ -115,6 +115,8 @@ spiri_api/staterobot.h
 -
 sstream
 -
+iostream
+-
 
 /opt/ros/hydro/include/XmlRpcDecl.h
 ros/macros.h

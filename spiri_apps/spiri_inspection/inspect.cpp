@@ -1,10 +1,12 @@
 #include <spiri_api/staterobot.h>
 #include <sstream>
-
+#include <iostream>
 int main()
 {
     Staterobot robot;
-    
+    Staterobot::state state=robot.get_state();
+    std::cout<<state.position.x;
+    /*
     robot.send_goal(0,0,1,true);
     int i=0;
     // save images while moving towards a goal
@@ -20,7 +22,7 @@ int main()
       robot.save_image(path,"left");
       i++;
     }
-    
+    */
     /*
     robot.send_vel(0,0,1);
     //sleep(1.0);
