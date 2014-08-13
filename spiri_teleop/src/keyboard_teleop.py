@@ -5,8 +5,8 @@ import time
 from geometry_msgs.msg import Twist
 
 import sys, select, termios, tty
-from spiri_api import spiri_api_py
-spiri=spiri_api_py.Staterobot()
+from spiri_api import spiri_api_python
+spiri=spiri_api_python()
 
 
 msg = """
@@ -87,7 +87,7 @@ if __name__=="__main__":
 				print key
 				if key=='h':
 				  
-				  if state[2]<1.0:
+				  if state.position.z<1.0:
 				    twist=Twist()
 				    twist.linear.z=1.0
 				    pub.publish(twist)

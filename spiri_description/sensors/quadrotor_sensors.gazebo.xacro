@@ -75,14 +75,14 @@
     </xacro:generic_camera-->
 
 <!-- TOF camera -->
- <!--xacro:include filename="$(find spiri_description)/sensors/tof_kinect.urdf.xacro" />
+ <xacro:include filename="$(find spiri_description)/sensors/tof_kinect.urdf.xacro" />
      <xacro:kinect_camera name="camera" parent="base_link">
-      <origin xyz="-0.04 -0.00 0.1" rpy="0 0 ${M_PI}"/>
-    </xacro:kinect_camera-->
- <xacro:include filename="$(find spiri_description)/sensors/tof.urdf.xacro" />
+      <origin xyz="-0.064 -0.00 0.2" rpy="0 0 ${M_PI}"/>
+    </xacro:kinect_camera>
+ <!--xacro:include filename="$(find spiri_description)/sensors/tof.urdf.xacro" />
     <xacro:generic_tof name="tof" parent="base_link" ros_topic="tof" update_rate="30" noise="0.0">
       <origin xyz="-0.064 0.0 0.2" rpy="0 0 ${M_PI}"/>
-    </xacro:generic_tof>
+    </xacro:generic_tof-->
   
 </robot>
 
