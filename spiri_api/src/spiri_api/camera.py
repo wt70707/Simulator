@@ -85,4 +85,14 @@ class spiri_api_python():
   
   def get_height_pressure(self):
     return self.spiri.get_height_pressure()
+  
+  
+  def send_goal(x,y,z,relative=False):
+    if relative==False:
+      self.spiri.send_goal_relative([x,y,z])
+    else:
+      self.spiri.send_goal([x,y,z])
+ 
+ def send_vel(x,y,z):
+   self.spiri.send_vel([x,y,z])
  
