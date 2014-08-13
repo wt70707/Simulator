@@ -36,8 +36,7 @@ struct \hyperlink{struct_staterobot_1_1state}{state}
 \item 
 float \hyperlink{class_staterobot_a0318f7abf24c5c60aee915224af6af02}{get\-\_\-height\-\_\-pressure} ()
 \item 
-\hypertarget{class_staterobot_a4a44c24dd5cdb773aa40772d02b41720}{bool {\bfseries wait\-\_\-goal} ()}\label{class_staterobot_a4a44c24dd5cdb773aa40772d02b41720}
-
+bool \hyperlink{class_staterobot_a4a44c24dd5cdb773aa40772d02b41720}{wait\-\_\-goal} ()
 \item 
 \hypertarget{class_staterobot_a37cbdfcb1cc30194f0fa0742952a0aad}{void {\bfseries callback\-\_\-goal} (const action\-\_\-controller\-::\-Multi\-Dof\-Follow\-Joint\-Trajectory\-Action\-Result\-Ptr \&)}\label{class_staterobot_a37cbdfcb1cc30194f0fa0742952a0aad}
 
@@ -427,7 +426,7 @@ const  $>$ {\bfseries error\-Ptr}}\label{class_staterobot_aead4ba8f811be3fb0973f
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{\-Todo}
-\item[\hyperlink{todo__todo000004}{\-Todo}]\-This is hack. \-If there exists a better way in \-R\-O\-S need to find that \end{DoxyRefDesc}
+\item[\hyperlink{todo__todo000001}{\-Todo}]\-This is hack. \-If there exists a better way in \-R\-O\-S need to find that \end{DoxyRefDesc}
 \hypertarget{class_staterobot_ae47718241f57b27cf4854730cfb50201}{\index{\-Staterobot@{\-Staterobot}!send\-\_\-vel\-\_\-python@{send\-\_\-vel\-\_\-python}}
 \index{send\-\_\-vel\-\_\-python@{send\-\_\-vel\-\_\-python}!Staterobot@{\-Staterobot}}
 \subsubsection[{send\-\_\-vel\-\_\-python}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf \-Staterobot\-::send\-\_\-vel\-\_\-python} (
@@ -442,6 +441,18 @@ const  $>$ {\bfseries error\-Ptr}}\label{class_staterobot_aead4ba8f811be3fb0973f
 {\em val} & \-Velocities in m/s in x,y,z direction \\
 \hline
 \end{DoxyParams}
+\hypertarget{class_staterobot_a4a44c24dd5cdb773aa40772d02b41720}{\index{\-Staterobot@{\-Staterobot}!wait\-\_\-goal@{wait\-\_\-goal}}
+\index{wait\-\_\-goal@{wait\-\_\-goal}!Staterobot@{\-Staterobot}}
+\subsubsection[{wait\-\_\-goal}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \-Staterobot\-::wait\-\_\-goal} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_staterobot_a4a44c24dd5cdb773aa40772d02b41720}
+\-If the goal has been reached or not
+
+\begin{DoxyReturn}{\-Returns}
+\-True if goal has been reached otherwise \-False 
+\end{DoxyReturn}
 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}

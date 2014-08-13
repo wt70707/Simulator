@@ -1,3 +1,8 @@
+/*!
+  \package spiri_api
+  \author Rohan Bhargava
+  \version 1.1.2
+  */
 #include <spiri_api/staterobot.h>
 #include <iostream>
 #include <ctime>
@@ -20,7 +25,7 @@ Staterobot::Staterobot()
 /*!
   Get the orientation in quaternion from IMU
 
-  @return Orientation (x,y,z,w) of Spiri
+  \return Orientation (x,y,z,w) of Spiri
   */
 
 Staterobot::imu Staterobot::get_imu()
@@ -378,6 +383,12 @@ void Staterobot::save_image(const std::string path="",const std::string camera="
 
     cv::imwrite(path,image);
 }
+/*!
+  If the goal has been reached or not
+
+
+  @return True if goal has been reached otherwise False
+  */
 bool Staterobot::wait_goal()
 {
     bool param;
