@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-<node name="takeoff" pkg="spiri_api" type="takeoff.py"/>
-<node name="figure_movement" pkg="spiri_api" type="figure_movement.py" output="screen"/>
-</launch>
