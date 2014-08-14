@@ -4,4 +4,5 @@ sensors:
     max_range: 5.0
     point_subsample: 1
     frame_subsample: 1
+    filtered_cloud_topic: output_cloud
     
