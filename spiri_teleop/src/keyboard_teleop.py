@@ -5,7 +5,7 @@ import time
 from geometry_msgs.msg import Twist
 
 import sys, select, termios, tty
-from spiri_api import spiri_api_py
+from spiri_api import spiri_api_python
 spiri=spiri_api_py.Staterobot()
 
 
