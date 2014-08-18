@@ -91,15 +91,7 @@ Staterobot::state Staterobot::get_state()
     state_data.orientation.z=state_test[5];
     state_data.orientation.w=state_test[6];
 
-    /*
-    state_data.position.x=state_ptr->pose.pose.position.x;
-    state_data.position.y=state_ptr->pose.pose.position.y;
-    state_data.position.z=state_ptr->pose.pose.position.z;
-    state_data.orientation.x=state_ptr->pose.pose.orientation.x;
-    state_data.orientation.y=state_ptr->pose.pose.orientation.y;
-    state_data.orientation.z=state_ptr->pose.pose.orientation.z;
-    state_data.orientation.w=state_ptr->pose.pose.orientation.w;
-    */
+
     return state_data;
 
 }
@@ -439,20 +431,7 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     group.setWorkspace(-5.0,-5.0,-5.0,100.0,100.0,100.0);
 
 
-    /*
-    transform.translation.x=current_state.position.x;
-    transform.translation.y=current_state.position.y;
-    transform.translation.z=current_state.position.z;
-    transform.rotation.x=current_state.orientation.x;
-    transform.rotation.y=current_state.orientation.y;
-    transform.rotation.z=current_state.orientation.z;
-    transform.rotation.w=current_state.orientation.w;
-    start_state.multi_dof_joint_state.joint_names.push_back("virtual_join");
-    start_state.multi_dof_joint_state.transforms.push_back(transform);
-    start_state.joint_state.header.frame_id="/nav";
-    start_state.multi_dof_joint_state.header.frame_id="/nav";
-    group.setStartState(start_state);
-    */
+
     group.setStartStateToCurrentState();
     // after setting the start state send the goal
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
