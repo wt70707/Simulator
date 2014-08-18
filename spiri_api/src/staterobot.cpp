@@ -73,17 +73,24 @@ boost::python::list Staterobot::get_imu_python()
   */
 
 Staterobot::state Staterobot::get_state()
-
 {
-    state_ptr=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
+    ros::AsyncSpinner spinner(1);
+    spinner.start();
+    moveit::planning_interface::MoveGroup group("spiri");
+    std::vector<double> state_test(7);
+    state_test=group.getCurrentJointValues();
+
+    spinner.stop();
+    ////state_ptr=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
     state state_data;
-    state_data.position.x=state_ptr->pose.pose.position.x;
-    state_data.position.y=state_ptr->pose.pose.position.y;
-    state_data.position.z=state_ptr->pose.pose.position.z;
-    state_data.orientation.x=state_ptr->pose.pose.orientation.x;
-    state_data.orientation.y=state_ptr->pose.pose.orientation.y;
-    state_data.orientation.z=state_ptr->pose.pose.orientation.z;
-    state_data.orientation.w=state_ptr->pose.pose.orientation.w;
+    state_data.position.x=state_test[0];
+    state_data.position.y=state_test[1];
+    state_data.position.z=state_test[2];
+    state_data.orientation.x=state_test[3];
+    state_data.orientation.y=state_test[4];
+    state_data.orientation.z=state_test[5];
+    state_data.orientation.w=state_test[6];
+
 
     return state_data;
 
@@ -422,23 +429,15 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
     group.setWorkspace(-5.0,-5.0,-5.0,100.0,100.0,100.0);
-    state current_state=get_state();
-    transform.translation.x=current_state.position.x;
-    transform.translation.y=current_state.position.y;
-    transform.translation.z=current_state.position.z;
-    transform.rotation.x=current_state.orientation.x;
-    transform.rotation.y=current_state.orientation.y;
-    transform.rotation.z=current_state.orientation.z;
-    transform.rotation.w=current_state.orientation.w;
-    start_state.multi_dof_joint_state.joint_names.push_back("virtual_join");
-    start_state.multi_dof_joint_state.transforms.push_back(transform);
-    start_state.joint_state.header.frame_id="/nav";
-    start_state.multi_dof_joint_state.header.frame_id="/nav";
-    group.setStartState(start_state);
+
+
+
+    group.setStartStateToCurrentState();
     // after setting the start state send the goal
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
     if (relative==true)
     {
+        state current_state=get_state();
 
         group_variable_values[0]=current_state.position.x+x;
         group_variable_values[1]=current_state.position.y+y;
@@ -459,6 +458,7 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     {
             ROS_INFO("Going to execute");
             success_execution=group.asyncExecute(my_plan);
+
     }
     else
     {

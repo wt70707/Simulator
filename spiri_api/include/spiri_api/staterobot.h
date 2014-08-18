@@ -93,7 +93,6 @@ public:
 
 
     Staterobot::imu get_imu();
-
     void image_left_callback(const sensor_msgs::ImageConstPtr &);
     void image_right_callback(const sensor_msgs::ImageConstPtr &);
     void image_bottom_callback(const sensor_msgs::ImageConstPtr &);

@@ -22,8 +22,8 @@ from geometry_msgs.msg import Twist, PoseStamped,Pose
 from nav_msgs.msg import Odometry
 import time
 
-
 from spiri_api import pid
+from spiri_api import spiri_api_python
 from collections import deque
 
 ## Class for generating velocity for Spiri
@@ -36,7 +36,9 @@ class actioncontroller(object):
 		self.traj=trajectory_msgs.msg.MultiDOFJointTrajectory()
 		self._as=actionlib.ActionServer(self._action_name,ActionSpec=action_controller.msg.MultiDofFollowJointTrajectoryAction,goal_cb=self.goalcb,cancel_cb=self.cancelcb,auto_start=False)
 		self.pub=rospy.Publisher('cmd_vel',Twist,queue_size=1)
-		rospy.Subscriber('/ground_truth/state',Odometry,self.callback)
+		#rospy.Subscriber('/ground_truth/state',Odometry,self.callback)
+		self.spiri_obj=spiri_api_python()
+		
 		self.lastPosition=Transform()
 		self.vel=Twist()
 		self.flag=True
@@ -54,7 +56,7 @@ class actioncontroller(object):
 
 		self.state=data.pose.pose
 
-
+	
 	def goalcb(self,gh):
 		if self.has_active_goal:
 			self.pub.publish(Twist())
@@ -116,11 +118,11 @@ class actioncontroller(object):
 
 			#flag=True
 
-
-			self.vel.linear.x=goal[counter].position.x-self.state.pose.position.x
+			current_state=self.spiri_obj.get_state()
+			self.vel.linear.x=goal[counter].position.x-current_state.position.x#self.state.pose.position.x
 			#self.vel.linear.x=self.pid_vel(goal[counter])
-			self.vel.linear.y=goal[counter].position.y-self.state.pose.position.y
-			self.vel.linear.z=goal[counter].position.z-self.state.pose.position.z
+			self.vel.linear.y=goal[counter].position.y-current_state.position.y
+			self.vel.linear.z=goal[counter].position.z-current_state.position.z
 			#print "calculated the cmd vel topic"
 
 			# this loop is just for the agressive behaviour
@@ -177,8 +179,9 @@ class actioncontroller(object):
 
 	def compute_goal(self):
 		goal=deque()
+		current_state=spiri_obj.get_state()
 		#self.robot_state()
-		goal.append(self.state)
+		goal.append(current_state)
 
 		for i in range(1,len(self.traj.points)):
 			temp=Pose()
@@ -192,7 +195,8 @@ class actioncontroller(object):
 
 
 	def checkgoal(self,goal):
-		if abs(self.state.position.x-goal.position.x)<1.0 and abs(self.state.position.y-goal.position.y)<1.0 and abs(self.state.position.z-goal.position.z)<1.0:
+		current_state=spiri_obj.get_state()
+		if abs(current_state.position.x-goal.position.x)<1.0 and abs(current_state.position.y-goal.position.y)<1.0 and abs(current_state.position.z-goal.position.z)<1.0:
 			return True
 		return False
 
@@ -224,11 +228,12 @@ class actioncontroller(object):
 		while len(goal)>0:
 			temp_goal=goal.popleft()
 			p.setPoint(temp_goal)
-
-			while abs(self.state.position.x-temp_goal.position.x)>0.1 or abs(self.state.position.y-temp_goal.position.y)>0.1 or abs(self.state.position.z-temp_goal.position.z)>0.1:
+			current_state=spiri_obj.get_state()
+			while abs(current_state.position.x-temp_goal.position.x)>0.1 or abs(current_state.position.y-temp_goal.position.y)>0.1 or abs(current_state.position.z-temp_goal.position.z)>0.1:
 				#dt=self.state.header.stamp.secs-time_of_last_cycle
 				#time_of_last_cycle=self.state.header.stamp.secs
-				temp=p.update(self.state)
+				update_state=spiri_obj.get_state()
+				temp=p.update(update_state)
 				self.vel.linear.x=min(1.0,temp[0])
 				self.vel.linear.y=min(1.0,temp[1])
 				self.vel.linear.z=min(1.0,temp[2])
