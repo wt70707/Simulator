@@ -7,7 +7,7 @@ int main()
     //Staterobot::state state=robot.get_state();
     //std::cout<<state.position.x;
     
-    robot.send_goal(0,0,20,true);
+    robot.send_goal(-10,0,1,true);
     //int i=0;
     // save images while moving towards a goal
     /*
