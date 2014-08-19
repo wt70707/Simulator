@@ -226,7 +226,7 @@ cv::Mat Staterobot::get_left_image()
 
 
 
-    image_queue.callAvailable(ros::WallDuration(1.0));
+    image_queue.callAvailable(ros::WallDuration(10.0));
     return this->left_image;
 
 }
@@ -278,7 +278,7 @@ cv::Mat Staterobot::get_right_image()
 
 
 
-    image_queue.callAvailable(ros::WallDuration(1.0));
+    image_queue.callAvailable(ros::WallDuration(10.0));
     return this->right_image;
 
 }
@@ -323,7 +323,7 @@ cv::Mat Staterobot::get_bottom_image()
 
 
 
-    image_queue.callAvailable(ros::WallDuration(1.0));
+    image_queue.callAvailable(ros::WallDuration(10.0));
     return this->bottom_image;
 
 }
