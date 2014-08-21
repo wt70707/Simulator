@@ -421,6 +421,8 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     spinner.start();
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
+    group.setNumPlanningAttempts(3);
+
     group.setWorkspace(-100.0,-100.0,-5.0,100.0,100.0,100.0);
     state current_state=get_state();
     transform.translation.x=current_state.position.x;
@@ -450,7 +452,14 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
         group_variable_values[1]=y;
         group_variable_values[2]=z;
     }
+
+
+
+
+
+
     group.setJointValueTarget(group_variable_values);
+
 
     moveit::planning_interface::MoveGroup::Plan my_plan;
     // @todo Can combine plan and execute into one by using move.

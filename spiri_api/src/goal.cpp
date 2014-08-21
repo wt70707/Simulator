@@ -21,19 +21,17 @@ int main(int argc, char **argv)
     moveit::planning_interface::MoveGroup group("spiri");
 
     group.setPlannerId("PRMkConfigDefault");
-    geometry_msgs::Pose target_pose;
-    target_pose.position.z=1.0;
-    target_pose.orientation.w=1.0;
+    group.setWorkspace(-10.0,-10.0,0.0,10.0,10.0,4.0);
     //group.setPoseTarget(target_pose);
     //std::cout<<group.getJointValueTarget();
     double a=1.0;
     std::vector<double> group_variable_values;
     moveit_msgs::RobotState start_state;
-    group.setStartState(start_state);
+    //group.setStartState(start_state);
     geometry_msgs::Transform transform;
-    transform.translation.x=0.0;
+    transform.translation.x=-3.0;
     transform.translation.y=0.0;
-    transform.translation.z=2.0;
+    transform.translation.z=1.0;
     //transform.rotation.w=1.0;
     //float trans[] = {0,0,1};
     //string mystring;
@@ -54,33 +52,54 @@ int main(int argc, char **argv)
     //sleep(5.0);
     //std::cout<<start_state;
     //std::cout<<start_state.getRobotModel();
-    std::cout<<start_state;
+    //std::cout<<start_state;
     //std::cout<<group.getCurrentState();
 
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
   
     //std::cout<<group_variable_values;
-    group_variable_values[2] = -1.0;
+    group_variable_values[0] = 0.0;
+    group_variable_values[2] = 1.0;
     group.setJointValueTarget(group_variable_values);
+    group.setPlanningTime(20.0);
+    group.setNumPlanningAttempts(5.0);
+    moveit::planning_interface::MoveGroup::Plan my_plan;
+    //group.plan(my_plan);
+    group.move();
+    /*
+    geometry_msgs::Pose target_pose;
+    target_pose.position.x=0;
+    target_pose.position.y=0;
+    target_pose.position.z=2;
+    target_pose.orientation.x=group_variable_values[3];
+    target_pose.orientation.y=group_variable_values[4];
+    target_pose.orientation.z=group_variable_values[5];
+    target_pose.orientation.w=group_variable_values[6];
+    std::vector<geometry_msgs::Pose> waypoints;
+    waypoints.push_back(target_pose);
+    moveit_msgs::RobotTrajectory trajectory;
+
+    double fraction=group.computeCartesianPath(waypoints,0.01,0.0,trajectory);
+    ROS_INFO("Visualizing plan 4 (cartesian path) (%.2f%% acheived)",
+          fraction * 100.0);
+    std::cout<<trajectory;
     //group.setJointValueTarget(target_pose);
+    
     moveit::planning_interface::MoveGroup::Plan my_plan;
     bool success = group.plan(my_plan);
+
     //sleep(5.0);
     // std::cout<<success;
 
     if(success==1)
     {
         ROS_INFO("Going to execute");
-        success_execute=group.asyncExecute(my_plan);
-        std::cout<<success_execute;
+        //success_execute=group.asyncExecute(my_plan);
+        //std::cout<<success_execute;
     }
-
+  */
     ROS_INFO("Planned");
     //sleep(2.0);
-    while(success_execute==0)
-    {
-        std::cout<<"watiting";
-    }
-
+    
     ros::shutdown();
 }
