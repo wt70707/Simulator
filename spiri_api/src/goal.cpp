@@ -29,7 +29,7 @@ int main(int argc, char **argv)
     moveit_msgs::RobotState start_state;
     //group.setStartState(start_state);
     geometry_msgs::Transform transform;
-    transform.translation.x=-3.0;
+    transform.translation.x=0.0;
     transform.translation.y=0.0;
     transform.translation.z=1.0;
     //transform.rotation.w=1.0;
@@ -58,14 +58,14 @@ int main(int argc, char **argv)
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
   
     //std::cout<<group_variable_values;
-    group_variable_values[0] = 0.0;
+    group_variable_values[0] = 2.0;
     group_variable_values[2] = 1.0;
     group.setJointValueTarget(group_variable_values);
     group.setPlanningTime(20.0);
     group.setNumPlanningAttempts(5.0);
     moveit::planning_interface::MoveGroup::Plan my_plan;
-    //group.plan(my_plan);
-    group.move();
+    group.plan(my_plan);
+    //group.move();
     /*
     geometry_msgs::Pose target_pose;
     target_pose.position.x=0;
