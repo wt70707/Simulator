@@ -22,7 +22,12 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(Boost REQUIRED COMPONENTS system python)
 
 find_package(PythonLibs 2.7 REQUIRED)
-
+find_package(PythonInterp 2.7 REQUIRED)
+EXEC_PROGRAM ("${PYTHON_EXECUTABLE}"
+  ARGS "-c 'import numpy; print numpy.get_include()'"
+  OUTPUT_VARIABLE NUMPY_INCLUDE_DIR
+  RETURN_VALUE NUMPY_NOT_FOUND)
+  
 find_package(OpenCV REQUIRED)
 
 
@@ -111,12 +116,13 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
   #${EIGEN_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
-    ${PYTHON_INCLUDE_DIRS}
+  ${PYTHON_INCLUDE_DIRS}
+  ${NUMPY_INCLUDE_DIR}
 )
 add_executable(goal src/goal.cpp)
 target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_library(spiri_api src/staterobot.cpp)
-target_link_libraries(spiri_api ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(spiri_api ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(spiri_api action_controller_generate_messages_cpp)
 
 add_library(spiri_api_python src/python_bindings.cpp)
