@@ -419,6 +419,7 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 {
     ros::AsyncSpinner spinner(1);
     spinner.start();
+
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
     group.setNumPlanningAttempts(3);

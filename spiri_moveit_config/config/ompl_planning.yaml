@@ -14,7 +14,7 @@ spiri:
     
   
   projection_evaluator: joints(virtual_join)
-  longest_valid_segment_fraction: 0.03
+  longest_valid_segment_fraction: 0.01
 planner_configs:
 
   PRMkConfigDefault:

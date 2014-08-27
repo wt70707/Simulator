@@ -20,8 +20,8 @@ int main(int argc, char **argv)
     spinner.start();
     moveit::planning_interface::MoveGroup group("spiri");
 
-    group.setPlannerId("PRMkConfigDefault");
-    group.setWorkspace(-10.0,-10.0,0.0,10.0,10.0,4.0);
+    //group.setPlannerId("PRMkConfigDefault");
+    group.setPlannerId("RRTConnectkConfigDefault");
     //group.setPoseTarget(target_pose);
     //std::cout<<group.getJointValueTarget();
     double a=1.0;
@@ -29,9 +29,9 @@ int main(int argc, char **argv)
     moveit_msgs::RobotState start_state;
     //group.setStartState(start_state);
     geometry_msgs::Transform transform;
-    transform.translation.x=0.0;
-    transform.translation.y=0.0;
-    transform.translation.z=1.0;
+    transform.translation.x=-2.0;
+    transform.translation.y=0.3;
+    transform.translation.z=0.0;
     //transform.rotation.w=1.0;
     //float trans[] = {0,0,1};
     //string mystring;
@@ -48,24 +48,26 @@ int main(int argc, char **argv)
     //start_pose2.position.z=1.0;
     // const robot_state::JointModelGroup *joint_model_group =start_state.getJointModelGroup(group.getName());
     //start_state.setFromIK(joint_model_group, start_pose2);
-    group.setStartState(start_state);
+    //group.setStartState(start_state);
+group.setStartStateToCurrentState();
+    group.setWorkspace(-10.0,-10.0,0.0,10.0,10.0,10.0);
     //sleep(5.0);
     //std::cout<<start_state;
     //std::cout<<start_state.getRobotModel();
     //std::cout<<start_state;
     //std::cout<<group.getCurrentState();
-
+    //std::string name="spiri";
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
-  
+    //std::cout<<group.getName();
     //std::cout<<group_variable_values;
-    group_variable_values[0] = 2.0;
+    group_variable_values[0] = -4.0;
     group_variable_values[2] = 1.0;
     group.setJointValueTarget(group_variable_values);
-    group.setPlanningTime(20.0);
+    group.setPlanningTime(60.0);
     group.setNumPlanningAttempts(5.0);
     moveit::planning_interface::MoveGroup::Plan my_plan;
     group.plan(my_plan);
-    //group.move();
+    group.move();
     /*
     geometry_msgs::Pose target_pose;
     target_pose.position.x=0;
