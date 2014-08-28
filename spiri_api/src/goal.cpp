@@ -20,8 +20,10 @@ int main(int argc, char **argv)
     spinner.start();
     moveit::planning_interface::MoveGroup group("spiri");
 
-    //group.setPlannerId("PRMkConfigDefault");
-    group.setPlannerId("RRTConnectkConfigDefault");
+    group.setPlannerId("PRMkConfigDefault");
+    //group.setPlannerId("RRTConnectkConfigDefault");
+    group.setWorkspace(-5.0,-5.0,0.0,5.0,5.0,5.0);
+    //group.setPlannerId("RRTStarkConfigDefault");
     //group.setPoseTarget(target_pose);
     //std::cout<<group.getJointValueTarget();
     double a=1.0;
@@ -50,7 +52,7 @@ int main(int argc, char **argv)
     //start_state.setFromIK(joint_model_group, start_pose2);
     //group.setStartState(start_state);
 group.setStartStateToCurrentState();
-    group.setWorkspace(-10.0,-10.0,0.0,10.0,10.0,10.0);
+    
     //sleep(5.0);
     //std::cout<<start_state;
     //std::cout<<start_state.getRobotModel();
@@ -60,13 +62,13 @@ group.setStartStateToCurrentState();
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
     //std::cout<<group.getName();
     //std::cout<<group_variable_values;
-    group_variable_values[0] = -4.0;
+    group_variable_values[0] = 0.0;
     group_variable_values[2] = 1.0;
     group.setJointValueTarget(group_variable_values);
     group.setPlanningTime(60.0);
-    group.setNumPlanningAttempts(5.0);
+    group.setNumPlanningAttempts(1.0);
     moveit::planning_interface::MoveGroup::Plan my_plan;
-    group.plan(my_plan);
+    //group.plan(my_plan);
     group.move();
     /*
     geometry_msgs::Pose target_pose;
