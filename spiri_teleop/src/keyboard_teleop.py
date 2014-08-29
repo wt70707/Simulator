@@ -76,12 +76,14 @@ if __name__=="__main__":
 	th = 0
 	status = 0
 	z=0
-	
+	print 'initialized the node'
 	try:
 		print msg
 		print vels(speed,turn)
 		while(1):
+			
 			state=spiri.get_state()
+		       
 			key = getKey()
 			if key in moveBindings.keys():
 				print key

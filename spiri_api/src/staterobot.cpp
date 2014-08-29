@@ -74,25 +74,45 @@ boost::python::list Staterobot::get_imu_python()
 
 Staterobot::state Staterobot::get_state()
 {
-    ros::AsyncSpinner spinner(1);
-    spinner.start();
-    moveit::planning_interface::MoveGroup group("spiri");
-    std::vector<double> state_test(7);
-    state_test=group.getCurrentJointValues();
+    try
+	{
+	    ros::AsyncSpinner spinner(1);
+	    spinner.start();
+	    moveit::planning_interface::MoveGroup group("spiri");
+	    std::vector<double> state_test(7);
+	    state_test=group.getCurrentJointValues();
 
-    spinner.stop();
-    ////state_ptr=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
-    state state_data;
-    state_data.position.x=state_test[0];
-    state_data.position.y=state_test[1];
-    state_data.position.z=state_test[2];
-    state_data.orientation.x=state_test[3];
-    state_data.orientation.y=state_test[4];
-    state_data.orientation.z=state_test[5];
-    state_data.orientation.w=state_test[6];
+	    spinner.stop();
+	    state state_data;
+	    state_data.position.x=state_test[0];
+	    state_data.position.y=state_test[1];
+	    state_data.position.z=state_test[2];
+	    state_data.orientation.x=state_test[3];
+	    state_data.orientation.y=state_test[4];
+	    state_data.orientation.z=state_test[5];
+	    state_data.orientation.w=state_test[6];
+	    return state_data;
+	}
+    catch(...)
+	{
+		state_ptr=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
+		state state_data;
+    		state_data.position.x=state_ptr->pose.pose.position.x;
+	        state_data.position.y=state_ptr->pose.pose.position.y;
+		state_data.position.z=state_ptr->pose.pose.position.z;
+		state_data.orientation.x=state_ptr->pose.pose.orientation.x;
+		state_data.orientation.y=state_ptr->pose.pose.orientation.y;
+		state_data.orientation.z=state_ptr->pose.pose.orientation.z;
+		state_data.orientation.w=state_ptr->pose.pose.orientation.w;
+                return state_data;  			
+		
+	}
+    
+
+    
 
 
-    return state_data;
+    ;
 
 }
 
