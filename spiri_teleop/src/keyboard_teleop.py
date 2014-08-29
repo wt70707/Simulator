@@ -76,7 +76,7 @@ if __name__=="__main__":
 	th = 0
 	status = 0
 	z=0
-	print 'initialized the node'
+	
 	try:
 		print msg
 		print vels(speed,turn)
