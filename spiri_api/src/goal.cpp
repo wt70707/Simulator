@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <moveit_msgs/PlanningSceneWorld.h>
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "move_group_interface_demo", ros::init_options::AnonymousName);
@@ -51,7 +52,7 @@ int main(int argc, char **argv)
     // const robot_state::JointModelGroup *joint_model_group =start_state.getJointModelGroup(group.getName());
     //start_state.setFromIK(joint_model_group, start_pose2);
     //group.setStartState(start_state);
-group.setStartStateToCurrentState();
+    group.setStartStateToCurrentState();
 
     
     //sleep(5.0);
@@ -65,12 +66,32 @@ group.setStartStateToCurrentState();
 group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0,group_variable_values[0]+5.0,group_variable_values[1]+5.0,5.0);
     //std::cout<<group.getName();
     //std::cout<<group_variable_values;
-    group_variable_values[0] = 0;
-    group_variable_values[2] = 3.0;
+    
+    group_variable_values[0] = -3.0;
+    group_variable_values[2] = 1.0;
     group.setJointValueTarget(group_variable_values);
     group.setPlanningTime(60.0);
     group.setNumPlanningAttempts(1.0);
     moveit::planning_interface::MoveGroup::Plan my_plan;
+    
+    ros::Publisher pub=node_handle.advertise<moveit_msgs::PlanningSceneWorld>("/planning_scene_world",1);
+    ros::Rate loop_rate(10);
+    group.allowReplanning(true);
+    for(int i=0;i<5;i++)
+    {
+        moveit_msgs::PlanningSceneWorld msg;
+
+
+        msg.octomap.header.stamp=ros::Time::now();
+        msg.octomap.header.frame_id="/nav";
+        pub.publish(msg);
+        ros::spinOnce();
+        loop_rate.sleep();
+
+    }
+    ROS_INFO("cleared the ocotomap");
+    sleep(1.0);
+    
     //group.plan(my_plan);
     group.move();
     /*
