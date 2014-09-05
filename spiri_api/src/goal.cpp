@@ -73,8 +73,10 @@ group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0
     group.setPlanningTime(60.0);
     group.setNumPlanningAttempts(1.0);
     moveit::planning_interface::MoveGroup::Plan my_plan;
-    
+    group.allowReplanning(true);
+    /*
     ros::Publisher pub=node_handle.advertise<moveit_msgs::PlanningSceneWorld>("/planning_scene_world",1);
+    
     ros::Rate loop_rate(10);
     group.allowReplanning(true);
     for(int i=0;i<5;i++)
@@ -91,9 +93,9 @@ group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0
     }
     ROS_INFO("cleared the ocotomap");
     sleep(1.0);
-    
+    */
     //group.plan(my_plan);
-    group.move();
+    group.asyncMove();
     /*
     geometry_msgs::Pose target_pose;
     target_pose.position.x=0;

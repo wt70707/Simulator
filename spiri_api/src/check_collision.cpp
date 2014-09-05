@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     ros::AsyncSpinner spinner(1);
     spinner.start();
     //moveit::planning_interface::MoveGroup group("spiri");
-
+    /*
     //group.setPlannerId("PRMkConfigDefault");
     robot_model_loader::RobotModelLoader robot_model_loader("robot_description");
     //robot_model_loader.getURDF();
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 
     //planning_scene_monitor::PlanningSceneMonitor ptr;
     //planning_scene::PlanningScenePtr test;
-    //test=ptr.getPlanningScene();
+    //test=ptr.getPlanningScene();	
 
     //test.is
     //planning_scene::PlanningScene test;
