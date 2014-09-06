@@ -35,7 +35,7 @@
     <group if="$(arg use_ground_truth_for_tf)">
     <node name="ground_truth_to_tf" pkg="message_to_tf" type="message_to_tf" output="screen">
      <param name="odometry_topic" value="ground_truth/state" />
-     <param name="imu_topic" value="raw_imu" />
+     <!--param name="imu_topic" value="raw_imu" /-->
      <param name="frame_id" value="/nav" />
      <param name="tf_prefix" value="$(arg tf_prefix)" if="$(arg use_ground_truth_for_tf)" />
      <param name="tf_prefix" value="$(arg tf_prefix)/ground_truth" unless="$(arg use_ground_truth_for_tf)" />
