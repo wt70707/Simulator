@@ -8,6 +8,7 @@
 #include <ctime>
 #include <boost/timer.hpp>
 #include <sstream>
+#include <boost/thread.hpp>
 /*!
   Constructor
   */
@@ -531,29 +532,23 @@ bool Staterobot::send_goal_python_relative(boost::python::list &values)
   */
 
 
+
 void Staterobot::send_vel(float x,float y,float z)
 {
 
-    ROS_INFO("testing");
+
     ros::NodeHandle nh;
-    bool latch=1;
-    ros::Publisher vel_chatter = nh.advertise<geometry_msgs::Twist>("cmd_vel",1,latch);
+
+    nh.setParam("cmd_vel/x",x);
+    nh.setParam("cmd_vel/y",y);
+    nh.setParam("cmd_vel/z",z);
+    ROS_INFO("Moving");
 
 
-    geometry_msgs::Twist vel;
-
-
-    vel.linear.x=x;
-    vel.linear.y=y;
-    vel.linear.z=z;
-
-    vel_chatter.publish(vel);
-    // this is hack but it looks like it is not possible in ROS
-    /*! @todo This is hack. If there exists a better way in ROS need to find that*/
-    sleep(1.0);
-    //ros::spinOnce();
 
 }
+
+
 /*!
   Send velocity commands to Spiri
 
