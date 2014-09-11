@@ -65,5 +65,6 @@
    <rosparam command="load" file="$(find hector_quadrotor_model)/param/$(arg motors).yaml" />
 
 	<rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
-
+	<!--This is for launching a node to just publish cmd0_vel-->
+	<node name="cmd_vel_publisher" pkg="spiri_vel" type="node_cmd_vel.py"/>
 </launch>
