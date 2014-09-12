@@ -73,7 +73,9 @@ class actioncontroller(object):
 		goal=self.compute_goal()
 		rospy.set_param('execution',False)
 		#self.publishvel_goal(goal)
+		rospy.set_param('cmd_vel_mutex',True)
 		self.pid_vel(goal)
+		rospy.set_param('cmd_vel_mutex',False)
 	def cancelcb(self,gh):
 		if(self.active_goal==gh):
 			self.pub.publish(Twist())
