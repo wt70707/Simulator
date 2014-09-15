@@ -571,4 +571,3 @@ void Staterobot::send_vel_python(boost::python::list &val)
 
 
 
-
