@@ -66,13 +66,14 @@ class actioncontroller(object):
 	        self.traj=gh.get_goal().trajectory
 		self.active_goal=gh
 		self.has_active_goal=True
-		#print 'I am in the goal callback'
+		print 'I am in the goal callback'
 		#self.executetraj()
 		goal=self.compute_goal()
 		rospy.set_param('execution',False)
 		#self.publishvel_goal(goal)
-		self.pid_vel(goal)
+		#self.pid_vel(goal)
 	def cancelcb(self,gh):
+		print 'cancelling the goal'
 		if(self.active_goal==gh):
 			self.pub.publish(Twist())
 			self.active_goal.set_canceled()
