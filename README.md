@@ -1,5 +1,6 @@
-Build the app
+# Build the app
 
+```bash
 cd crack_scan
 
 mkdir build
@@ -7,12 +8,14 @@ mkdir build
 cmake ..
 
 make
+```
+# Running the app
 
-1. In a terminal
-
+```bash
 roslaunch spiri_description brickwall.launch
+```
 
-2. In a second terminal 
 
+```bash
 ./crack_scan /home/${USER}/Desktop/app
-
+```
