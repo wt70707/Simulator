@@ -95,7 +95,7 @@
       </link>
     </model>
     <model name='SingleWall'>
-      <pose>-1.0 10.0 0 0 0 1.57</pose>
+      <pose>-1.0 10.0 0 1.57 0 1.57</pose>
       <static>1</static>
       <link name='body'>
         <visual name='visual'>
