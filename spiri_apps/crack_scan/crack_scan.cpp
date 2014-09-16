@@ -15,7 +15,7 @@ int round_int(float r)
 	return (r > 0.0) ? (r + 0.5) : (r - 0.5);
 }
 
-int main()
+int main(int argc,char* argv[])
 {
 
 	//////////////////////////////////////////
@@ -23,6 +23,13 @@ int main()
 	//////////////////////////////////////////
 
 	//makes an object of Staterobot to use for this app
+	
+	if (argc<2)
+	{
+	  std::cout<<"Please specify the path to store images eg-: /home/rob/Desktop/spiriapp";
+	  return 0;
+	}
+	
 	Staterobot robot;
 	
 	//initialize local variables
@@ -51,7 +58,7 @@ int main()
 	float hop = 0.2;
 
 	Window window_pic;
-	vector<double> state;
+	Staterobot::state state;
 	Mat frame;
 	string save_path;
 
@@ -86,8 +93,8 @@ int main()
 
 	//check initial state 
 	state = robot.get_state();
-	y = (float)state[1];
-	z = (float)state[2];
+	y = (float)state.position.y;
+	z = (float)state.position.z;
 
 	////////////////////////////////////////////
 	//           INTRODUCTION OUPUT           //
@@ -115,8 +122,8 @@ int main()
 
 		//check Spiri's state
 		state = robot.get_state();
-		y = (float)state[1];
-		z = (float)state[2];
+		y = (float)state.position.y;
+		z = (float)state.position.z;
 
 		//determine which grid block Spiri is in
 		wall_y = round_int(y*resolution);
@@ -367,7 +374,7 @@ int main()
 			//create numbered image paths
 			ostringstream oss;
 			oss << save_img_i;
-			save_path = "/home/spiri/Desktop/crack_";	// <----- change this to chosen path!
+			save_path = argv[1];	// <----- change this to chosen path!
 			save_path += oss.str();
 			save_path += ".jpg";
 			save_img_i++;
