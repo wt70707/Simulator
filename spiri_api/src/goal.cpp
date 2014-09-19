@@ -67,7 +67,7 @@ group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0
     //std::cout<<group.getName();
     //std::cout<<group_variable_values;
     
-    group_variable_values[0] = -3.0;
+    group_variable_values[0] = 0.0;
     group_variable_values[2] = 1.0;
     group.setJointValueTarget(group_variable_values);
     group.setPlanningTime(60.0);
@@ -96,7 +96,7 @@ group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0
     */
     //group.plan(my_plan);
     group.asyncMove();
-    sleep(1.0);
+    sleep(5.0);
     group.stop();
     /*
     geometry_msgs::Pose target_pose;
