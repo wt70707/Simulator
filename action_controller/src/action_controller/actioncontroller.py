@@ -35,7 +35,7 @@ class actioncontroller(object):
 		self._action_name=name
 		self.traj=trajectory_msgs.msg.MultiDOFJointTrajectory()
 		self._as=actionlib.ActionServer(self._action_name,ActionSpec=action_controller.msg.MultiDofFollowJointTrajectoryAction,goal_cb=self.goalcb,cancel_cb=self.cancelcb,auto_start=False)
-		self.pub=rospy.Publisher('cmd_vel',Twist,queue_size=1)
+		self.pub=rospy.Publisher('command',trajectory_msgs.msg.MultiDOFJointTrajectory,queue_size=1)
 		rospy.Subscriber('/ground_truth/state',Odometry,self.callback)
 		self.lastPosition=Transform()
 		self.vel=Twist()
@@ -53,33 +53,41 @@ class actioncontroller(object):
 	def callback(self,data):
 
 		self.state=data.pose.pose
-
+		
+		if rospy.get_param('/has_active_goal',True)==True:
+		  return
+		if rospy.get_param('/execution_completed',False)==False:
+		  return
+		  
+		self.active_goal.set_succeeded()
+		rospy.set_param('/execution_completed',False)
+		
 
 	def goalcb(self,gh):
-		if self.has_active_goal:
-			self.pub.publish(Twist())
-			active_goal.set_canceled()
-			self.has_active_goal=False
+		
 
 
 		gh.set_accepted('goal accepted')
 	        self.traj=gh.get_goal().trajectory
 		self.active_goal=gh
-		self.has_active_goal=True
-		#print 'I am in the goal callback'
+		rospy.set_param('/has_active_goal',True)
+		print 'I am in the goal callback'
+		self.pub.publish(self.traj)
+		#self.active_goal.set_succeeded()
 		#self.executetraj()
-		goal=self.compute_goal()
-		rospy.set_param('execution',False)
+		#goal=self.compute_goal()
+		#rospy.set_param('cution',False)
 		#self.publishvel_goal(goal)
-		self.pid_vel(goal)
+		#self.pid_vel(goal)
 	def cancelcb(self,gh):
+		print 'cancelling the goal'
 		if(self.active_goal==gh):
-			self.pub.publish(Twist())
+			#self.pub.publish(Twist())
 			self.active_goal.set_canceled()
 			self.has_active_goal=False
 			#print 'Cancelling the goal'
-
-
+			rospy.set_param('/has_active_goal',False)
+			#self.has_active_goal=False
 
 
 	def executetraj(self):
