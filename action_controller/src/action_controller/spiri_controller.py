@@ -51,8 +51,8 @@ def pid_vel(goal):
 	  print current_state.position.z
 	  while abs(current_state.position.x-temp_goal.position.x)>0.1 or abs(current_state.position.y-temp_goal.position.y)>0.1 or abs(current_state.position.z-temp_goal.position.z)>0.1:
 		  
-		  update_state=spiri_obj.get_state()
-		  temp=pid_object.update(update_state)
+		  current_state=spiri_obj.get_state()
+		  temp=pid_object.update(current_state)
 		  vel.linear.x=min(1.0,temp[0])
 		  vel.linear.y=min(1.0,temp[1])
 		  vel.linear.z=min(1.0,temp[2])
