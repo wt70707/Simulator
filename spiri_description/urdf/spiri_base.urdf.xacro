@@ -6,8 +6,9 @@
       <origin
         xyz="0.0 -0.0 0.0"
         rpy="0 0 0" />
-      <mass
-        value="0.399875434000126" />
+    
+      <mass value="0.399875434000126" />
+     
       <inertia
         ixx="0.00346570293331384"
         ixy="-8.6357788144988E-06"
@@ -16,23 +17,27 @@
         iyz="1.98456084936431E-06"
         izz="0.00354550223356006" />
     </inertial>
+   
     <visual>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://spiri_description/meshes/spiri.STL" />
+        <mesh filename="package://spiri_description/meshes/spiri.STL" />
       </geometry>
-    
+      
+      <!-- This sets the color in rviz, but not gazebo -->
+      <material name="SpiriWhite">
+        <color rgba="0.8 0.8 0.9 1.0"/>
+      </material>
     </visual>
+    
     <collision>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://spiri_description/meshes/spiri.STL" />
+        <box size="0.33 0.33 0.08" />
       </geometry>
     </collision>
   </link>
