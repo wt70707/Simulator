@@ -5,7 +5,7 @@
   <!-- Quadrotor Sensor Plugins -->
   <gazebo>
     <plugin name="quadrotor_imu_sim" filename="libhector_gazebo_ros_imu.so">
-      <updateRate>30.0</updateRate>
+      <updateRate>100.0</updateRate>
       <bodyName>base_link</bodyName>
       <topicName>raw_imu</topicName>
       <rpyOffsets>0 0 0</rpyOffsets> <!-- deprecated -->
@@ -49,10 +49,9 @@
     </plugin>
 
     <plugin name="quadrotor_groundtruth_sim" filename="libgazebo_ros_p3d.so">
-      <updateRate>30.0</updateRate>
+      <updateRate>100.0</updateRate>
       <bodyName>base_link</bodyName>
       <topicName>ground_truth/state</topicName>
-      <gaussianNoise>0.0</gaussianNoise>
       <frameName>world</frameName>
     </plugin>
 
