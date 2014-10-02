@@ -36,7 +36,12 @@
         <box size="0.33 0.33 0.08" />
       </geometry>
     </collision>
-  </link>
+ </link>
+
+ <gazebo reference="base_link">
+	 <material>Gazebo/White</material>
+	 <turnGravityOff>false</turnGravityOff>
+ </gazebo>
 
   <joint name="base_imu_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
