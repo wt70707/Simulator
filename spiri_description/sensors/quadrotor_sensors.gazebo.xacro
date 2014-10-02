@@ -50,6 +50,7 @@
     </sensor>
   </gazebo>
 
+
   <gazebo>
     <plugin name="quadrotor_imu_sim" filename="libhector_gazebo_ros_imu.so">
       <updateRate>100.0</updateRate>
@@ -92,7 +93,7 @@
       <frameName>world</frameName>
     </plugin>
     
-</gazebo>
+  </gazebo>
 
 
 </robot>
