@@ -15,21 +15,29 @@ class SpiriKeyboardTeleopNode:
         state_sub = rospy.Subscriber(state_topic, Odometry, self.state_callback, queue_size=1)
         
         self.hover_height = rospy.get_param("hover_height", 2)
+        self.hover_thresh = rospy.get_param("hover_thresh", 0.1)
         
         rospy.init_node('teleop_twist_keyboard')
         self.state = Odometry()
         
         r = rospy.Rate(300)
+        key = ''
         
         while not rospy.is_shutdown():
             cmd_vel = Twist()
-            key = self.get_key()
+            if key == '':
+                key = self.get_key()
             #print "command: " + str(key)
+            err = None
             if key in self.moveBindings.keys():
                 if key == 'h':
+                    err = (self.hover_height - self.state.pose.pose.position.z)
                     cmd_vel.linear.z = (self.hover_height - self.state.pose.pose.position.z)
+                
                 elif key=='n':
-                    cmd_vel.linear.z = (-self.state.pose.pose.position.z)
+                    err = -self.state.pose.pose.position.z
+                    cmd_vel.linear.z = err
+                    
                 else:
                     cmd_vel.linear.x = self.moveBindings[key][0]
                     cmd_vel.angular.z = self.moveBindings[key][1]
@@ -45,6 +53,9 @@ class SpiriKeyboardTeleopNode:
                 if (key == '\x03'):
                     break
                 print self.msg
+            
+            if err == None or (abs(err) < self.hover_thresh):
+                key = ''
             
             cmd_vel.linear.x *= self.speed
             cmd_vel.linear.y *= self.speed
