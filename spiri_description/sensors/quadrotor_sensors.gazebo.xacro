@@ -43,8 +43,8 @@
       </ray>
 
       <plugin name="gazebo_ros_range_controller" filename="libhector_gazebo_ros_sonar.so">
-        <gaussianNoise>0.005</gaussianNoise>
-        <topicName>range</topicName>
+        <gaussianNoise>0.0001</gaussianNoise>
+		<topicName>range</topicName>
         <frameId>range_link</frameId>
       </plugin>
     </sensor>
@@ -92,6 +92,16 @@
       <topicName>ground_truth/state</topicName>
       <frameName>world</frameName>
     </plugin>
+    
+    <plugin name="quadrotor_baro_sim" filename="libhector_gazebo_ros_baro.so">
+        <updateRate>30.0</updateRate>
+        <bodyName>base_link</bodyName>
+		<topicName>pressure_height</topicName>
+		<altimeterTopicName>altimeter</altimeterTopicName>
+        <offset>0</offset>
+        <drift>0.0</drift>
+        <gaussianNoise>0.0001</gaussianNoise>
+    </plugin>    
     
   </gazebo>
 
