@@ -43,16 +43,16 @@ class actioncontroller(object):
 		self.has_active_goal=False
 		self.active_goal=actionlib.ServerGoalHandle()
 		self._as.start()
-		self.state=Pose()
+		
 		self.non_counter=0
 		self.agg_scale=0.0
 		
-	## Callback function for the State topic.This function will be called whenever a new message is published on a document
+	## Callback function for the state topic. This function is just used so that we can inform move it that execution is completed. Just a hack
 	# @param self Object pointer
 	# @param data Contains data published on the topic
 	def callback(self,data):
 
-		self.state=data.pose.pose
+		
 		
 		if rospy.get_param('/has_active_goal',True)==True:
 		  return
@@ -62,7 +62,8 @@ class actioncontroller(object):
 		self.active_goal.set_succeeded()
 		rospy.set_param('/execution_completed',False)
 		
-
+	## Function is called whenever a new goal has been recieved. 
+	# @param gh Goal handle
 	def goalcb(self,gh):
 		
 
@@ -73,12 +74,8 @@ class actioncontroller(object):
 		rospy.set_param('/has_active_goal',True)
 		print 'I am in the goal callback'
 		self.pub.publish(self.traj)
-		#self.active_goal.set_succeeded()
-		#self.executetraj()
-		#goal=self.compute_goal()
-		#rospy.set_param('cution',False)
-		#self.publishvel_goal(goal)
-		#self.pid_vel(goal)
+	## Function is called whenever a goal has been cancelled. 
+	# @param gh Goal handle	
 	def cancelcb(self,gh):
 		print 'cancelling the goal'
 		if(self.active_goal==gh):

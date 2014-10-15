@@ -7,14 +7,12 @@
 # @version 1.1.1
 import roslib
 
-#roslib.load_manifest('actionlib_tutorials')
 roslib.load_manifest('action_controller')
 
 import rospy
 import trajectory_msgs.msg
 import actionlib
 from spiri_api import pid
-from spiri_api import spiri_api_python
 from collections import deque
 from geometry_msgs.msg import Pose, Twist
 from nav_msgs.msg import Odometry
@@ -24,6 +22,8 @@ class spiri_controller(object):
     self.state=Pose()
     rospy.Subscriber("/command",trajectory_msgs.msg.MultiDOFJointTrajectory,self.vel_callback)
     rospy.Subscriber("/ground_truth/state",Odometry,self.state_callback)
+  ## Gets the waypoints with respect to the current position
+  # @return A collection of waypoints
   def compute_goal(self,traj):
     
     current_state=self.state
@@ -41,11 +41,12 @@ class spiri_controller(object):
   
     return goal
 
-    
+  ## Publishes velocity to reach a waypoint
+  # @param goal A collection of waypoints
+  
   def pid_vel(self,goal):
     current_state=self.state
     rospy.loginfo("Publishing vel")
-    #spiri_obj=spiri_api_python()
     kp=rospy.get_param('kp',2.0)
     ki=rospy.get_param('ki',0.0)
     kd=rospy.get_param('kd',2.0)
@@ -73,14 +74,14 @@ class spiri_controller(object):
     rospy.set_param('/has_active_goal',False)
     rospy.set_param('/execution_completed',True)
 
-
+  ## Callback for trajectory messages
   def vel_callback(self,traj):
     rospy.loginfo("Recieved Trajectory")
     goal=self.compute_goal(traj)
     self.pid_vel(goal)
     rospy.loginfo("Completed trajectory")
     
-    
+  ## Callback for state estimate  
   def state_callback(self,data):
     self.state=data.pose.pose
 
