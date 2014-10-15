@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 ## @package action_controller
-# Listens to trajectory and generates the appropriate velocity to move the Quadcopter.
+# Listens to trajectory and sends it spiri controller
 # @author Rohan Bhargava
 # @version 1.1.1
 import roslib
@@ -47,7 +47,7 @@ class actioncontroller(object):
 		self.non_counter=0
 		self.agg_scale=0.0
 		
-	## Callback function for the State topic.	This function will be called whenever a new message is published on a document
+	## Callback function for the State topic.This function will be called whenever a new message is published on a document
 	# @param self Object pointer
 	# @param data Contains data published on the topic
 	def callback(self,data):
