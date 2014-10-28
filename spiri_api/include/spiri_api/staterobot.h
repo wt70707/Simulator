@@ -49,47 +49,49 @@ class Staterobot
     cv::Mat bottom_image;
     ros::CallbackQueue image_queue;
 
+  private:
 
-
-
-private:
-
-public:
+  public:
     Staterobot();
+   
     struct imu{
         double x;
         double y;
         double z;
         double w;
     };
+    
     struct position{
         double x;
         double y;
         double z;
     };
+    
     struct orientation{
         double x;
         double y;
         double z;
         double w;
     };
+    
     struct state{
         struct position position;
         struct orientation orientation;
 
     };
+    
     struct gps
     {
         double latitude;
         double longitude;
         double altitude;
     };
+    
     struct gps_vel{
         double x;
         double y;
         double z;
     };
-
 
 
     Staterobot::imu get_imu();
@@ -103,12 +105,14 @@ public:
     Staterobot::gps get_gps_data();
     Staterobot::gps_vel get_gps_vel();
     float get_height_altimeter();
-    bool send_goal(float x,float y,float z,bool relative);
+    bool send_goal(float x, float y, float z, bool relative);
+
     cv::Mat get_left_image();
     cv::Mat get_right_image();
     cv::Mat get_bottom_image();
     void save_image(const std::string,const std::string);
     void send_vel(float x,float y,float z);
+    
     sensor_msgs::ImuConstPtr imu_ptr;
     nav_msgs::OdometryConstPtr state_ptr;
     geometry_msgs::PointStampedConstPtr pressure;
@@ -131,9 +135,6 @@ public:
     bool send_goal_python(boost::python::list &);
     bool send_goal_python_relative(boost::python::list &);
     void send_vel_python(boost::python::list &);
-
-
-
 
 };
 

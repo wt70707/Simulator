@@ -13,13 +13,11 @@
   */
 Staterobot::Staterobot()
 {
-    int dummy_argc=0;
-    ros::init((int&)dummy_argc,NULL,"spiri_api");
+    int dummy_argc = 0;
+    ros::init((int&)dummy_argc, NULL, "spiri_api");
     ros::NodeHandle n;
-    success_plan=false;
-    success_execution=false;
-
-
+    success_plan = false;
+    success_execution = false;
 }
 
 /*!
@@ -27,12 +25,10 @@ Staterobot::Staterobot()
 
   \return Orientation (x,y,z,w) of Spiri
   */
-
 Staterobot::imu Staterobot::get_imu()
 {
 
-    imu_ptr=ros::topic::waitForMessage<sensor_msgs::Imu>("raw_imu");
-
+    imu_ptr = ros::topic::waitForMessage<sensor_msgs::Imu>("raw_imu");
 
     imu imu_data;
     imu_data.x=imu_ptr->orientation.x;
@@ -40,9 +36,6 @@ Staterobot::imu Staterobot::get_imu()
     imu_data.z=imu_ptr->orientation.z;
     imu_data.w=imu_ptr->orientation.w;
     return imu_data;
-
-
-
 }
 
 
@@ -75,44 +68,37 @@ boost::python::list Staterobot::get_imu_python()
 Staterobot::state Staterobot::get_state()
 {
     try
-	{
-	    ros::AsyncSpinner spinner(1);
-	    spinner.start();
-	    moveit::planning_interface::MoveGroup group("spiri");
-	    std::vector<double> state_test(7);
-	    state_test=group.getCurrentJointValues();
+    {
+	ros::AsyncSpinner spinner(1);
+	spinner.start();
+	moveit::planning_interface::MoveGroup group("spiri");
+	std::vector<double> state_test(7);
+	state_test = group.getCurrentJointValues();
 
-	    spinner.stop();
-	    state state_data;
-	    state_data.position.x=state_test[0];
-	    state_data.position.y=state_test[1];
-	    state_data.position.z=state_test[2];
-	    state_data.orientation.x=state_test[3];
-	    state_data.orientation.y=state_test[4];
-	    state_data.orientation.z=state_test[5];
-	    state_data.orientation.w=state_test[6];
-	    return state_data;
-	}
+	spinner.stop();
+	state state_data;
+	state_data.position.x = state_test[0];
+	state_data.position.y = state_test[1];
+	state_data.position.z = state_test[2];
+	state_data.orientation.x = state_test[3];
+	state_data.orientation.y = state_test[4];
+	state_data.orientation.z = state_test[5];
+	state_data.orientation.w = state_test[6];
+	return state_data;
+    }
     catch(...)
-	{
-		state_ptr=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
-		state state_data;
-    		state_data.position.x=state_ptr->pose.pose.position.x;
-	        state_data.position.y=state_ptr->pose.pose.position.y;
-		state_data.position.z=state_ptr->pose.pose.position.z;
-		state_data.orientation.x=state_ptr->pose.pose.orientation.x;
-		state_data.orientation.y=state_ptr->pose.pose.orientation.y;
-		state_data.orientation.z=state_ptr->pose.pose.orientation.z;
-		state_data.orientation.w=state_ptr->pose.pose.orientation.w;
-                return state_data;  			
-		
-	}
-    
-
-    
-
-
-    ;
+    {
+	state_ptr=ros::topic::waitForMessage<nav_msgs::Odometry>("/ground_truth/state");
+	state state_data;
+	state_data.position.x = state_ptr->pose.pose.position.x;
+	state_data.position.y = state_ptr->pose.pose.position.y;
+	state_data.position.z = state_ptr->pose.pose.position.z;
+	state_data.orientation.x = state_ptr->pose.pose.orientation.x;
+	state_data.orientation.y = state_ptr->pose.pose.orientation.y;
+	state_data.orientation.z = state_ptr->pose.pose.orientation.z;
+	state_data.orientation.w = state_ptr->pose.pose.orientation.w;
+	return state_data;  			
+    };
 
 }
 
@@ -122,19 +108,18 @@ Staterobot::state Staterobot::get_state()
 
   @return Position(x,y,z) and orientation(x,y,z,w)
  */
-
 boost::python::list Staterobot::get_state_python()
 {
     state pose_data=this->get_state();
 
     std::vector<double> v(7);
-    v[0]=pose_data.position.x;
-    v[1]=pose_data.position.y;
-    v[2]=pose_data.position.z;
-    v[3]=pose_data.orientation.x;
-    v[4]=pose_data.orientation.y;
-    v[5]=pose_data.orientation.z;
-    v[6]=pose_data.orientation.w;
+    v[0] = pose_data.position.x;
+    v[1] = pose_data.position.y;
+    v[2] = pose_data.position.z;
+    v[3] = pose_data.orientation.x;
+    v[4] = pose_data.orientation.y;
+    v[5] = pose_data.orientation.z;
+    v[6] = pose_data.orientation.w;
 
     return moveit::py_bindings_tools::listFromDouble(v);
 }
@@ -144,14 +129,11 @@ boost::python::list Staterobot::get_state_python()
 
   @return Altitude of Spiri
   */
-
-
 float Staterobot::get_height_pressure()
 {
-    pressure=ros::topic::waitForMessage<geometry_msgs::PointStamped>("pressure_height");
+    pressure = ros::topic::waitForMessage<geometry_msgs::PointStamped>("pressure_height");
     return pressure->point.z;
 }
-
 
 /*!
   Get the gps position
@@ -160,13 +142,14 @@ float Staterobot::get_height_pressure()
   */
 Staterobot::gps Staterobot::get_gps_data()
 {
-    gps_ptr=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("fix");
+    gps_ptr = ros::topic::waitForMessage<sensor_msgs::NavSatFix>("fix");
     gps gps_data;
-    gps_data.latitude=gps_ptr->latitude;
-    gps_data.longitude=gps_ptr->longitude;
-    gps_data.altitude=gps_ptr->altitude;
+    gps_data.latitude = gps_ptr->latitude;
+    gps_data.longitude = gps_ptr->longitude;
+    gps_data.altitude = gps_ptr->altitude;
     return gps_data;
 }
+
 /*!
     Get the gps data
 
@@ -177,9 +160,9 @@ boost::python::list Staterobot::get_gps_data_python()
     gps gps_data=this->get_gps_data();
 
     std::vector<double> v(3);
-    v[0]=gps_data.latitude;
-    v[1]=gps_data.longitude;
-    v[2]=gps_data.altitude;
+    v[0] = gps_data.latitude;
+    v[1] = gps_data.longitude;
+    v[2] = gps_data.altitude;
 
     return moveit::py_bindings_tools::listFromDouble(v);
 }
@@ -191,14 +174,15 @@ boost::python::list Staterobot::get_gps_data_python()
   */
 Staterobot::gps_vel Staterobot::get_gps_vel()
 {
-    gps_vel_ptr=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("fix_velocity");
+    gps_vel_ptr = ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("fix_velocity");
     gps_vel gps_vel_data;
-    gps_vel_data.x=gps_vel_ptr->vector.x;
-    gps_vel_data.y=gps_vel_ptr->vector.y;
-    gps_vel_data.z=gps_vel_ptr->vector.z;
+    gps_vel_data.x = gps_vel_ptr->vector.x;
+    gps_vel_data.y = gps_vel_ptr->vector.y;
+    gps_vel_data.z = gps_vel_ptr->vector.z;
 
     return gps_vel_data;
 }
+
 /*!
   Velocity reported by GPS
 
@@ -209,12 +193,11 @@ boost::python::list Staterobot::get_gps_vel_python()
     gps_vel vel_data=this->get_gps_vel();
 
     std::vector<double> v(3);
-    v[0]=vel_data.x;
-    v[1]=vel_data.y;
-    v[2]=vel_data.z;
+    v[0] = vel_data.x;
+    v[1] = vel_data.y;
+    v[2] = vel_data.z;
 
     return moveit::py_bindings_tools::listFromDouble(v);
-
 }
 
 
@@ -225,7 +208,7 @@ boost::python::list Staterobot::get_gps_vel_python()
   */
 float Staterobot::get_height_altimeter()
 {
-    altimeter=ros::topic::waitForMessage<hector_uav_msgs::Altimeter>("altimeter");
+    altimeter = ros::topic::waitForMessage<hector_uav_msgs::Altimeter>("altimeter");
     return altimeter->altitude;
 }
 
@@ -235,16 +218,13 @@ float Staterobot::get_height_altimeter()
 
   @return Image (640X480)
   */
-
 cv::Mat Staterobot::get_left_image()
 
 {
     ros::NodeHandle n;
     n.setCallbackQueue(&image_queue);
     image_transport::ImageTransport it(n);
-    sub=it.subscribe("stereo/left/image_raw", 1, &Staterobot::image_left_callback,this);
-
-
+    sub = it.subscribe("stereo/left/image_raw", 1, &Staterobot::image_left_callback,this);
 
     image_queue.callAvailable(ros::WallDuration(1.0));
     return this->left_image;
@@ -296,8 +276,6 @@ cv::Mat Staterobot::get_right_image()
     image_transport::ImageTransport it(n);
     sub=it.subscribe("stereo/right/image_raw", 1, &Staterobot::image_right_callback,this);
 
-
-
     image_queue.callAvailable(ros::WallDuration(1.0));
     return this->right_image;
 
@@ -315,39 +293,32 @@ std::string Staterobot::get_right_image_python()
     cv::Size size = mat.size();
     int total = size.width * size.height * mat.channels();
 
-    std::vector<uchar> data(mat.ptr(),mat.ptr()+total);
-    std::string image(data.begin(),data.end());
+    std::vector<uchar> data(mat.ptr(), mat.ptr()+total);
+    std::string image(data.begin(), data.end());
 
     return image;
-
 }
+
 void Staterobot::image_right_callback(const sensor_msgs::ImageConstPtr & msg)
 {
-
-
-    right_image=cv_bridge::toCvShare(msg,"bgr8")->image;
-
+    right_image=cv_bridge::toCvShare(msg, "bgr8")->image;
 }
+
 /*!
   Get the image from bottom camera
 
   @return Image (640X480)
   */
 cv::Mat Staterobot::get_bottom_image()
-
 {
     ros::NodeHandle n;
     n.setCallbackQueue(&image_queue);
     image_transport::ImageTransport it(n);
     sub=it.subscribe("downward_cam/camera/image", 1, &Staterobot::image_bottom_callback,this);
 
-
-
     image_queue.callAvailable(ros::WallDuration(1.0));
     return this->bottom_image;
-
 }
-
 
 /*!
   Get image from the bottom camera
@@ -357,23 +328,21 @@ cv::Mat Staterobot::get_bottom_image()
 std::string Staterobot::get_bottom_image_python()
 
 {
-    cv::Mat mat=this->get_bottom_image();
+    cv::Mat mat = this->get_bottom_image();
     cv::Size size = mat.size();
     int total = size.width * size.height * mat.channels();
 
-    std::vector<uchar> data(mat.ptr(),mat.ptr()+total);
-    std::string image(data.begin(),data.end());
+    std::vector<uchar> data(mat.ptr(), mat.ptr()+total);
+    std::string image(data.begin(), data.end());
 
     return image;
-
 }
+
 void Staterobot::image_bottom_callback(const sensor_msgs::ImageConstPtr & msg)
 {
-
-
-    bottom_image=cv_bridge::toCvShare(msg,"bgr8")->image;
-
+    bottom_image=cv_bridge::toCvShare(msg, "bgr8")->image;
 }
+
 /*!
   Save the image
 
@@ -386,22 +355,21 @@ void Staterobot::save_image(const std::string path="",const std::string camera="
 {
     //std::cout<<path;
     cv::Mat image;
-    if(camera=="left")
+    if(camera == "left")
     {
-
-            image=get_left_image();
+	image = get_left_image();
     }
-    else if(camera=="right")
+    else if(camera == "right")
     {
-        image=get_right_image();
+        image = get_right_image();
     }
-    else if(camera=="bottom")
+    else if(camera == "bottom")
     {
-        image=get_bottom_image();
+        image = get_bottom_image();
     }
     else
     {
-        std::cout<<"Please pass a valid camera type";
+        std::cout << "Please pass a valid camera type";
 
     }
 
@@ -410,19 +378,17 @@ void Staterobot::save_image(const std::string path="",const std::string camera="
 
     cv::imwrite(path,image);
 }
+
 /*!
   If the goal has been reached or not
-
 
   @return True if goal has been reached otherwise False
   */
 bool Staterobot::wait_goal()
 {
     bool param;
-    ros::param::get("execution",param);
+    ros::param::get("execution", param);
     return param;
-
-
 }
 
 void Staterobot::callback_goal(const action_controller::MultiDofFollowJointTrajectoryActionResultPtr& msg)
@@ -430,7 +396,6 @@ void Staterobot::callback_goal(const action_controller::MultiDofFollowJointTraje
     ROS_INFO("here");
     //std::cout<<"here";
     status=true;
-
 }
 
 /*!
@@ -443,33 +408,34 @@ void Staterobot::callback_goal(const action_controller::MultiDofFollowJointTraje
 
   @return Succesfully executed or not
   */
-bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
+bool Staterobot::send_goal(float x, float y, float z, bool relative=false)
 {
     ros::AsyncSpinner spinner(1);
     spinner.start();
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
-    group.setWorkspace(-5.0,-5.0,-5.0,100.0,100.0,100.0);
+    group.setWorkspace(-5.0, -5.0, -5.0, 100.0, 100.0, 100.0);
 
 
 
     group.setStartStateToCurrentState();
     // after setting the start state send the goal
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_joint_positions);
-    if (relative==true)
+    if (relative == true)
     {
         state current_state=get_state();
 
-        group_joint_positions[0]=current_state.position.x+x;
-        group_joint_positions[1]=current_state.position.y+y;
-        group_joint_positions[2]=current_state.position.z+z;
+        group_joint_positions[0] = current_state.position.x + x;
+        group_joint_positions[1] = current_state.position.y + y;
+        group_joint_positions[2] = current_state.position.z + z;
     }
     else
     {
-        group_joint_positions[0]=x;
-        group_joint_positions[1]=y;
-        group_joint_positions[2]=z;
+        group_joint_positions[0] = x;
+        group_joint_positions[1] = y;
+        group_joint_positions[2] = z;
     }
+    
     group.setJointValueTarget(group_joint_positions);
 
     moveit::planning_interface::MoveGroup::Plan my_plan;
@@ -477,18 +443,18 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     success_plan = group.plan(my_plan);
     if(success_plan==1)
     {
-            ROS_INFO("Going to execute");
-            success_execution=group.asyncExecute(my_plan);
+	ROS_INFO("Going to execute");
+	success_execution=group.asyncExecute(my_plan);
 
     }
     else
     {
         ROS_INFO("Couldn't find a valid plan");
     }
+    
     ROS_INFO("out of this loop");
     spinner.stop();
     return success_execution;
-
 }
 
 /*!
@@ -502,7 +468,7 @@ bool Staterobot::send_goal_python(boost::python::list &values)
 {
     std::vector<double> v(3);
     v=moveit::py_bindings_tools::doubleFromList(values);
-    bool flag=this->send_goal(v[0],v[1],v[2],false);
+    bool flag=this->send_goal(v[0], v[1], v[2], false);
     return flag;
 }
 
@@ -517,7 +483,7 @@ bool Staterobot::send_goal_python_relative(boost::python::list &values)
 {
     std::vector<double> v(3);
     v=moveit::py_bindings_tools::doubleFromList(values);
-    bool flag=this->send_goal(v[0],v[1],v[2],true);
+    bool flag=this->send_goal(v[0], v[1], v[2], true);
     return flag;
 }
 
@@ -530,30 +496,27 @@ bool Staterobot::send_goal_python_relative(boost::python::list &values)
 
 
   */
-
-
-void Staterobot::send_vel(float x,float y,float z)
+void Staterobot::send_vel(float x, float y, float z)
 {
 
     ROS_INFO("testing");
     ros::NodeHandle nh;
-    bool latch=1;
-    ros::Publisher vel_chatter = nh.advertise<geometry_msgs::Twist>("cmd_vel",1,latch);
-
+    bool latch = 1;
+    // Does the cmd_vel publisher persist when vel_pub goes out of scope?
+    // Normally you create a publisher at the beginning, and just call publish when you need it
+    ros::Publisher vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel", 1, latch);
 
     geometry_msgs::Twist vel;
 
+    vel.linear.x = x;
+    vel.linear.y = y;
+    vel.linear.z = z;
 
-    vel.linear.x=x;
-    vel.linear.y=y;
-    vel.linear.z=z;
-
-    vel_chatter.publish(vel);
+    vel_pub.publish(vel);
     // this is hack but it looks like it is not possible in ROS
     /*! @todo This is hack. If there exists a better way in ROS need to find that*/
     sleep(1.0);
     //ros::spinOnce();
-
 }
 
 
@@ -567,7 +530,7 @@ void Staterobot::send_vel_python(boost::python::list &val)
 {
     std::vector<double> v(3);
     v=moveit::py_bindings_tools::doubleFromList(val);
-    this->send_vel(v[0],v[1],v[2]);
+    this->send_vel(v[0], v[1], v[2]);
 }
 
 
