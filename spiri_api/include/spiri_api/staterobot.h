@@ -37,7 +37,7 @@
 
 class Staterobot
 {
-    std::vector<double> group_variable_values;
+    std::vector<double> group_joint_positions;
     moveit_msgs::RobotState start_state;
     geometry_msgs::Transform transform;
     std::vector<double> current_state;

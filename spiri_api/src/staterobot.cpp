@@ -31,7 +31,7 @@ Staterobot::Staterobot()
 Staterobot::imu Staterobot::get_imu()
 {
 
-    imu_ptr=ros::topic::waitForMessage<sensor_msgs::Imu>("/raw_imu");
+    imu_ptr=ros::topic::waitForMessage<sensor_msgs::Imu>("raw_imu");
 
 
     imu imu_data;
@@ -160,7 +160,7 @@ float Staterobot::get_height_pressure()
   */
 Staterobot::gps Staterobot::get_gps_data()
 {
-    gps_ptr=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("/fix");
+    gps_ptr=ros::topic::waitForMessage<sensor_msgs::NavSatFix>("fix");
     gps gps_data;
     gps_data.latitude=gps_ptr->latitude;
     gps_data.longitude=gps_ptr->longitude;
@@ -191,7 +191,7 @@ boost::python::list Staterobot::get_gps_data_python()
   */
 Staterobot::gps_vel Staterobot::get_gps_vel()
 {
-    gps_vel_ptr=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("/fix_velocity");
+    gps_vel_ptr=ros::topic::waitForMessage<geometry_msgs::Vector3Stamped>("fix_velocity");
     gps_vel gps_vel_data;
     gps_vel_data.x=gps_vel_ptr->vector.x;
     gps_vel_data.y=gps_vel_ptr->vector.y;
@@ -225,7 +225,7 @@ boost::python::list Staterobot::get_gps_vel_python()
   */
 float Staterobot::get_height_altimeter()
 {
-    altimeter=ros::topic::waitForMessage<hector_uav_msgs::Altimeter>("/altimeter");
+    altimeter=ros::topic::waitForMessage<hector_uav_msgs::Altimeter>("altimeter");
     return altimeter->altitude;
 }
 
@@ -242,7 +242,7 @@ cv::Mat Staterobot::get_left_image()
     ros::NodeHandle n;
     n.setCallbackQueue(&image_queue);
     image_transport::ImageTransport it(n);
-    sub=it.subscribe("/stereo/left/image_raw", 1, &Staterobot::image_left_callback,this);
+    sub=it.subscribe("stereo/left/image_raw", 1, &Staterobot::image_left_callback,this);
 
 
 
@@ -294,7 +294,7 @@ cv::Mat Staterobot::get_right_image()
     ros::NodeHandle n;
     n.setCallbackQueue(&image_queue);
     image_transport::ImageTransport it(n);
-    sub=it.subscribe("/stereo/right/image_raw", 1, &Staterobot::image_right_callback,this);
+    sub=it.subscribe("stereo/right/image_raw", 1, &Staterobot::image_right_callback,this);
 
 
 
@@ -339,7 +339,7 @@ cv::Mat Staterobot::get_bottom_image()
     ros::NodeHandle n;
     n.setCallbackQueue(&image_queue);
     image_transport::ImageTransport it(n);
-    sub=it.subscribe("/downward_cam/camera/image", 1, &Staterobot::image_bottom_callback,this);
+    sub=it.subscribe("downward_cam/camera/image", 1, &Staterobot::image_bottom_callback,this);
 
 
 
@@ -432,6 +432,7 @@ void Staterobot::callback_goal(const action_controller::MultiDofFollowJointTraje
     status=true;
 
 }
+
 /*!
   Send goal to Spiri
 
@@ -454,22 +455,22 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 
     group.setStartStateToCurrentState();
     // after setting the start state send the goal
-    group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
+    group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_joint_positions);
     if (relative==true)
     {
         state current_state=get_state();
 
-        group_variable_values[0]=current_state.position.x+x;
-        group_variable_values[1]=current_state.position.y+y;
-        group_variable_values[2]=current_state.position.z+z;
+        group_joint_positions[0]=current_state.position.x+x;
+        group_joint_positions[1]=current_state.position.y+y;
+        group_joint_positions[2]=current_state.position.z+z;
     }
     else
     {
-        group_variable_values[0]=x;
-        group_variable_values[1]=y;
-        group_variable_values[2]=z;
+        group_joint_positions[0]=x;
+        group_joint_positions[1]=y;
+        group_joint_positions[2]=z;
     }
-    group.setJointValueTarget(group_variable_values);
+    group.setJointValueTarget(group_joint_positions);
 
     moveit::planning_interface::MoveGroup::Plan my_plan;
     // @todo Can combine plan and execute into one by using move.
@@ -554,11 +555,12 @@ void Staterobot::send_vel(float x,float y,float z)
     //ros::spinOnce();
 
 }
+
+
 /*!
   Send velocity commands to Spiri
 
   @param val Velocities in m/s in x,y,z direction
-
 
  */
 void Staterobot::send_vel_python(boost::python::list &val)
