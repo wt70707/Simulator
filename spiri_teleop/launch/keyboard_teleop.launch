@@ -2,6 +2,6 @@
 
 <launch>
   
-  <node name="quadrotor_teleop" pkg="spiri_teleop" type="keyboard_teleop.py"/>
+  <node name="quadrotor_teleop" pkg="spiri_teleop" type="keyboard_teleop.py" output="screen"/>
   
 </launch>

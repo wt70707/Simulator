@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
-<robot name="spiri">
-  <link
-    name="base_link">
+
+<robot name="spiri" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+
+  <link name="base_link">
     <inertial>
-      <origin
-        xyz="0.0 -0.0 0.0"
-        rpy="0 0 0" />
-      <mass
-        value="0.399875434000126" />
+      <origin xyz="0.0 -0.0 0.0" rpy="0 0 0" />
+
+      <mass value="0.399875434000126" />
+
       <inertia
         ixx="0.00346570293331384"
         ixy="-8.6357788144988E-06"
@@ -16,26 +17,54 @@
         iyz="1.98456084936431E-06"
         izz="0.00354550223356006" />
     </inertial>
+
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://spiri_description/meshes/spiri.STL" />
+        <mesh filename="package://spiri_description/meshes/spiri.STL" />
       </geometry>
-    
+
+      <!-- This sets the color in rviz, but not gazebo -->
+      <material name="SpiriWhite">
+        <color rgba="0.8 0.8 0.9 1.0"/>
+      </material>
     </visual>
+
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://spiri_description/meshes/spiri.STL" />
+        <box size="0.33 0.33 0.08" />
       </geometry>
     </collision>
-  </link>
+ </link>
+
+ <gazebo reference="base_link">
+	 <material>Gazebo/White</material>
+	 <turnGravityOff>false</turnGravityOff>
+ </gazebo>
+
+  <joint name="base_imu_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="imu_link" />
+  </joint>
   
+  <link name="imu_link" />
+   
+  <joint name="base_range_joint" type="fixed">
+    <origin xyz="0 0 -0.05" rpy="0 ${M_PI/2} 0" />
+    <parent link="base_link"/>
+    <child link="range_link" />
+  </joint>
+  
+  <link name="range_link" />
+  
+  <joint name="base_mag_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="mag_link" />
+  </joint>  
+  
+  <link name="mag_link" />
 
 </robot>
