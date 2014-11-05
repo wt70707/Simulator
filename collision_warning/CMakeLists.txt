@@ -86,7 +86,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES collision_warning
-#  CATKIN_DEPENDS geometry_msgs pcl_conversions pcl_ros sensor_msgs std_msgs tf tf_conversions
+  CATKIN_DEPENDS geometry_msgs pcl_conversions pcl_ros sensor_msgs std_msgs tf tf_conversions
 #  DEPENDS system_lib
 )
 
@@ -107,16 +107,16 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-# add_executable(collision_warning_node src/collision_warning_node.cpp)
+add_executable(collision_warning_node src/collision_warning.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(collision_warning_node collision_warning_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(collision_warning_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(collision_warning_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
@@ -133,18 +133,18 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS collision_warning collision_warning_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS collision_warning_node
+   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
