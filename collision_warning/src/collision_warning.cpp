@@ -18,53 +18,53 @@ class PointCloudCollisionWarningNode
         std::string point_cloud_topic_name;
         ros::Subscriber point_cloud_sub_;
         double warn_radius_;
-        void pointCloudCallback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr &cloud);
+        void pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr &point_cloud_msg);
 };
 
 PointCloudCollisionWarningNode::PointCloudCollisionWarningNode(void)
 {
-    nh_.param<std::string>("point_cloud_topic", point_cloud_topic_name, "stereo/points2");
-    point_cloud_sub_  = nh_.subscribe<  pcl::PointCloud<pcl::PointXYZRGB> >(point_cloud_topic_name, 1, &PointCloudCollisionWarningNode::pointCloudCallback, this);
-    nh_.param<double>("warn_radius", warn_radius_, 1.0);
+    nh_.param<std::string>("point_cloud_topic", point_cloud_topic_name, "camera/depth/points");
+    point_cloud_sub_  = nh_.subscribe(point_cloud_topic_name, 1, &PointCloudCollisionWarningNode::pointCloudCallback, this);
+    nh_.param<double>("warn_radius", warn_radius_, 1.5);
 }
 
 
-void PointCloudCollisionWarningNode::pointCloudCallback(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr &cloud)
+void PointCloudCollisionWarningNode::pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr &point_cloud_msg)
 {      
     // Create a PCL point cloud object, in the frame of reference of the robot,
     // so that any point within warn_radius_ of the origin is a potential danger point
-    //pcl::PointCloud<pcl::PointXYZRGB> cloud_baselink_frame;
-    //pcl_ros::transformPointCloud ("base_link", ros::Time::now(), cloud, point_cloud_msg->header.frame_id, cloud_baselink_frame, tf_listener_);
+    pcl::PointCloud<pcl::PointXYZRGB> cloud, cloud_baselink_frame;
+    pcl::fromROSMsg(*point_cloud_msg, cloud);
+    pcl_ros::transformPointCloud ("base_link", ros::Time::now(), cloud, point_cloud_msg->header.frame_id, cloud_baselink_frame, tf_listener_);
     double min_dist = -1;
     geometry_msgs::Point closest_point;
+    bool need_to_warn = false;
 
     // Check for points within warn_radius_ of the origin
-    for (size_t i = 0; i < cloud->points.size (); ++i)
+    for (size_t i = 0; i < cloud_baselink_frame.points.size (); ++i)
     {
         
-        double dist = sqrt(cloud->points[i].x*cloud->points[i].x +
-                            cloud->points[i].y*cloud->points[i].y +
-                            cloud->points[i].z*cloud->points[i].z );
-        if (min_dist < 0 || dist < min_dist)
+        double dist = sqrt(cloud_baselink_frame.points[i].x*cloud_baselink_frame.points[i].x +
+                            cloud_baselink_frame.points[i].y*cloud_baselink_frame.points[i].y +
+                            cloud_baselink_frame.points[i].z*cloud_baselink_frame.points[i].z );
+        if ((dist == dist) && (min_dist < 0 || dist < min_dist)) // dist != dist means dist is nan
         {
             min_dist = dist;
-            closest_point.x = cloud->points[i].x;
-            closest_point.y = cloud->points[i].y;
-            closest_point.z = cloud->points[i].z;
+            closest_point.x = cloud_baselink_frame.points[i].x;
+            closest_point.y = cloud_baselink_frame.points[i].y;
+            closest_point.z = cloud_baselink_frame.points[i].z;
         }
         if ( dist < warn_radius_ )
         {
-            ROS_WARN("There is an obstacle at %f, %f, %f (%s frame)", 
-                cloud->points[i].x, cloud->points[i].y, cloud->points[i].z,
+            /*ROS_WARN("There is an obstacle at %f, %f, %f (%s frame)", 
+                cloud_baselink_frame.points[i].x, cloud_baselink_frame.points[i].y, cloud_baselink_frame.points[i].z,
                 "base_link" );
-            
-            // break;
+            break;*/
+            need_to_warn = true;
         }
-        
-        if (cloud->points[i].x == cloud->points[i].x) // true if not nan
-            ROS_INFO("Point @(%f, %f, %f) dist=%f", cloud->points[i].x, cloud->points[i].y, cloud->points[i].z, dist);
     }
-    //ROS_INFO("Closest point was at %f, %f, %f (%s frame)", closest_point.x, closest_point.y, closest_point.z, "base_link");
+    if (need_to_warn)
+        ROS_INFO("Point (%f, %f, %f [%s frame]) @ distance:%f < warn_radius:%f", closest_point.x, closest_point.y, closest_point.z, "base_link", min_dist, warn_radius_);
 }
         
 int main(int argc, char* argv[])
