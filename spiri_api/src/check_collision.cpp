@@ -1,6 +1,9 @@
 #include <moveit/move_group_interface/move_group.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
-
+#include <moveit/planning_scene_monitor/planning_scene_monitor.h>
+#include <moveit/planning_scene/planning_scene.h>
+#include <moveit/robot_model_loader/robot_model_loader.h>
+#include <moveit/robot_model/robot_model.h>
 #include <moveit_msgs/DisplayRobotState.h>
 #include <moveit_msgs/DisplayTrajectory.h>
 
@@ -14,14 +17,29 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "move_group_interface_demo", ros::init_options::AnonymousName);
     // start a ROS spinning thread
-    bool success_execute=0;
-    ros::NodeHandle node_handle;
+    //bool success_execute=0;
+    //ros::NodeHandle node_handle;
 
     ros::AsyncSpinner spinner(1);
     spinner.start();
-    moveit::planning_interface::MoveGroup group("spiri");
+    //moveit::planning_interface::MoveGroup group("spiri");
+    /*
+    //group.setPlannerId("PRMkConfigDefault");
+    robot_model_loader::RobotModelLoader robot_model_loader("robot_description");
+    //robot_model_loader.getURDF();
 
-    group.setPlannerId("PRMkConfigDefault");
+    robot_model::RobotModelPtr kinematic_model = robot_model_loader.getModel();
+    planning_scene::PlanningScene test(kinematic_model);
+    test.checkCollision();
+
+
+    //planning_scene_monitor::PlanningSceneMonitor ptr;
+    //planning_scene::PlanningScenePtr test;
+    //test=ptr.getPlanningScene();	
+
+    //test.is
+    //planning_scene::PlanningScene test;
+
     //group.setPlannerId("RRTConnectkConfigDefault");
     
     //group.setPlannerId("RRTStarkConfigDefault");
@@ -33,8 +51,8 @@ int main(int argc, char **argv)
     //group.setStartState(start_state);
     geometry_msgs::Transform transform;
     transform.translation.x=-2.0;
-    transform.translation.y=0.3;
-    transform.translation.z=0.0;
+    transform.translation.y=0.0;
+    transform.translation.z=1.0;
     //transform.rotation.w=1.0;
     //float trans[] = {0,0,1};
     //string mystring;
@@ -44,6 +62,11 @@ int main(int argc, char **argv)
     start_state.multi_dof_joint_state.transforms.push_back(transform);
     start_state.joint_state.header.frame_id="/nav";
     start_state.multi_dof_joint_state.header.frame_id="/nav";
+    const std::string group_test="spiri";
+    bool flag;
+    test-
+    flag=test->isStateValid(start_state,"spiri",true);
+    //std::cout<<flag;
     //robot_state::RobotState start_state;
     //start_state.
     //geometry_msgs::Pose start_pose2;
@@ -52,7 +75,7 @@ int main(int argc, char **argv)
     // const robot_state::JointModelGroup *joint_model_group =start_state.getJointModelGroup(group.getName());
     //start_state.setFromIK(joint_model_group, start_pose2);
     //group.setStartState(start_state);
-    group.setStartStateToCurrentState();
+    //group.setStartStateToCurrentState();
 
     
     //sleep(5.0);
@@ -61,6 +84,7 @@ int main(int argc, char **argv)
     //std::cout<<start_state;
     //std::cout<<group.getCurrentState();
     //std::string name="spiri";
+    /*
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
     //std::cout<<group_variable_values[1]-5.0;
 group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0,group_variable_values[0]+5.0,group_variable_values[1]+5.0,5.0);
@@ -73,10 +97,8 @@ group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0
     group.setPlanningTime(60.0);
     group.setNumPlanningAttempts(1.0);
     moveit::planning_interface::MoveGroup::Plan my_plan;
-    group.allowReplanning(true);
-    /*
-    ros::Publisher pub=node_handle.advertise<moveit_msgs::PlanningSceneWorld>("/planning_scene_world",1);
     
+    ros::Publisher pub=node_handle.advertise<moveit_msgs::PlanningSceneWorld>("/planning_scene_world",1);
     ros::Rate loop_rate(10);
     group.allowReplanning(true);
     for(int i=0;i<5;i++)
@@ -93,9 +115,9 @@ group.setWorkspace(group_variable_values[0]-5.0,group_variable_values[1]-5.0,0.0
     }
     ROS_INFO("cleared the ocotomap");
     sleep(1.0);
-    */
+
     //group.plan(my_plan);
-    group.asyncMove();
+    //group.move();
     /*
     geometry_msgs::Pose target_pose;
     target_pose.position.x=0;

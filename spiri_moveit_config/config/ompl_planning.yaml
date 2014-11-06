@@ -3,11 +3,18 @@ spiri:
   planner_configs:
     
     - PRMkConfigDefault
-    - RRTConnectkConfigDefault 
+    - RRTConnectkConfigDefault
+    - RRTStarkConfigDefault
+    - RRTkConfigDefault
+    - SBLkConfigDefault
+    - TRRTkConfigDefault
+    - LazyRRTkConfigDefault
+    - BKPIECEkConfigDefault
+    - KPIECEkConfigDefault
     
   
   projection_evaluator: joints(virtual_join)
-  longest_valid_segment_fraction: 0.05
+  longest_valid_segment_fraction: 0.01
 planner_configs:
 
   PRMkConfigDefault:
@@ -45,6 +52,7 @@ planner_configs:
 
   RRTStarkConfigDefault:
     type: geometric::RRTstar
+    range: 100000000
 
   BKPIECEkConfigDefault:
     type: geometric::BKPIECE
