@@ -87,7 +87,7 @@
     </plugin>
 
     <plugin name="quadrotor_groundtruth_sim" filename="libgazebo_ros_p3d.so">
-      <updateRate>100.0</updateRate>
+      <updateRate>200.0</updateRate>
       <bodyName>base_link</bodyName>
       <topicName>ground_truth/state</topicName>
       <frameName>world</frameName>

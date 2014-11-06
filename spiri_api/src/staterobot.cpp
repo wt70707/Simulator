@@ -568,6 +568,92 @@ void Staterobot::send_vel_python(boost::python::list &val)
     this->send_vel(v[0],v[1],v[2]);
 }
 
+void Staterobot::land()
+{
+    actionlib::SimpleActionClient<spiri_motion_primitives::SpiriMoveToAction> ac("spiri_motion_primitives", true);
+
+    ROS_INFO("Waiting for action server to start.");
+    // wait for the action server to start
+    ac.waitForServer(); //will wait for infinite time
+
+    ROS_INFO("Action server started, sending goal.");
+    // send a goal to the action
+    spiri_motion_primitives::SpiriMoveToGoal goal;
+
+    
+    goal.pose.header.stamp = ros::Time::now();
+    goal.pose.header.frame_id = "world";
+    goal.pose.pose.position.x = 0.0;
+    goal.pose.pose.position.y = 0.0;
+    goal.pose.pose.position.z = 0.0;
+    
+    goal.pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, 0.0);
+    
+    goal.speed = 1.0;
+    goal.tolerance = 0.1;
+
+    goal.use_distance_from_ground = true;
+
+    ac.sendGoal(goal);
+
+    //wait for the action to return
+    bool finished_before_timeout = ac.waitForResult(ros::Duration(30.0));
+
+    if (finished_before_timeout)
+    {
+        actionlib::SimpleClientGoalState state = ac.getState();
+        ROS_INFO("Action finished: %s",state.toString().c_str());
+    }
+    else
+    {
+        ac.cancelGoal();
+        ROS_INFO("Action did not finish before the time out.");
+    }
+}
+
+void Staterobot::takeoff()
+{
+    actionlib::SimpleActionClient<spiri_motion_primitives::SpiriMoveToAction> ac("spiri_motion_primitives", true);
+
+    ROS_INFO("Waiting for action server to start.");
+    // wait for the action server to start
+    ac.waitForServer(); //will wait for infinite time
+
+    ROS_INFO("Action server started, sending goal.");
+    // send a goal to the action
+    spiri_motion_primitives::SpiriMoveToGoal goal;
+
+    
+    goal.pose.header.stamp = ros::Time::now();
+    goal.pose.header.frame_id = "world";
+    goal.pose.pose.position.x = 0.0;
+    goal.pose.pose.position.y = 0.0;
+    goal.pose.pose.position.z = 1.0;
+    
+    goal.pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, 0.0);
+    
+    goal.speed = 1.0;
+    goal.tolerance = 0.1;
+
+    goal.use_distance_from_ground = true;
+
+    ac.sendGoal(goal);
+
+    //wait for the action to return
+    bool finished_before_timeout = ac.waitForResult(ros::Duration(30.0));
+
+    if (finished_before_timeout)
+    {
+        actionlib::SimpleClientGoalState state = ac.getState();
+        ROS_INFO("Action finished: %s",state.toString().c_str());
+    }
+    else
+    {
+        ac.cancelGoal();
+        ROS_INFO("Action did not finish before the time out.");
+    }
+}
+
 
 
 
