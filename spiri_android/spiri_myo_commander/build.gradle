@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        applicationId "com.example.arnold.spirimyocommander"
+        minSdkVersion 16
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        packagingOptions {
+            exclude 'META-INF/NOTICE.txt'
+        }
+
+        packagingOptions {
+            exclude 'META-INF/LICENSE.txt'
+        }
+    }
+}
+
+repositories {
+    maven {
+        url '/home/arnold/AndroidStudioProjects/myo-android-sdk-0.6.0/myorepository'
+    }
+}
+
+repositories {
+    maven {
+        url 'https://github.com/rosjava/rosjava_mvn_repo/raw/master'
+    }
+    mavenCentral()
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile('com.thalmic:myosdk:0.6.+@aar')
+
+    dependencies {
+        compile 'org.ros.android_core:android_gingerbread_mr1:[0.1,0.2)'
+        compile 'org.ros.android_core:android_honeycomb_mr2:[0.1,0.2)'
+        compile 'org.ros.rosjava_core:rosjava:[0.1,0.2)'
+    }
+
+}
