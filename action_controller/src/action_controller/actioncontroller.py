@@ -72,7 +72,6 @@ class actioncontroller(object):
 	        self.traj=gh.get_goal().trajectory
 		self.active_goal=gh
 		rospy.set_param('/has_active_goal',True)
-		print 'I am in the goal callback'
 		self.pub.publish(self.traj)
 	## Function is called whenever a goal has been cancelled. 
 	# @param gh Goal handle	
