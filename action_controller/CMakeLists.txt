@@ -132,12 +132,12 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  install(PROGRAMS
-   src/action_controller/actioncontroller.py
+   src/action_controller/actioncontroller.py src/action_controller/spiri_ros_controller.py src/action_controller/spiri_controller.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS action_controller_python action_controller_python_node
+# install(TARGETS action_controller_python action_controller_python_node	
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
