@@ -16,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   std_msgs
   action_controller
-  
+  spiri_motion_primitives
 )
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system python)
@@ -100,7 +100,7 @@ catkin_python_setup()
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES spiri_api
-  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime action_controller 
+  CATKIN_DEPENDS moveit_commander moveit_msgs roscpp rospy moveit_core image_transport cv_bridge std_msgs message_runtime action_controller spiri_motion_primitives
   DEPENDS system_lib
 )
 

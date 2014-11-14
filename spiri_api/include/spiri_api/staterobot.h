@@ -34,6 +34,11 @@
 
 #include <opencv2/core/core.hpp>
 
+#include <actionlib/client/simple_action_client.h>
+#include <actionlib/client/terminal_state.h>
+#include <tf/transform_datatypes.h>
+#include <spiri_motion_primitives/SpiriMoveToAction.h>
+
 
 class Staterobot
 {
@@ -131,8 +136,14 @@ public:
     bool send_goal_python(boost::python::list &);
     bool send_goal_python_relative(boost::python::list &);
     void send_vel_python(boost::python::list &);
+
     void stop_traj();
     
+    void land();
+    void takeoff();
+
+
+
 
 
 };
