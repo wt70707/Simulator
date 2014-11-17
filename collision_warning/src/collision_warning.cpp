@@ -6,6 +6,7 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <geometry_msgs/Point.h>
 #include <tf/transform_listener.h>
+#include <cmath>
 
 class PointCloudCollisionWarningNode
 {
@@ -23,7 +24,7 @@ class PointCloudCollisionWarningNode
 
 PointCloudCollisionWarningNode::PointCloudCollisionWarningNode(void)
 {
-    nh_.param<std::string>("point_cloud_topic", point_cloud_topic_name, "camera/depth/points");
+    nh_.param<std::string>("point_cloud_topic", point_cloud_topic_name, "/stereo/points2");
     point_cloud_sub_  = nh_.subscribe(point_cloud_topic_name, 1, &PointCloudCollisionWarningNode::pointCloudCallback, this);
     nh_.param<double>("warn_radius", warn_radius_, 1.5);
 }
@@ -47,6 +48,7 @@ void PointCloudCollisionWarningNode::pointCloudCallback(const sensor_msgs::Point
         double dist = sqrt(cloud_baselink_frame.points[i].x*cloud_baselink_frame.points[i].x +
                             cloud_baselink_frame.points[i].y*cloud_baselink_frame.points[i].y +
                             cloud_baselink_frame.points[i].z*cloud_baselink_frame.points[i].z );
+                            
         if ((dist == dist) && (min_dist < 0 || dist < min_dist)) // dist != dist means dist is nan
         {
             min_dist = dist;
@@ -54,6 +56,7 @@ void PointCloudCollisionWarningNode::pointCloudCallback(const sensor_msgs::Point
             closest_point.y = cloud_baselink_frame.points[i].y;
             closest_point.z = cloud_baselink_frame.points[i].z;
         }
+        
         if ( dist < warn_radius_ )
         {
             /*ROS_WARN("There is an obstacle at %f, %f, %f (%s frame)", 
