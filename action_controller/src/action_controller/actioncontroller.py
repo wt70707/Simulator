@@ -67,7 +67,11 @@ class actioncontroller(object):
 	def goalcb(self,gh):
 		
 
-
+		if(gh.get_goal().trajectory.joint_names[0]!='virtual_join'):
+		    rospy.logerr('Joints on incoming goal dont match our joints')
+		    gh.set_rejected()
+		    return
+		
 		gh.set_accepted('goal accepted')
 	        self.traj=gh.get_goal().trajectory
 		self.active_goal=gh
