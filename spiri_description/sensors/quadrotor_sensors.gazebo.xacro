@@ -23,11 +23,6 @@
         
 </xacro:stereo_camera>
 
-
-<xacro:kinect_camera name="camera" parent="base_link">
-    <origin xyz="-0.064 -0.00 0.2" rpy="0 0 ${M_PI}"/>
-</xacro:kinect_camera>
-
 <gazebo reference="range_link">
     <sensor type="ray" name="range">
         <always_on>true</always_on>
