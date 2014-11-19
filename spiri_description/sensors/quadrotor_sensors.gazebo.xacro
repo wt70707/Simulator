@@ -4,7 +4,7 @@
 
 <xacro:include filename="$(find spiri_description)/sensors/generic_camera.urdf.xacro" />
 <xacro:include filename="$(find spiri_description)/sensors/stereo_camera.urdf.xacro" />
-<xacro:include filename="$(find spiri_description)/sensors/tof_kinect.urdf.xacro" />
+
 
 <xacro:property name="M_PI" value="3.1415926535897931" />
 
@@ -19,7 +19,7 @@
     image_topic="image_raw" cam_info_topic="camera_info" update_rate="30"
     res_x="640" res_y="480" image_format="R8G8B8" hfov="65.0">
 
-        <origin xyz="0.064 0 0.0245" rpy="0 0.27 0" />
+        <origin xyz="0.064 0.0 -0.0265" rpy="0 0.27 0" />
         
 </xacro:stereo_camera>
 
