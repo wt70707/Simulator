@@ -121,8 +121,6 @@ include_directories(
 )
 add_executable(goal src/goal.cpp)
 target_link_libraries(goal ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-add_executable(check_collision src/check_collision.cpp)
-target_link_libraries(check_collision ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_library(spiri_api src/staterobot.cpp)
 target_link_libraries(spiri_api ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(spiri_api action_controller_generate_messages_cpp)
@@ -167,16 +165,7 @@ target_link_libraries(spiri_api_python ${catkin_LIBRARIES} ${PYTHON_LIBRARIES} s
   # RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
-  install(TARGETS goal
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  # LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
- )
-  install(TARGETS check_collision
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  # LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
- )
+ 
 install(TARGETS spiri_api_python 
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_PYTHON_DESTINATION}

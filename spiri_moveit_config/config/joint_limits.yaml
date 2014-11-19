@@ -1,5 +1,5 @@
 joint_limits:
-  virtual_join:
+  base_link:
     has_velocity_limits: true
     max_velocity: 0.2
     has_acceleration_limits: true
