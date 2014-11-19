@@ -446,26 +446,13 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
 {
     ros::AsyncSpinner spinner(1);
     spinner.start();
-
     moveit::planning_interface::MoveGroup group("spiri");
     group.setPlannerId("PRMkConfigDefault");
+    group.setWorkspace(-5.0,-5.0,-5.0,100.0,100.0,100.0);
 
-    group.setNumPlanningAttempts(3);
 
-    group.setWorkspace(-100.0,-100.0,-5.0,100.0,100.0,100.0);
-    state current_state=get_state();
-    transform.translation.x=current_state.position.x;
-    transform.translation.y=current_state.position.y;
-    transform.translation.z=current_state.position.z;
-    transform.rotation.x=current_state.orientation.x;
-    transform.rotation.y=current_state.orientation.y;
-    transform.rotation.z=current_state.orientation.z;
-    transform.rotation.w=current_state.orientation.w;
-    start_state.multi_dof_joint_state.joint_names.push_back("virtual_join");
-    start_state.multi_dof_joint_state.transforms.push_back(transform);
-    start_state.joint_state.header.frame_id="/nav";
-    start_state.multi_dof_joint_state.header.frame_id="/nav";
-    group.setStartState(start_state);
+
+    group.setStartStateToCurrentState();
     // after setting the start state send the goal
     group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
     if (relative==true)
@@ -482,14 +469,7 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
         group_variable_values[1]=y;
         group_variable_values[2]=z;
     }
-
-
-
-
-
-
     group.setJointValueTarget(group_variable_values);
-
 
     moveit::planning_interface::MoveGroup::Plan my_plan;
     // @todo Can combine plan and execute into one by using move.
@@ -497,10 +477,9 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     if(success_plan==1)
     {
             ROS_INFO("Going to execute");
+            success_execution=group.asyncExecute(my_plan);
 
-            //success_execution=group.asyncExecute(my_plan);
-	    success_execution=true;
-    }		
+    }
     else
     {
         ROS_INFO("Couldn't find a valid plan");
