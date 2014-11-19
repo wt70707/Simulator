@@ -30,7 +30,7 @@ from collections import deque
 class actioncontroller(object):
   ## Constructor
 	def __init__(self,name):
-
+		print 'I am running'
 		self.state=Pose()
 		self._action_name=name
 		self.traj=trajectory_msgs.msg.MultiDOFJointTrajectory()
