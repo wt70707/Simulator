@@ -43,10 +43,6 @@
         </visual>
       </link>
     </model>
-    <scene>
-      <ambient>1.0 1.0 1.0 1</ambient>
-      <background>0.0 0.7 1.0 1</background>
-      <shadows>1</shadows>
-    </scene>
+    
   </world>
 </sdf>
