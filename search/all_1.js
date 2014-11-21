@@ -1,9 +1,23 @@
 var searchData=
 [
-  ['callback_5faltimeter',['callback_altimeter',['../classspiri__api_1_1get__state_1_1_staterobot.html#aee8415185786cc6016fc86bc7e0fcd34',1,'spiri_api::get_state::Staterobot']]],
-  ['callback_5fgps',['callback_gps',['../classspiri__api_1_1get__state_1_1_staterobot.html#a42ec392a4f4512781f3a9c0926fdb175',1,'spiri_api::get_state::Staterobot']]],
-  ['callback_5fgps_5fvel',['callback_gps_vel',['../classspiri__api_1_1get__state_1_1_staterobot.html#a9a9c3e465592be5e619fe5a68a6563a0',1,'spiri_api::get_state::Staterobot']]],
-  ['callback_5fimu',['callback_imu',['../classspiri__api_1_1get__state_1_1_staterobot.html#a9136ac9a32b6c7092b3f00ee0fddc3e8',1,'spiri_api::get_state::Staterobot']]],
-  ['callback_5fpressure',['callback_pressure',['../classspiri__api_1_1get__state_1_1_staterobot.html#a7597952c4302e24b63fbbc2653221bc9',1,'spiri_api::get_state::Staterobot']]],
-  ['callback_5fstate',['callback_state',['../classspiri__api_1_1get__state_1_1_staterobot.html#a81570bdf94a8ea111eb9a51b3044c70d',1,'spiri_api::get_state::Staterobot']]]
+  ['get_5fbottom_5fimage',['get_bottom_image',['../class_staterobot.html#a310b2c9315316f96054357ebb705438f',1,'Staterobot::get_bottom_image()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#ad1de6db2241aef693fe993c9c10d6600',1,'spiri_api.api.spiri_api_python.get_bottom_image()']]],
+  ['get_5fbottom_5fimage_5fpython',['get_bottom_image_python',['../class_staterobot.html#a36d188439ca66b3e56cff58877297945',1,'Staterobot']]],
+  ['get_5fgps',['get_gps',['../classspiri__api_1_1api_1_1spiri__api__python.html#a2f7b00bdd455b6b289e6a3324f4644f4',1,'spiri_api::api::spiri_api_python']]],
+  ['get_5fgps_5fdata',['get_gps_data',['../class_staterobot.html#a3a3ce270f01e5eb9ee6c48a7cf0ae2d4',1,'Staterobot']]],
+  ['get_5fgps_5fdata_5fpython',['get_gps_data_python',['../class_staterobot.html#ac2fe6ca526d21c1bcb2e284f000759a4',1,'Staterobot']]],
+  ['get_5fgps_5fvel',['get_gps_vel',['../class_staterobot.html#ad4c1e88bb08e09049ccaf66d540a2fca',1,'Staterobot::get_gps_vel()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#a1941bbe037b37320191c6e81b0c3ff70',1,'spiri_api.api.spiri_api_python.get_gps_vel()']]],
+  ['get_5fgps_5fvel_5fpython',['get_gps_vel_python',['../class_staterobot.html#aed3a2e6aa076fe6e38f97eb9ab9ef41a',1,'Staterobot']]],
+  ['get_5fheight_5faltimeter',['get_height_altimeter',['../class_staterobot.html#a3e92b9d6f17c0812e8ed435602d1f717',1,'Staterobot::get_height_altimeter()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#a5025edf4df072818a62ed352d74498b7',1,'spiri_api.api.spiri_api_python.get_height_altimeter()']]],
+  ['get_5fheight_5fpressure',['get_height_pressure',['../class_staterobot.html#a0318f7abf24c5c60aee915224af6af02',1,'Staterobot::get_height_pressure()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#a1fa3b9d619658b5cdd03cdc6a956c3f3',1,'spiri_api.api.spiri_api_python.get_height_pressure()']]],
+  ['get_5fimu',['get_imu',['../class_staterobot.html#a05732dbb16bda2339b88a7c60fa2b7ad',1,'Staterobot::get_imu()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#a23787a36c6d9d4bae07d60fe2ca30185',1,'spiri_api.api.spiri_api_python.get_imu()']]],
+  ['get_5fimu_5fpython',['get_imu_python',['../class_staterobot.html#a3e6bd1883c62204de398342cf8004351',1,'Staterobot']]],
+  ['get_5fleft_5fimage',['get_left_image',['../class_staterobot.html#a5b0323154aa0a19ed82b02cfe7376974',1,'Staterobot::get_left_image()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#a7eb16bb2af3be782182c6c5d29c66d5c',1,'spiri_api.api.spiri_api_python.get_left_image()']]],
+  ['get_5fleft_5fimage_5fpython',['get_left_image_python',['../class_staterobot.html#ab7e02e341f1f3ccfaaa322a2fc1e2caf',1,'Staterobot']]],
+  ['get_5fright_5fimage',['get_right_image',['../class_staterobot.html#ab1d8f9bfdbd766b96110c0a65fe08f43',1,'Staterobot::get_right_image()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#a6718cca393fdcf3973433a9caff9692d',1,'spiri_api.api.spiri_api_python.get_right_image()']]],
+  ['get_5fright_5fimage_5fpython',['get_right_image_python',['../class_staterobot.html#ab222942f5fe07919fc4999eb600706d1',1,'Staterobot']]],
+  ['get_5fstate',['get_state',['../class_staterobot.html#a2dd739316c9cf438b13e21543aaff91f',1,'Staterobot::get_state()'],['../classspiri__api_1_1api_1_1spiri__api__python.html#abd31f9351da53d2a0dc8bb656ca8b613',1,'spiri_api.api.spiri_api_python.get_state()']]],
+  ['get_5fstate_5fpython',['get_state_python',['../class_staterobot.html#a91206b2bef7c39193df2eef7b8bae523',1,'Staterobot']]],
+  ['gps',['gps',['../struct_staterobot_1_1gps.html',1,'Staterobot']]],
+  ['gps',['gps',['../classspiri__api_1_1api_1_1gps.html',1,'spiri_api::api']]],
+  ['gps_5fvel',['gps_vel',['../struct_staterobot_1_1gps__vel.html',1,'Staterobot']]]
 ];

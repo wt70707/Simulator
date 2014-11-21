@@ -1,4 +1,4 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$struct_staterobot_1_1position.html" title="{Staterobot::position\n|+ x\l+ y\l+ z\l|}" alt="" coords="5,15,139,135"/>
-<area shape="rect" id="node4" href="$struct_staterobot_1_1orientation.html" title="{Staterobot::orientation\n|+ x\l+ y\l+ z\l+ w\l|}" alt="" coords="163,6,312,143"/>
+<map id="Staterobot::state" name="Staterobot::state">
+<area shape="rect" id="node2" href="$struct_staterobot_1_1position.html" title="{Staterobot::position\n|+ x\l+ y\l+ z\l|}" alt="" coords="5,13,139,120"/>
+<area shape="rect" id="node3" href="$struct_staterobot_1_1orientation.html" title="{Staterobot::orientation\n|+ x\l+ y\l+ z\l+ w\l|}" alt="" coords="163,6,313,127"/>
 </map>
