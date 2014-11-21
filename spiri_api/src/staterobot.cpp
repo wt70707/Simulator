@@ -1,8 +1,11 @@
 /*!
+  \brief C++ API for Spiri
   \package spiri_api
-  \author Rohan Bhargava
-  \version 1.1.2
+  \author Rohan Bhargava and Arnold Kalmbach
+  \version 1.1.3
+  
   */
+
 #include <spiri_api/staterobot.h>
 #include <iostream>
 #include <ctime>
