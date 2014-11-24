@@ -5,7 +5,7 @@ int main()
 {
     Staterobot robot;
     robot.send_goal(0,0,1,false);
-    sleep(1.0);
-    robot.stop_traj();
+    //sleep(1.0);
+    //robot.stop_traj();
     return 0;
 }

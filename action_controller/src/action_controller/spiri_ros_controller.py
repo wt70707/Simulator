@@ -5,7 +5,8 @@
 # @todo This should also convert cmd_vel to pitch
 # @author Rohan Bhargava
 # @version 1.1.1
-
+import roslib
+roslib.load_manifest('spiri_motion_primitives')
 import rospy
 import trajectory_msgs.msg
 import actionlib
@@ -13,6 +14,7 @@ from spiri_api import pid
 from collections import deque
 from geometry_msgs.msg import Pose, Twist
 from nav_msgs.msg import Odometry
+import spiri_motion_primitives.sg
 class spiri_ros_controller(object):
   ## Constructor
   def __init__(self,name):
@@ -53,6 +55,8 @@ class spiri_ros_controller(object):
     vel=Twist()
     while len(goal)>0 and rospy.get_param('/has_active_goal')==True:
 	    temp_goal=goal.popleft()
+	    ac=actionlib.SimpleActionClien("spiri_motion_primitives",spiri_motion_primitives.msg._SpiriMoveToAction,True);
+	    ac.wait_for_server()
 	    pid_object.setPoint(temp_goal)
 	    #current_state=spiri_obj.get_state()
 	    while abs(current_state.position.x-temp_goal.position.x)>0.1 or abs(current_state.position.y-temp_goal.position.y)>0.1 or abs(current_state.position.z-temp_goal.position.z)>0.1:
