@@ -14,7 +14,7 @@ from spiri_api import pid
 from collections import deque
 from geometry_msgs.msg import Pose, Twist
 from nav_msgs.msg import Odometry
-import spiri_motion_primitives.sg
+
 class spiri_ros_controller(object):
   ## Constructor
   def __init__(self,name):
