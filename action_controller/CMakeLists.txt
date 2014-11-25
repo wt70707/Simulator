@@ -112,14 +112,18 @@ include_directories(
 
 ## Declare a cpp executable
 add_executable(spiri_ros_controller_node src/spiri_ros_controller.cpp)
-
+add_executable(action_controller_node src/actioncontroller.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
- add_dependencies(spiri_ros_controller_node spiri_ros_controller_generate_messages_cpp)
-
+add_dependencies(spiri_ros_controller_node spiri_ros_controller_generate_messages_cpp)
+add_dependencies(action_controller_node spiri_ros_controller_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
-target_link_libraries(spiri_ros_controller_node
+target_link_libraries(spiri_ros_controller_node 
    ${catkin_LIBRARIES}
+ )
+
+ target_link_libraries(action_controller_node
+   ${catkin_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
  )
 
 #############
@@ -137,7 +141,7 @@ target_link_libraries(spiri_ros_controller_node
  )
 
 ## Mark executables and/or libraries for installation
- install(TARGETS spiri_ros_controller_node	
+ install(TARGETS spiri_ros_controller_node action_controller_node	
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

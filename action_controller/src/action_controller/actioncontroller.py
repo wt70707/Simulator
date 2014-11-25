@@ -44,8 +44,6 @@ class actioncontroller(object):
 		self.active_goal=actionlib.ServerGoalHandle()
 		self._as.start()
 		
-		self.non_counter=0
-		self.agg_scale=0.0
 		
 	## Callback function for the state topic. This function is just used so that we can inform move it that execution is completed. Just a hack
 	# @param self Object pointer
@@ -80,14 +78,11 @@ class actioncontroller(object):
 	## Function is called whenever a goal has been cancelled. 
 	# @param gh Goal handle	
 	def cancelcb(self,gh):
-		print 'cancelling the goal'
+		
 		if(self.active_goal==gh):
-			#self.pub.publish(Twist())
-			self.active_goal.set_canceled()
-			self.has_active_goal=False
-			#print 'Cancelling the goal'
+			
 			rospy.set_param('/has_active_goal',False)
-			#self.has_active_goal=False
+			
 
 
 	

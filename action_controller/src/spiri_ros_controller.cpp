@@ -1,3 +1,8 @@
+/*!
+  \package action_controller
+  \author Rohan Bhargava
+  \version 1.1.2
+  */
 #include "ros/ros.h"
 #include "nav_msgs/Odometry.h"
 #include "trajectory_msgs/MultiDOFJointTrajectory.h"
@@ -7,7 +12,10 @@
 #include <actionlib/client/terminal_state.h>
 #include <tf/transform_datatypes.h>
 #include <spiri_motion_primitives/SpiriMoveToAction.h>
-
+/*!
+ * \brief Callback function for the command topic. It send goals to motion primitives server and waits for feedback.
+ * \param msg Contains the trajectory published on the topic
+ */
 
 void chattercallback(const trajectory_msgs::MultiDOFJointTrajectoryConstPtr msg)
 {
@@ -27,10 +35,11 @@ void chattercallback(const trajectory_msgs::MultiDOFJointTrajectoryConstPtr msg)
     for (int i=0;i<msg->points.size();i++)
     {
     goal.pose.header.stamp = ros::Time::now();
-    goal.pose.header.frame_id = "base_link";
+    goal.pose.header.frame_id = "world";
     goal.pose.pose.position.x = msg->points[i].transforms[0].translation.x;
     goal.pose.pose.position.y = msg->points[i].transforms[0].translation.y;
     goal.pose.pose.position.z = msg->points[i].transforms[0].translation.z;
+
 
     goal.pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, 0.0);
 
@@ -40,12 +49,25 @@ void chattercallback(const trajectory_msgs::MultiDOFJointTrajectoryConstPtr msg)
     goal.use_distance_from_ground = false;
 
     ac.sendGoal(goal);
+    bool has_active_goal;
+    ros::param::get("/has_active_goal",has_active_goal);
+
+
+    if(has_active_goal==0)
+    {
+        ac.cancelGoal();
+        ROS_INFO("User cancelled the goal");
+        break;
+
+    }
+
     bool finished_before_timeout = ac.waitForResult(ros::Duration(30.0));
 
       if (finished_before_timeout)
       {
           actionlib::SimpleClientGoalState state = ac.getState();
           ROS_INFO("Action finished: %s",state.toString().c_str());
+
       }
       else
       {
@@ -53,6 +75,12 @@ void chattercallback(const trajectory_msgs::MultiDOFJointTrajectoryConstPtr msg)
           ROS_INFO("Action did not finish before the time out.");
       }
     }
+    /*!
+     * \param execution_completed Parameter to inform actioncontroller that the execution is comepleted
+     * \param has_active_goal Parameter containing if a goal is being processed.
+     */
+    ros::param::set("/execution_completed",true);
+    ros::param::set("/has_active_goal",false);
 
 }
 
