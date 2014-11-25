@@ -23,12 +23,14 @@ void chattercallback(const trajectory_msgs::MultiDOFJointTrajectoryConstPtr msg)
     // send a goal to the action
     spiri_motion_primitives::SpiriMoveToGoal goal;
 
-
+    std::cout<<msg->points.size();
+    for (int i=0;i<msg->points.size();i++)
+    {
     goal.pose.header.stamp = ros::Time::now();
     goal.pose.header.frame_id = "base_link";
-    goal.pose.pose.position.x = msg->points[1].transforms[0].translation.x;
-    goal.pose.pose.position.y = msg->points[1].transforms[0].translation.y;
-    goal.pose.pose.position.z = msg->points[1].transforms[0].translation.z;
+    goal.pose.pose.position.x = msg->points[i].transforms[0].translation.x;
+    goal.pose.pose.position.y = msg->points[i].transforms[0].translation.y;
+    goal.pose.pose.position.z = msg->points[i].transforms[0].translation.z;
 
     goal.pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, 0.0);
 
@@ -50,6 +52,8 @@ void chattercallback(const trajectory_msgs::MultiDOFJointTrajectoryConstPtr msg)
           ac.cancelGoal();
           ROS_INFO("Action did not finish before the time out.");
       }
+    }
+
 }
 
 int main(int argc, char **argv)
