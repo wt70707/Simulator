@@ -487,6 +487,7 @@ bool Staterobot::send_goal(float x,float y,float z, bool relative=false)
     {
         ROS_INFO("Couldn't find a valid plan");
     }
+    
     ROS_INFO("out of this loop");
     spinner.stop();
     return success_execution;
@@ -522,7 +523,19 @@ bool Staterobot::send_goal_python_relative(boost::python::list &values)
     bool flag=this->send_goal(v[0],v[1],v[2],true);
     return flag;
 }
+/*!
+ Stop a exisiting trajectory being followed
+ */
 
+void Staterobot::stop_traj()
+{
+    ros::AsyncSpinner spinner(1);
+    spinner.start();
+    moveit::planning_interface::MoveGroup group("spiri");
+    group.stop();
+    spinner.stop();
+  
+}
 /*!
   Send velocity to Spiri.
 

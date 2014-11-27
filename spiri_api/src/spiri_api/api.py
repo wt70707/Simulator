@@ -135,10 +135,16 @@ class spiri_api_python():
   def wait_goal(self):
     return self.spiri.wait_goal()
 
+  
+  def stop_traj(self):
+    return self.spiri.stop_traj()
+
+
   def takeoff(self):
     return self.spiri.takeoff()
 
   def land(self):
     return self.spiri.land()
+
     
  
