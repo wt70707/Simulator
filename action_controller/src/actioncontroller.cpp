@@ -25,7 +25,7 @@ public:
      * \param n Handle for the node
      */
     Controller(ros::NodeHandle &n):
-        node_(n),action_server_(node_,"multi_dof_joint_tracjectory_action",boost::bind(&Controller::goalCB,this,_1),boost::bind(&Controller::cancelCB,this,_1),false),has_active_goal(false)
+        node_(n),action_server_(node_,"multi_dof_joint_trajectory_action",boost::bind(&Controller::goalCB,this,_1),boost::bind(&Controller::cancelCB,this,_1),false),has_active_goal(false)
     {
       action_server_.start();
       ROS_INFO("Node ready");
