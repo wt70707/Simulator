@@ -26,6 +26,7 @@ class Line(Trajectory):
 	self.pos = 0
 	self.vel = 0
   
+  #redefine max_vel. Currently not used
   def set_max_vel(self, v):
 	self.max_vel = v
   
@@ -50,10 +51,10 @@ class Line(Trajectory):
 	  
 	  print "distance travelled is %s" % (i)
 	  print "self.vel is %s " % (self.vel) 
-	  if i < 0.5 * self.length:
-		self.vel = self.max_vel * (i * 2)/self.length
+	  if i <= 0.5 * self.length:
+		self.vel = i * 2 * self.max_vel
 	  else:
-		self.vel = self.max_vel * i/(self.length * 2)
+		self.vel = self.max_vel * (2 / i)
 		
 	  if (mode == 1):
 		vel.linear.x = self.vel
@@ -66,7 +67,7 @@ class Line(Trajectory):
 	  rate.sleep()
 	
 	print "total distance traveled is %s" % (self.length)
-	self.stop_all_vel()
+	self.vel = 0
 	if (mode == 1):
 	  vel.linear.x = self.vel
 	elif (mode == 2):
