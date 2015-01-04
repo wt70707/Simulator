@@ -29,7 +29,7 @@
 
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
-#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/TwistStamped.h>
 
 namespace spiri_quadrotor {
 
@@ -39,7 +39,8 @@ private:
   ros::NodeHandle node_handle_;
   ros::Subscriber joy_subscriber_;
   ros::Publisher velocity_publisher_;
-  geometry_msgs::Twist velocity_;
+  geometry_msgs::TwistStamped velocity_;
+  ros::Timer timeout;
 
   struct Axis
   {
@@ -94,7 +95,7 @@ public:
     params.getParam("slow_factor", slow_factor_);
 
     joy_subscriber_ = node_handle_.subscribe<sensor_msgs::Joy>("joy", 1, boost::bind(&Teleop::joyCallback, this, _1));
-    velocity_publisher_ = node_handle_.advertise<geometry_msgs::Twist>("cmd_vel", 10);
+    velocity_publisher_ = node_handle_.advertise<geometry_msgs::TwistStamped>("cmd_vel", 10);
   }
 
   ~Teleop()
@@ -104,18 +105,38 @@ public:
 
   void joyCallback(const sensor_msgs::JoyConstPtr& joy)
   {
-    velocity_.linear.x  = getAxis(joy, axes_.x.axis)   * axes_.x.max;
-    velocity_.linear.y  = getAxis(joy, axes_.y.axis)   * axes_.y.max;
-    velocity_.linear.z  = getAxis(joy, axes_.z.axis)   * axes_.z.max;
-    velocity_.angular.z = getAxis(joy, axes_.yaw.axis) * axes_.yaw.max;
+    velocity_.header.stamp=ros::Time::now();
+    velocity_.twist.linear.x  = getAxis(joy, axes_.x.axis)   * axes_.x.max;
+    velocity_.twist.linear.y  = getAxis(joy, axes_.y.axis)   * axes_.y.max;
+    velocity_.twist.linear.z  = getAxis(joy, axes_.z.axis)   * axes_.z.max;
+    velocity_.twist.angular.z = getAxis(joy, axes_.yaw.axis) * axes_.yaw.max;
     if (getButton(joy, buttons_.slow.button)) {
-      velocity_.linear.x  *= slow_factor_;
-      velocity_.linear.y  *= slow_factor_;
-      velocity_.linear.z  *= slow_factor_;
-      velocity_.angular.z *= slow_factor_;
+      velocity_.twist.linear.x  *= slow_factor_;
+      velocity_.twist.linear.y  *= slow_factor_;
+      velocity_.twist.linear.z  *= slow_factor_;
+      velocity_.twist.angular.z *= slow_factor_;
     }
+   
     velocity_publisher_.publish(velocity_);
+    if(timeout)
+    {
+      timeout.stop();
+    }
+    if(joy->buttons[0]==0)
+      {
+    timeout=node_handle_.createTimer(ros::Duration(2),&Teleop::timercallback,this,true);
+      }
+    
   }
+  void timercallback(const ros::TimerEvent& e)
+  {
+    geometry_msgs::TwistStamped msg;
+    
+    msg.header.stamp=ros::Time::now();
+    msg.twist.linear.z=-10;
+    velocity_publisher_.publish(msg);
+  }
+  
 
   sensor_msgs::Joy::_axes_type::value_type getAxis(const sensor_msgs::JoyConstPtr& joy, int axis)
   {
@@ -135,7 +156,9 @@ public:
 
   void stop()
   {
-    velocity_ = geometry_msgs::Twist();
+    velocity_ = geometry_msgs::TwistStamped();
+    //velocity_.header.frame_id="base_link";
+    velocity_.header.stamp=ros::Time::now();
     velocity_publisher_.publish(velocity_);
   }
 };
